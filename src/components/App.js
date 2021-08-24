@@ -7,7 +7,7 @@ function App() {
       <>
           <Layout>
               <div style={{marginRight: "5%"}}>
-                  <SignUp/>
+                  <SignUp roleId={"patient"}/>
               </div>
           </Layout>
       </>
