@@ -1,7 +1,7 @@
 import React , {useState} from "react";
 import {Form, Card, Button, Container} from 'react-bootstrap';
 import {connect} from "react-redux";
-import * as authActions from '../store/actions/AuthActions';
+import * as authActions from '../../store/actions/AuthActions';
 import {Link, Redirect} from "react-router-dom";
 
 const Login = (props) => {
@@ -13,7 +13,7 @@ const Login = (props) => {
     if(props.user){
         const role = props.user.role;
         if("patient" === role) {
-            homeRoute =  <Redirect to="/" />
+            homeRoute =  <Redirect to="/patientHome"/>
         }
     }
 
@@ -33,7 +33,7 @@ const Login = (props) => {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password"  required onChange={(event)=>{setPassword(event.target.value)}}/>
                             </Form.Group>
-                            <Button className="w-100 mt-4" type={"submit"} onClick={() => props.onSubmit(email, password)}>
+                            <Button className="w-100 mt-4" type={"button"} onClick={() => props.onSubmit(email, password)}>
                                 Login
                             </Button>
                         </Form>
