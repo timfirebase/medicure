@@ -1,9 +1,10 @@
 import React from "react";
+import Tile from "../Tile";
 
 const PatientHome = () => {
     return(
         <>
-        <h1>PATIENT HOME</h1>
+            <Tile/>
         </>
     );
 }
