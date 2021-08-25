@@ -11,6 +11,7 @@ const SignUp = (props) => {
 
     let authRedirect = false;
     if(props.isRegistered) {
+        console.log(props.isRegistered);
        authRedirect =  <Redirect to="/" />
     }
 
@@ -61,7 +62,7 @@ const mapDispatchToProps = dispatch => {
                 password: pswd,
                 role: role
             };
-            dispatch(authActions.registerAsync(user))
+            dispatch(authActions.registerInit(user))
         }
     }
 };

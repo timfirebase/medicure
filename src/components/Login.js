@@ -2,15 +2,24 @@ import React , {useState} from "react";
 import {Form, Card, Button, Container} from 'react-bootstrap';
 import {connect} from "react-redux";
 import * as authActions from '../store/actions/AuthActions';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 const Login = (props) => {
 
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
 
+    let homeRoute = '';
+    if(props.user){
+        const role = props.user.role;
+        if("patient" === role) {
+            homeRoute =  <Redirect to="/" />
+        }
+    }
+
     return(
         <>
+            {homeRoute}
             <Container className= "w-auto float-end">
                 <Card>
                     <Card.Body className="p-4">
@@ -43,6 +52,7 @@ const Login = (props) => {
 
 const mapStateToProps = state => {
     return {
+        user: state.authRdcr.user
     }
 };
 
@@ -53,7 +63,7 @@ const mapDispatchToProps = dispatch => {
                 email: email,
                 password: pswd
             };
-            dispatch(authActions.loginAsync(user))
+            dispatch(authActions.loginInit(user));
         }
     }
 };

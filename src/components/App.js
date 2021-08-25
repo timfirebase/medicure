@@ -10,7 +10,7 @@ function App() {
           <Layout>
               <Switch>
                   <Route path="/login" component={Login} />
-                  <Route path="/" exact component={SignUp} />
+                  <Route path="/" exact ><SignUp roleId={"patient"}/></Route>
                   <Redirect to="/" />
               </Switch>
           </Layout>

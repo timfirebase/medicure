@@ -1,9 +1,9 @@
-import firebase from "firebase/app";
-import "firebase/auth";
+import app from 'firebase/app';
+import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 
-const app = firebase.initializeApp({
+const firebaseConfig = {
     apiKey: "AIzaSyCWqJoZimkJai39UHHeHxo0m_81Y93aI7I",
     authDomain: "tim-s-project-bf4d4.firebaseapp.com",
     databaseURL: "https://tim-s-project-bf4d4-default-rtdb.firebaseio.com",
@@ -11,25 +11,30 @@ const app = firebase.initializeApp({
     storageBucket: "tim-s-project-bf4d4.appspot.com",
     messagingSenderId: "898905571315",
     appId: "1:898905571315:web:ab31ae213d1eaad5825c86"
-});
-
-export const auth = app.auth();
-export const db = app.firestore();
-
-export const createAccount = async (user) => {
-    debugger;
-    const resp = await auth.createUserWithEmailAndPassword(user.email, user.password);
-    const userId = resp.user.uid;
-    console.log(userId);
-    const userAdded = await db.collection('users').doc(userId).set(user);
-    console.log(userAdded);
 }
 
+class Firebase {
 
-export const signIn = async (email, password) => await auth.signInWithEmailAndPassword(email, password);
+    constructor() {
+        app.initializeApp(firebaseConfig);
+        this.storage = app.storage();
+        this.db = app.firestore();
+        this.auth = app.auth();
+    }
+    // AUTH ACTIONS ------------
 
-export const addUser = async (id, user) => await db.collection('users').doc(id).set(user);
+    createAccount = (email, password) => this.auth.createUserWithEmailAndPassword(email, password);
 
-export const getUser = async (id) => await db.collection('users').doc(id).get();
+    signIn = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
 
-export default app;
+    signOut = () => this.auth.signOut();
+
+    addUser = (id, user) => this.db.collection('users').doc(id).set(user);
+
+    getUser = (id) => this.db.collection('users').doc(id).get();
+
+}
+
+const firebaseInstance = new Firebase();
+
+export default firebaseInstance;

@@ -28,39 +28,7 @@ const Footer = () => {
                     </MDBCol>
                 </MDBRow>
                 <hr className="rgba-white-light" style={{ margin: "0 15%" }} />
-                <MDBRow className="pb-1">
-                    <MDBCol md="12">
-                        <div className="mb-5 flex-center">
-                            <a className="fb-ic">
-                                <i className="fab fa-facebook-f fa-lg white-text mr-md-4"> </i>
-                            </a>
-                            <a className="tw-ic">
-                                <i className="fab fa-twitter fa-lg white-text mr-md-4"> </i>
-                            </a>
-                            <a className="gplus-ic">
-                                <i className="fab fa-google-plus-g fa-lg white-text mr-md-4">
-
-                                </i>
-                            </a>
-                            <a className="li-ic">
-                                <i className="fab fa-linkedin-in fa-lg white-text mr-md-4"> </i>
-                            </a>
-                            <a className="ins-ic">
-                                <i className="fab fa-instagram fa-lg white-text mr-md-4"> </i>
-                            </a>
-                            <a className="pin-ic">
-                                <i className="fab fa-pinterest fa-lg white-text"> </i>
-                            </a>
-                        </div>
-                    </MDBCol>
-                </MDBRow>
             </MDBContainer>
-            <div className="footer-copyright text-center py-2">
-                <MDBContainer fluid>
-                    &copy; {new Date().getFullYear()} Copyright:
-                    <a href="https://www.webvibe.com"> Web Vibe </a>
-                </MDBContainer>
-            </div>
         </MDBFooter>
     );
 }
