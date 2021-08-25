@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" sticky="top" className="mb-5">
             <Container>
-                <Navbar.Brand href="/">
+                <Navbar.Brand href="/medicure">
                     <img src={logo} alt="logo" style={{width:'12%', height:'12%'}} className="rounded-circle"/>
                     <span className="h4 p-3"><b>Medicure</b></span>
                 </Navbar.Brand>
