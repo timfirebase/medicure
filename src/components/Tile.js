@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 const Tile =(props) => {
     return(
         <>
-                <Card onClick={props.func}>
+                <Card onClick={props.func} style={{cursor:'pointer'}}>
                     <Card.Body>
                             <img src={props.imgPath}/>
                     </Card.Body>
