@@ -15,6 +15,9 @@ const Login = (props) => {
         if("patient" === role) {
             homeRoute =  <Redirect to="/patientHome"/>
         }
+        else if ("admin" === role){
+            homeRoute =  <Redirect to="/adminHome"/>
+        }
     }
 
     return(

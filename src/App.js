@@ -6,6 +6,7 @@ import Login from "./components/Login/Login";
 import PatientHome from "./components/Patient/PatientHome";
 import bgImg from "./assets/images/bg.jpg";
 import PatientAppointments from "./components/Patient/PatientAppointments";
+import AdminHome from "./components/Admin/AdminHome";
 
 function App() {
     const sectionStyle = {
@@ -27,6 +28,11 @@ function App() {
                   <Route path="/patientHome">
                       <Layout>
                          <PatientHome/>
+                      </Layout>
+                  </Route>
+                  <Route path="/adminHome">
+                      <Layout>
+                          <AdminHome/>
                       </Layout>
                   </Route>
                   <Route path="/viewAppointment">
