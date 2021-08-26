@@ -16,10 +16,10 @@ const PatientHome = () => {
                     <Tile imgPath={logo} text={"Book Appointment"} func={onBookAppointmentClick}/>
                 </div>
                 <div className="col-sm-4 d-flex justify-content-center">
-                    <Tile/>
+                    <Tile imgPath={logo} text={"View Appointments"} func={onBookAppointmentClick}/>
                 </div>
                 <div className="col-sm-4 d-flex justify-content-center">
-                    <Tile/>
+                    <Tile imgPath={logo} text={"Manage Profile"} func={onBookAppointmentClick}/>
                 </div>
             </div>
         </>

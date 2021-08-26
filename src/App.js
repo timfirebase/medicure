@@ -4,26 +4,39 @@ import Layout from "./components/UI/Layout";
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Login from "./components/Login/Login";
 import PatientHome from "./components/Patient/PatientHome";
+import bgImg from "./assets/images/bg.jpg";
 
 function App() {
-  return (
+    const sectionStyle = {
+        backgroundImage: `url(${bgImg})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        height: '100vh'
+    }
+    return (
       <>
-          <Layout>
               <Switch>
                   <Route path="/login">
-                      <div style={{marginRight: "10%"}}>
-                          <Login/>
-                      </div>
+                      <Layout sectionStyle={sectionStyle}>
+                          <div style={{marginRight: "10%"}}>
+                              <Login/>
+                          </div>
+                      </Layout>
                   </Route>
-                  <Route path="/patientHome" component={PatientHome}/>
+                  <Route path="/patientHome">
+                      <Layout>
+                         <PatientHome/>
+                      </Layout>
+                  </Route>
                   <Route path="/" exact >
-                      <div style={{marginRight: "10%"}}>
-                         <SignUp roleId={"patient"}/>
-                      </div>
+                      <Layout sectionStyle={sectionStyle}>
+                          <div style={{marginRight: "10%"}}>
+                             <SignUp roleId={"patient"}/>
+                          </div>
+                      </Layout>
                   </Route>
                   <Redirect to="/" />
               </Switch>
-          </Layout>
       </>
   )
 }
