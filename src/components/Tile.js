@@ -7,10 +7,10 @@ const Tile =(props) => {
         <>
                 <Card onClick={props.func} style={{cursor:'pointer'}}>
                     <Card.Body>
-                            <img src={props.imgPath}/>
+                            <img src={props.imgPath} alt={"img"} className="img-fluid"/>
                     </Card.Body>
                     <Card.Footer className="d-flex justify-content-center">
-                        {props.text}
+                        <span className="h4">{props.text}</span>
                     </Card.Footer>
                 </Card>
         </>

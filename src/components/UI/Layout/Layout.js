@@ -1,6 +1,6 @@
-import Header from "./Header";
-import Footer from "./Footer";
-import bgImg from "../../assets/images/bg.jpg";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import bgImg from "../../../assets/images/bg.jpg";
 
 const Layout = (props) => {
     return (

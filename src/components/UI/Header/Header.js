@@ -1,5 +1,5 @@
 import {Container, Nav, Navbar} from "react-bootstrap";
-import logo from '../../assets/images/logo.png';
+import logo from '../../../assets/images/logo.png';
 
 const Header = () => {
     return (
