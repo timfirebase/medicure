@@ -23,15 +23,17 @@ const PatientHome = () => {
     return(
         <>
             {patientRoute}
-            <div className="row">
-                <div className="col-sm-4 d-flex justify-content-center">
-                    <Tile imgPath={bookAppointmentImg} text={"Book Appointment"} func={onBookAppointmentClick}/>
-                </div>
-                <div className="col-sm-4 d-flex justify-content-center">
-                    <Tile imgPath={appointmentHistoryImg} text={"View Appointments"} func={onViewAppointmentClick}/>
-                </div>
-                <div className="col-sm-4 d-flex justify-content-center">
-                    <Tile imgPath={manageProfile} text={"Manage Profile"} func={onManageProfileClick}/>
+            <div className="container">
+                <div className="row">
+                    <div className="col-sm-4 d-flex justify-content-center">
+                        <Tile imgPath={bookAppointmentImg} text={"Book Appointment"} func={onBookAppointmentClick}/>
+                    </div>
+                    <div className="col-sm-4 d-flex justify-content-center">
+                        <Tile imgPath={appointmentHistoryImg} text={"View Appointments"} func={onViewAppointmentClick}/>
+                    </div>
+                    <div className="col-sm-4 d-flex justify-content-center">
+                        <Tile imgPath={manageProfile} text={"Manage Profile"} func={onManageProfileClick}/>
+                    </div>
                 </div>
             </div>
         </>

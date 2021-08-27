@@ -23,26 +23,28 @@ const AdminHome = () => {
     return(
         <>
             {adminRoute}
-            <div className="row">
-                <div className="col-sm-4 d-flex justify-content-center">
-                    <Tile imgPath={bookAppointmentImg} text={"View Doctors"} func={onBookAppointmentClick}/>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-4 d-flex justify-content-center">
+                        <Tile imgPath={bookAppointmentImg} text={"View Doctors"} func={onBookAppointmentClick}/>
+                    </div>
+                    <div className="col-md-4 d-flex justify-content-center">
+                        <Tile imgPath={appointmentHistoryImg} text={"View Patients"} func={onViewAppointmentClick}/>
+                    </div>
+                    <div className="col-md-4 d-flex justify-content-center">
+                        <Tile imgPath={manageProfile} text={"View Appointments"} func={onManageProfileClick}/>
+                    </div>
                 </div>
-                <div className="col-sm-4 d-flex justify-content-center">
-                    <Tile imgPath={appointmentHistoryImg} text={"View Patients"} func={onViewAppointmentClick}/>
-                </div>
-                <div className="col-sm-4 d-flex justify-content-center">
-                    <Tile imgPath={manageProfile} text={"View Appointments"} func={onManageProfileClick}/>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-sm-4 d-flex justify-content-center">
-                    <Tile imgPath={bookAppointmentImg} text={"Manage Doctors"} func={onBookAppointmentClick}/>
-                </div>
-                <div className="col-sm-4 d-flex justify-content-center">
-                    <Tile imgPath={appointmentHistoryImg} text={"Add Admins"} func={onViewAppointmentClick}/>
-                </div>
-                <div className="col-sm-4 d-flex justify-content-center">
-                    <Tile imgPath={manageProfile} text={"View and Download Reports"} func={onManageProfileClick}/>
+                <div className="row">
+                    <div className="col-md-4 d-flex justify-content-center">
+                        <Tile imgPath={bookAppointmentImg} text={"Manage Doctors"} func={onBookAppointmentClick}/>
+                    </div>
+                    <div className="col-md-4 d-flex justify-content-center">
+                        <Tile imgPath={appointmentHistoryImg} text={"Add Admins"} func={onViewAppointmentClick}/>
+                    </div>
+                    <div className="col-md-4 d-flex justify-content-center">
+                        <Tile imgPath={manageProfile} text={"View and Download Reports"} func={onManageProfileClick}/>
+                    </div>
                 </div>
             </div>
         </>
