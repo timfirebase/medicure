@@ -9,7 +9,7 @@ const PatientHome = () => {
     let patientRoute = "";
 
     const onBookAppointmentClick =  () => {
-        alert('clicked');
+        window.location.href='/bookAppointment';
     }
 
     const onViewAppointmentClick =  () => {

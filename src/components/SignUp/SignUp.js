@@ -11,7 +11,7 @@ const SignUp = (props) => {
 
     let homeRoute = '';
     if(props.isRegistered){
-        homeRoute =  <Redirect to="/login"/>
+        homeRoute =  <Redirect to="/"/>
     }
 
     return(
@@ -38,7 +38,7 @@ const SignUp = (props) => {
                     <Card.Footer>
                         <div className="w-100 text-center mt-2">
                             Already have an account?
-                            <Link to='/login'><b>Log in!</b></Link>
+                            <Link to='/'><b>Log in!</b></Link>
                         </div>
                     </Card.Footer>
                 </Card>

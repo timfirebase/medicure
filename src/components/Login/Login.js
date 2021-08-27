@@ -44,7 +44,7 @@ const Login = (props) => {
                     <Card.Footer>
                         <div className="w-100 text-center mt-2">
                             Create an account?
-                            <Link to='/'><b>Sign Up!</b></Link>
+                            <Link to='/signup'><b>Sign Up!</b></Link>
                         </div>
                     </Card.Footer>
                 </Card>
