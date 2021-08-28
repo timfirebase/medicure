@@ -8,6 +8,12 @@ import bgImg from "./assets/images/bg.jpg";
 import PatientAppointments from "./components/Patient/PatientAppointments";
 import BookAppointment from "./components/Patient/BookAppointment";
 import AdminHome from "./components/Admin/AdminHome";
+import ViewDoctors from "./components/Admin/ViewDoctors";
+import ViewPatients from "./components/Admin/ViewPatient";
+import ViewAppointment from "./components/Admin/viewAppointment";
+import ManageDoctors from "./components/Admin/ManageDoctors";
+import ManageAdmins from "./components/Admin/ManageAdmins";
+import ViewReports from "./components/Admin/ViewReports";
 
 function App() {
     const sectionStyle = {
@@ -31,11 +37,6 @@ function App() {
                          <PatientHome/>
                       </Layout>
                   </Route>
-                  <Route path="/adminHome">
-                      <Layout>
-                          <AdminHome/>
-                      </Layout>
-                  </Route>
                   <Route path="/viewAppointment">
                       <Layout>
                           <PatientAppointments/>
@@ -44,6 +45,41 @@ function App() {
                   <Route path="/bookAppointment">
                       <Layout>
                           <BookAppointment/>
+                      </Layout>
+                  </Route>
+                  <Route path="/adminHome">
+                      <Layout>
+                          <AdminHome/>
+                      </Layout>
+                  </Route>
+                  <Route path="/viewDoctor">
+                      <Layout>
+                          <ViewDoctors/>
+                      </Layout>
+                  </Route>
+                  <Route path="/viewPatient">
+                      <Layout>
+                          <ViewPatients/>
+                      </Layout>
+                  </Route>
+                  <Route path="/viewAppointment">
+                      <Layout>
+                          <ViewAppointment/>
+                      </Layout>
+                  </Route>
+                  <Route path="/manageDoctor">
+                      <Layout>
+                          <ManageDoctors/>
+                      </Layout>
+                  </Route>
+                  <Route path="/manageAdmin">
+                      <Layout>
+                          <ManageAdmins/>
+                      </Layout>
+                  </Route>
+                  <Route path="/viewReports">
+                      <Layout>
+                          <ViewReports/>
                       </Layout>
                   </Route>
                   <Route path="/" exact >
