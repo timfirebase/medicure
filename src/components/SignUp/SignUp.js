@@ -9,6 +9,7 @@ const SignUp = (props) => {
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
     const [name,setName] = useState();
+    const [phone,setPhone] = useState();
 
     let homeRoute = '';
     if(props.isRegistered){
@@ -35,7 +36,11 @@ const SignUp = (props) => {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password"  required onChange={(event)=>{setPassword(event.target.value)}}/>
                             </Form.Group>
-                            <Button className="w-100 mt-4" type={"button"} onClick={() => props.onSubmit(name,email, password, props.roleId)}>
+                            <Form.Group id="phone">
+                                <Form.Label>Contact No.</Form.Label>
+                                <Form.Control type="number" required onChange={(event)=>{setPhone(event.target.value)}}/>
+                            </Form.Group>
+                            <Button className="w-100 mt-4" type={"button"} onClick={() => props.onSubmit(name,email,password,phone,props.roleId)}>
                                 Sign Up
                             </Button>
                         </Form>
@@ -60,11 +65,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSubmit: (name,email,pswd,role) => {
+        onSubmit: (name,email,pswd,phone,role) => {
             const user = {
                 name: name,
                 email: email,
                 password: pswd,
+                phone: phone,
                 role: role
             };
             dispatch(authActions.registerInit(user))
