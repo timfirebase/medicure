@@ -9,8 +9,8 @@ const PatientReducer = (state = initialState, action) => {
         case actionTypes.GET_DOCTORS_SUCCESS:
             return {
                 ...state,
-                doctors: action.doctors.concat()
-            }
+                doctors: action.doctors,
+            };
         default:
             return state;
     }

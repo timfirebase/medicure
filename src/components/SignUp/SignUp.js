@@ -8,6 +8,7 @@ const SignUp = (props) => {
 
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
+    const [name,setName] = useState();
 
     let homeRoute = '';
     if(props.isRegistered){
@@ -22,6 +23,10 @@ const SignUp = (props) => {
                     <Card.Body>
                         <h2 className="text-center mb-4">Sign up!</h2>
                         <Form>
+                            <Form.Group id="name">
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control type="text" required onChange={(event)=>{setName(event.target.value)}}/>
+                            </Form.Group>
                             <Form.Group id="email">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control type="email" required onChange={(event)=>{setEmail(event.target.value)}}/>
@@ -30,7 +35,7 @@ const SignUp = (props) => {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password"  required onChange={(event)=>{setPassword(event.target.value)}}/>
                             </Form.Group>
-                            <Button className="w-100 mt-4" type={"button"} onClick={() => props.onSubmit(email, password, props.roleId)}>
+                            <Button className="w-100 mt-4" type={"button"} onClick={() => props.onSubmit(name,email, password, props.roleId)}>
                                 Sign Up
                             </Button>
                         </Form>
@@ -55,8 +60,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSubmit: (email,pswd,role) => {
+        onSubmit: (name,email,pswd,role) => {
             const user = {
+                name: name,
                 email: email,
                 password: pswd,
                 role: role

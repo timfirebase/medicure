@@ -8,7 +8,7 @@ const Grid = (props) => {
                 rows={props.rows}
                 columns={props.columns}
                 pageSize={props.pageSize}
-                rowsPerPageOptions={[5,10,15]}
+                rowsPerPageOptions={[props.pageSize]}
             />
         </div>
     );

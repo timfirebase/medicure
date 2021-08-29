@@ -7,7 +7,6 @@ const BookAppointment = (props) => {
     const [doctor,setDoctor] = useState();
     const [availability,setAvailability] = useState();
     const [symptoms,setSymptoms] = useState();
-    const [doctorsList,setDoctorsList] = useState([]);
 
     useEffect(()=>{
         props.getAllDoctors();

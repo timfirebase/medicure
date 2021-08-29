@@ -34,9 +34,9 @@ class Firebase {
 
     getUser = (id) => this.db.collection('users').doc(id).get();
 
-    getUsersByRole = (role) => {
+    getUsersByRole = async (role) => {
         const users = [];
-        this.db.collection('users').where("role","==",role).get()
+        await this.db.collection('users').where("role","==",role).get()
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
                    users.push(doc.data());
