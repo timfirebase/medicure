@@ -17,6 +17,11 @@ const columns = [
         type: 'email',
         width: 200
     },
+    {
+        field: 'number',
+        headerName: 'Contact Number',
+        width: 200
+    },
 ];
 
 const ViewPatients = (props) => {
@@ -34,7 +39,7 @@ const ViewPatients = (props) => {
     if(props.patients && props.patients.length > 0) {
         const rows = [];
         props.patients.map((patient, index) => {
-            const row = {id: index+1, fullName: patient.name, email: patient.email};
+            const row = {id: index+1, fullName: patient.name, email: patient.email, number: patient.phone};
             rows.push(row);
         });
         grid =  <Grid rows={rows} columns={columns} pageSize={parseInt("5")}/>;
