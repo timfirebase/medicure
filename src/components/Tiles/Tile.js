@@ -1,6 +1,5 @@
 import React from "react";
-import {Button, Card, Container, Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Card} from "react-bootstrap";
 
 const Tile =(props) => {
     return(

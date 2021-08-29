@@ -9,9 +9,8 @@ const Grid = (props) => {
                 columns={props.columns}
                 pageSize={props.pageSize}
                 rowsPerPageOptions={[5,10,15]}
-                checkboxSelection
-                disableSelectionOnClick />
+            />
         </div>
     );
-}
+};
 export default Grid;

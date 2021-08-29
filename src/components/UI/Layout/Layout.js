@@ -1,6 +1,5 @@
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import bgImg from "../../../assets/images/bg.jpg";
 
 const Layout = (props) => {
     return (

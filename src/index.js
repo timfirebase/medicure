@@ -7,18 +7,21 @@ import {combineReducers,createStore,applyMiddleware} from 'redux';
 import AuthReducer from "./store/reducers/AuthReducer";
 import createSagaMiddleware from "redux-saga";
 import { BrowserRouter } from 'react-router-dom';
-import {watchAuth} from "./store/sagas";
+import {watchAuth, watchPatients} from "./store/sagas";
+import PatientReducer from "./store/reducers/PatientReducer";
 
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
-    authRdcr: AuthReducer
+    authRdcr: AuthReducer,
+    patientRdcr: PatientReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(watchPatients);
 
 
 ReactDOM.render(

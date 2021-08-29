@@ -1,5 +1,5 @@
 import React , {useState} from "react"
-import {Form, Card, Button, Container, Spinner} from 'react-bootstrap'
+import {Form, Card, Button, Container} from 'react-bootstrap'
 import {connect} from "react-redux";
 import * as authActions from '../../store/actions/AuthActions';
 import {Link, Redirect} from "react-router-dom";

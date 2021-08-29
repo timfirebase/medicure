@@ -3,25 +3,22 @@ import Grid from "../UI/Grid/Grid";
 
 
 const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
+    { field: 'id', headerName: 'ID', width: 100 },
     {
         field: 'firstName',
         headerName: 'First name',
         width: 150,
-        editable: true,
     },
     {
         field: 'lastName',
         headerName: 'Last name',
-        width: 150,
-        editable: true,
+        width: 150
     },
     {
         field: 'age',
         headerName: 'Age',
         type: 'number',
-        width: 110,
-        editable: true,
+        width: 110
     },
     {
         field: 'fullName',
