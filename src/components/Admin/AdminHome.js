@@ -12,15 +12,27 @@ const AdminHome = () => {
     let adminRoute = "";
 
     const onViewDoctorClick =  () => {
-        alert('clicked');
+        window.location.href='/viewDoctor';
     }
 
     const onViewPatientClick =  () => {
+        window.location.href='/viewPatient';
+    }
+
+    const onViewAppointmentClick =  () => {
         window.location.href='/viewAppointment';
     }
 
-    const onManageProfileClick =  () => {
-        alert('clicked');
+    const onManageDoctorsClick =  () => {
+        window.location.href='/manageDoctor';
+    }
+
+    const onManageAdminsClick =  () => {
+        window.location.href='/manageAdmin';
+    }
+
+    const onViewReportClick =  () => {
+        window.location.href='/viewReports';
     }
 
     return(
@@ -36,18 +48,18 @@ const AdminHome = () => {
                     </div>
                     <div className="col-md-4 d-flex justify-content-center">
 
-                        <Tile imgPath={manageProfile} text={"View Appointments"} func={onManageProfileClick}/>
+                        <Tile imgPath={manageProfile} text={"View Appointments"} func={onViewAppointmentClick}/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-4 d-flex justify-content-center">
-                        <Tile imgPath={manageDocs} text={"Manage Doctors"} func={onViewDoctorClick}/>
+                        <Tile imgPath={manageDocs} text={"Manage Doctors"} func={onManageDoctorsClick}/>
                     </div>
                     <div className="col-md-4 d-flex justify-content-center">
-                        <Tile imgPath={addAdmin} text={"Add Admins"} func={onViewPatientClick}/>
+                        <Tile imgPath={addAdmin} text={"Add Admins"} func={onManageAdminsClick}/>
                     </div>
                     <div className="col-md-4 d-flex justify-content-center">
-                        <Tile imgPath={viewReports} text={"View and Download Reports"} func={onManageProfileClick}/>
+                        <Tile imgPath={viewReports} text={"View and Download Reports"} func={onViewReportClick}/>
                     </div>
                 </div>
             </div>
