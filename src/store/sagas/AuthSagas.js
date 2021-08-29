@@ -17,3 +17,9 @@ export function* login(action) {
         yield put(AuthActions.loginSuccess(user));
     }
 }
+
+export function* addAdmin(action) {
+    const ref = yield call(firebase.createAccount, action.user.email, action.user.password);
+    yield call(firebase.addUser, ref.user.uid, action.user);
+    yield put(AuthActions.adminSuccess());
+}

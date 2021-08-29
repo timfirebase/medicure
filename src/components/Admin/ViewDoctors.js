@@ -51,7 +51,7 @@ const rows = [
 const ViewDoctors = () => {
     return (
         <>
-            <span className="h1 p-3 d-flex justify-content-center"> Appointments </span>
+            <span className="h1 p-3 d-flex justify-content-center"> View Doctors </span>
             <Grid rows={rows} columns={columns} pageSize={"5"}/>
         </>
     );

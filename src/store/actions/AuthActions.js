@@ -2,6 +2,9 @@ export const REGISTER_INIT = 'REGISTER_INIT';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const LOGIN_INIT = 'LOGIN_INIT';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const ADMIN_INIT = 'ADMIN_INIT';
+export const ADMIN_SUCCESS = 'ADMIN_SUCCESS';
+
 
 export const registerInit = (user) => {
     return {
@@ -31,3 +34,15 @@ export const loginSuccess = (user) => {
     }
 }
 
+export const adminInit = (user) => {
+    return {
+        type:ADMIN_INIT,
+        user: user
+    }
+}
+export const adminSuccess = (user) => {
+    return {
+        type:ADMIN_SUCCESS,
+        user: user
+    }
+}

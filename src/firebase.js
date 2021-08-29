@@ -44,7 +44,6 @@ class Firebase {
             })
         return users;
     }
-
 }
 
 const firebaseInstance = new Firebase();

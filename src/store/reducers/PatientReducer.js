@@ -1,7 +1,8 @@
 import * as actionTypes from '../actions/PatientActions';
 
 const initialState = {
-    doctors: []
+    doctors: [],
+    patients: []
 };
 
 const PatientReducer = (state = initialState, action) => {
@@ -11,6 +12,12 @@ const PatientReducer = (state = initialState, action) => {
                 ...state,
                 doctors: action.doctors,
             };
+        case actionTypes.GET_PATIENTS_SUCCESS:
+            return {
+                ...state,
+                patients: action.patients
+            }
+
         default:
             return state;
     }

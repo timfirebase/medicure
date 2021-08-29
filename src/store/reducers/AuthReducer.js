@@ -19,6 +19,11 @@ const AuthReducer = (state = initialState, action) => {
                 ...state,
                 user: action.user
             }
+        case actionTypes.ADMIN_SUCCESS:
+            return {
+                ...state,
+                isRegistered: true
+            }
         default:
             return state;
     }
