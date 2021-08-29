@@ -19,9 +19,15 @@ const Login = (props) => {
             homeRoute =  <Redirect to="/adminHome"/>
         }
     }
+    let msg = '';
+
+    if(props.isRegistered) {
+        msg = (<span className="bg-success text-white p-2 h6">Admin has been registered</span>);
+    }
 
     return(
         <>
+            {msg}
             {homeRoute}
             <Container className= "w-auto float-end">
                 <Card>
@@ -36,7 +42,11 @@ const Login = (props) => {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password"  required onChange={(event)=>{setPassword(event.target.value)}}/>
                             </Form.Group>
-                            <Button className="w-100 mt-4" type={"button"} onClick={() => props.onSubmit(email, password)}>
+                            <Button className="w-100 mt-4" type={"submit"}
+                                    onClick={(event) => {
+                                         event.preventDefault();
+                                         props.onSubmit(email, password)}
+                                    }>
                                 Login
                             </Button>
                         </Form>
@@ -70,5 +80,9 @@ const mapDispatchToProps = dispatch => {
         }
     }
 };
+
+
+
+
 
 export default connect (mapStateToProps, mapDispatchToProps)(Login);

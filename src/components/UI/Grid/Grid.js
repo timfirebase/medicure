@@ -3,7 +3,7 @@ import {DataGrid} from "@material-ui/data-grid";
 
 const Grid = (props) => {
     return (
-        <div style={{ height: 400, width: '50%' }}  className="container">
+        <div style={{ height: 400, width: '100%' }}  className="container">
             <DataGrid
                 rows={props.rows}
                 columns={props.columns}

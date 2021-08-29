@@ -4,7 +4,8 @@ export const LOGIN_INIT = 'LOGIN_INIT';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const ADMIN_INIT = 'ADMIN_INIT';
 export const ADMIN_SUCCESS = 'ADMIN_SUCCESS';
-
+export const LOGOUT_INIT = 'LOGOUT_INIT';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 export const registerInit = (user) => {
     return {
@@ -44,5 +45,17 @@ export const adminSuccess = (user) => {
     return {
         type:ADMIN_SUCCESS,
         user: user
+    }
+}
+
+export const logoutInit = () => {
+    return {
+        type:LOGOUT_INIT
+    }
+}
+
+export const logoutSuccess = () => {
+    return {
+        type:LOGOUT_SUCCESS
     }
 }

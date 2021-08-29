@@ -22,17 +22,17 @@ class Firebase {
         this.auth = app.auth();
     }
 
-    // AUTH ACTIONS ------------
-
     createAccount = (email, password) => this.auth.createUserWithEmailAndPassword(email, password);
 
     signIn = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
 
     signOut = () => this.auth.signOut();
 
-    addUser = (id, user) => this.db.collection('users').doc(id).set(user);
+    addUser = (id, user, collectionName) => this.db.collection(collectionName).doc(id).set(user);
 
-    getUser = (id) => this.db.collection('users').doc(id).get();
+    addAppointment = (id, appointment, collectionName) => this.db.collection(collectionName).add(appointment);
+
+    getUser = (id,collectionName) => this.db.collection(collectionName).doc(id).get();
 
     getUsersByRole = async (role) => {
         const users = [];
@@ -44,6 +44,18 @@ class Firebase {
             })
         return users;
     }
+
+    getAppointmentsByPatientId = async (patientId) => {
+        const appointments = [];
+        await this.db.collection('appointments').where("patientId","==",patientId).get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    appointments.push(doc.data());
+                });
+            })
+        return appointments;
+    }
+
 }
 
 const firebaseInstance = new Firebase();

@@ -5,13 +5,13 @@ import * as AuthActions from '../actions/AuthActions';
 export function* registerUser(action) {
     const ref = yield call(firebase.createAccount,action.user.email,action.user.password);
     action.user.id = ref.user.uid;
-    yield call(firebase.addUser, ref.user.uid, action.user);
+    yield call(firebase.addUser, ref.user.uid, action.user, "users");
     yield put(AuthActions.registerSuccess());
 }
 
 export function* login(action) {
     const ref = yield call(firebase.signIn,action.user.email,action.user.password);
-    const snapshot = yield call(firebase.getUser, ref.user.uid);
+    const snapshot = yield call(firebase.getUser, ref.user.uid, "users");
     if (snapshot.data()) { // if user exists in database
         const user = snapshot.data();
         yield put(AuthActions.loginSuccess(user));
@@ -20,6 +20,12 @@ export function* login(action) {
 
 export function* addAdmin(action) {
     const ref = yield call(firebase.createAccount, action.user.email, action.user.password);
-    yield call(firebase.addUser, ref.user.uid, action.user);
+    action.user.id = ref.user.uid;
+    yield call(firebase.addUser, ref.user.uid, action.user, "users");
     yield put(AuthActions.adminSuccess());
+}
+
+export function* logOut() {
+    yield call(firebase.signOut);
+    yield put(AuthActions.logoutSuccess());
 }

@@ -3,17 +3,18 @@ import Tile from "../Tiles/Tile";
 import bookAppointmentImg from "../../assets/images/bookapp.jpg";
 import appointmentHistoryImg from "../../assets/images/appHistory.jpg";
 import manageProfile from "../../assets/images/manageProfile.png";
+import {useHistory} from "react-router-dom";
 
 const PatientHome = () => {
 
-    let patientRoute = "";
+    const history = useHistory();
 
     const onBookAppointmentClick =  () => {
-        window.location.href='/bookAppointment';
+        history.push('/bookAppointment');
     }
 
     const onViewAppointmentClick =  () => {
-        window.location.href='/viewAppointment';
+        history.push('/viewAppointment');
     }
 
     const onManageProfileClick =  () => {
@@ -22,7 +23,6 @@ const PatientHome = () => {
 
     return(
         <>
-            {patientRoute}
             <div className="container">
                 <div className="row">
                     <div className="col-sm-4 d-flex justify-content-center">

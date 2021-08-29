@@ -6,38 +6,38 @@ import manageProfile from "../../assets/images/manageProfile.png";
 import manageDocs from "../../assets/images/manageDocs.png";
 import addAdmin from "../../assets/images/addAdmin.png";
 import viewReports from "../../assets/images/viewReports.png";
+import {useHistory} from "react-router-dom";
 
 const AdminHome = () => {
 
-    let adminRoute = "";
+    const history = useHistory();
 
     const onViewDoctorClick =  () => {
-        window.location.href='/viewDoctor';
+        history.push('/viewDoctor');
     }
 
     const onViewPatientClick =  () => {
-        window.location.href='/viewPatient';
+        history.push('/viewPatient');
     }
 
     const onViewAppointmentClick =  () => {
-        window.location.href='/viewAppointment';
+        history.push('/viewAllAppointments');
     }
 
     const onManageDoctorsClick =  () => {
-        window.location.href='/manageDoctor';
+        history.push('/manageDoctor');
     }
 
     const onManageAdminsClick =  () => {
-        window.location.href='/manageAdmin';
+        history.push('/manageAdmin');
     }
 
     const onViewReportClick =  () => {
-        window.location.href='/viewReports';
+        history.push('/viewReports');
     }
 
     return(
         <>
-            {adminRoute}
             <div className="container">
                 <div className="row">
                     <div className="col-md-4 d-flex justify-content-center">

@@ -2,26 +2,24 @@ import React , {useState} from "react"
 import {Form, Card, Button, Container} from 'react-bootstrap'
 import {connect} from "react-redux";
 import * as authActions from '../../store/actions/AuthActions';
-import {Link, Redirect} from "react-router-dom";
+import {Link,useHistory} from "react-router-dom";
 
 const SignUp = (props) => {
-
+    const history = useHistory();
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
     const [name,setName] = useState();
     const [phone,setPhone] = useState();
 
-    let homeRoute = '';
     if(props.isRegistered){
-        homeRoute =  <Redirect to="/"/>
+        history.push('/');
     }
 
     return(
         <>
-            {homeRoute}
             <Container className= "w-auto float-end">
                 <Card>
-                    <Card.Body>
+                    <Card.Body className="p-3">
                         <h2 className="text-center mb-4">Sign up!</h2>
                         <Form>
                             <Form.Group id="name">
@@ -40,7 +38,11 @@ const SignUp = (props) => {
                                 <Form.Label>Contact No.</Form.Label>
                                 <Form.Control type="number" required onChange={(event)=>{setPhone(event.target.value)}}/>
                             </Form.Group>
-                            <Button className="w-100 mt-4" type={"button"} onClick={() => props.onSubmit(name,email,password,phone,props.roleId)}>
+                            <Button className="w-100 mt-4" type={"submit"}
+                                    onClick={(event) => {
+                                        event.preventDefault();
+                                        props.onSubmit(name,email,password,phone,props.roleId)}
+                                    }>
                                 Sign Up
                             </Button>
                         </Form>

@@ -2,8 +2,10 @@ import React, {useEffect, useState} from "react";
 import {Button, Card, Container, Form} from "react-bootstrap";
 import * as PatientActions from '../../store/actions/PatientActions';
 import {connect} from "react-redux";
+import {useHistory} from "react-router-dom";
 
 const BookAppointment = (props) => {
+    const history = useHistory();
     const [doctor,setDoctor] = useState();
     const [availability,setAvailability] = useState();
     const [symptoms,setSymptoms] = useState();
@@ -14,13 +16,26 @@ const BookAppointment = (props) => {
 
     const onBookAppointmentClick = (event) => {
         event.preventDefault();
-        const patient = {
-            patientId: props.patient.id,
-            symptoms: symptoms,
+        if(props.patient) {
+
+            const appointment = {
+                patientId: props.patient.id,
+                name: props.patient.name,
+                email: props.patient.email,
+                phone: props.patient.phone,
+                symptoms: symptoms,
+                doctorId: doctor.id,
+                doctorName: doctor.name,
+                doctorEmail: doctor.email,
+                availability: availability
+            };
+
+            props.bookAppointment(doctor.id, appointment);
         }
-        console.log(doctor);
-        console.log(availability);
-        console.log(symptoms);
+    }
+
+    if(props.isAppointmentBooked){
+        history.push('/viewAppointment');
     }
 
     return(
@@ -31,16 +46,30 @@ const BookAppointment = (props) => {
                     <Form>
                         <Form.Group controlId="formGridState"  className="mb-3">
                             <Form.Label className="h6">Doctors</Form.Label>
-                            <Form.Control as="select" onChange={(event)=>{setDoctor(event.target.value)}}>
+                            <Form.Control as="select" onChange={(event)=>{
+                                setDoctor(props.doctors.filter(doc => doc.id === event.target.value)[0]);
+                              }
+                            }>
                                 <option>Select a doctor</option>
-                                <option key={"WloGSAOjyNgH5F8exQ9I3WAMaIk2"} value={"WloGSAOjyNgH5F8exQ9I3WAMaIk2"}> {"doc1"} </option>
+                                {
+                                    (props.doctors && props.doctors.length > 0) ? (
+                                        props.doctors.map(doctor => (
+                                            <option key={doctor.id} value={doctor.id}> {doctor.name} </option>
+                                        ))
+                                    ) : ''
+                                }
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formGridState"  className="mb-3">
                             <Form.Label className="h6">Availability</Form.Label>
                             <Form.Control as="select" onChange={(event)=>{setAvailability(event.target.value)}}>
                                 <option>Select availability time</option>
-                                <option key={"0"} value={"3 sept 2021 3pm"}> {"3 sept 2021 3pm"} </option>
+                                {
+                                    doctor ? (
+                                    doctor.availability.map((avlblty,index) => (
+                                       <option key={index} value={avlblty}> {avlblty} </option>  ))
+                                     ): ''
+                                }
                             </Form.Control>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -62,15 +91,16 @@ const BookAppointment = (props) => {
 const mapStateToProps = state => {
     return {
         doctors: state.patientRdcr.doctors,
-        patient: state.authRdcr.user
+        patient: state.authRdcr.user,
+        isAppointmentBooked: state.patientRdcr.appointmentBooked
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getAllDoctors: () => dispatch(PatientActions.getDoctorsInit()),
-        bookAppointment: (doctorId) => {
-            dispatch(PatientActions.bookAppointmentInit(doctorId,))
+        bookAppointment: (doctorId,appointment) => {
+            dispatch(PatientActions.bookAppointmentInit(doctorId,appointment))
         }
     }
 };

@@ -5,6 +5,8 @@ export const BOOK_APPOINTMENT_INIT = 'BOOK_APPOINTMENT_INIT';
 export const BOOK_APPOINTMENT_SUCCESS = 'BOOK_APPOINTMENT_SUCCESS';
 export const GET_PATIENTS_INIT = 'GET_PATIENTS_INIT';
 export const GET_PATIENTS_SUCCESS = 'GET_PATIENTS_SUCCESS';
+export const GET_PATIENT_APPOINTMENTS_INIT = 'GET_PATIENT_APPOINTMENTS_INIT';
+export const GET_PATIENT_APPOINTMENTS_SUCCESS = 'GET_PATIENT_APPOINTMENTS_SUCCESS';
 
 export const getDoctorsInit = () => {
     return {
@@ -19,10 +21,11 @@ export const getDoctorsSuccess = (doctors) => {
     }
 }
 
-export const bookAppointmentInit = (user) => {
+export const bookAppointmentInit = (doctor,appointment) => {
     return {
         type:BOOK_APPOINTMENT_INIT,
-        user: user
+        doctor: doctor,
+        appointment: appointment
     }
 }
 
@@ -42,5 +45,19 @@ export const getPatientsSuccess = (patients) => {
     return {
         type:GET_PATIENTS_SUCCESS,
         patients: patients
+    }
+}
+
+export const getPatientAppointmentsInit = (patientId) => {
+    return {
+        type:GET_PATIENT_APPOINTMENTS_INIT,
+        patientId: patientId
+    }
+}
+
+export const getPatientAppointmentsSuccess = (appointments) => {
+    return {
+        type:GET_PATIENT_APPOINTMENTS_SUCCESS,
+        appointments: appointments
     }
 }

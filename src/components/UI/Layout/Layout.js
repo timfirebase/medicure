@@ -4,7 +4,7 @@ import Footer from "../Footer/Footer";
 const Layout = (props) => {
     return (
          <div style={props.sectionStyle}>
-            <Header/>
+            <Header tiles={props.tiles}/>
                 {props.children}
              <Footer/>
          </div>

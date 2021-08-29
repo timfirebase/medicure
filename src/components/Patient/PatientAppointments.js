@@ -7,35 +7,59 @@ const columns = [
     {
         field: 'id',
         headerName: 'Sr No.',
-        width: 150
+        headerAlign: 'center',
+        width: 120
     },
     {
-        field: 'fullName',
-        headerName: 'Full Name',
+        field: 'patientName',
+        headerName: 'Patient Name',
+        headerAlign: 'center',
+        width: 180
+    },
+    {
+        field: 'symptoms',
+        headerName: 'Symptoms',
+        headerAlign: 'center',
         width: 200
     },
     {
-        field: 'email',
-        headerName: 'Email',
-        type: 'email',
+        field: 'doctorName',
+        headerName: 'Doctor Name',
+        headerAlign: 'center',
         width: 200
+    },
+    {
+        field: 'availability',
+        headerName: 'Doctor Availability',
+        headerAlign: 'center',
+        width: 300
+    },
+    {
+        field: 'doctorEmail',
+        headerName: 'Doctor Email',
+        headerAlign: 'center',
+        width: 180
     }
 ];
 
 const PatientAppointments = (props) => {
 
     useEffect(()=>{
-        props.getAllDoctors();
+        if(props.patient) {
+            props.getAppointmentsByPatientId(props.patient.id);
+        }
     },[]);
 
-    const rows = [];
 
     let grid = '';
 
-    if(props.doctors && props.doctors.length > 0) {
+    if(props.appointments && props.appointments.length > 0) {
         const rows = [];
-        props.doctors.map((doctor, index) => {
-            const row = {id: index+1, fullName: doctor.name, email: doctor.email};
+        props.appointments.map((appointment, index) => {
+            const row = {
+                id: index+1, patientName: appointment.name,symptoms: appointment.symptoms, doctorName: appointment.doctorName,
+                availability: appointment.availability,doctorEmail: appointment.doctorEmail
+            };
             rows.push(row);
         });
         grid =  <Grid rows={rows} columns={columns} pageSize={parseInt("5")}/>;
@@ -51,13 +75,14 @@ const PatientAppointments = (props) => {
 
 const mapStateToProps = state => {
     return {
-        doctors : state.patientRdcr.doctors
+        appointments : state.patientRdcr.appointments,
+        patient: state.authRdcr.user
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getAllDoctors: () => dispatch(PatientActions.getDoctorsInit())
+        getAppointmentsByPatientId: (patientId) => dispatch(PatientActions.getPatientAppointmentsInit(patientId))
     }
 };
 

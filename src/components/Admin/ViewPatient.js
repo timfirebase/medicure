@@ -5,15 +5,17 @@ import {connect} from "react-redux";
 
 
 const columns = [
-    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'id', headerName: 'ID', headerAlign: 'center', width: 100 },
     {
         field: 'fullName',
         headerName: 'Full Name',
+        headerAlign: 'center',
         width: 200
     },
     {
         field: 'email',
         headerName: 'Email',
+        headerAlign: 'center',
         type: 'email',
         width: 200
     },
@@ -30,10 +32,6 @@ const ViewPatients = (props) => {
         props.getAllPatients();
     },[]);
 
-
-
-    const rows = [];
-
     let grid = '';
 
     if(props.patients && props.patients.length > 0) {
@@ -44,7 +42,6 @@ const ViewPatients = (props) => {
         });
         grid =  <Grid rows={rows} columns={columns} pageSize={parseInt("5")}/>;
     }
-
 
     return (
         <>
