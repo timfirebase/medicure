@@ -11,7 +11,7 @@ const columns = [
     },
     {
         field: 'fullName',
-        headerName: 'Last name',
+        headerName: 'Full Name',
         width: 200
     },
     {
