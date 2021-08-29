@@ -15,15 +15,19 @@ const ManageAdmins = (props) => {
     let msg = '';
 
 
+    debugger;
     if(props.isRegistered){
-        <div className={"p-3 mb-2 bg-success text-white"}>
-            msg = "Admin has been registered!";
-        </div>
+            msg = (<span className={"p-3 mb-2 mt-4 bg-success text-white"}> "Admin has been registered successfully!"</span>);
+            setTimeout(() => {
+                msg = (<span> ""</span>);
+            }, 3000);
+    }
+    else{
+            msg = (<span className={"bg-fail text-white pt-2 h6 width:25%"}> "Admin has been not been registered"</span>);
     }
 
     return(
         <>
-            {msg}
             {homeRoute}
             <Container className= "w-auto">
                 <Card  className="w-75">
@@ -52,6 +56,11 @@ const ManageAdmins = (props) => {
                         </Form>
                     </Card.Body>
                 </Card>
+            </Container>
+            <Container>
+                <div className={"p-4 border-radius: 8px"}>
+                    {msg}
+                </div>
             </Container>
         </>
     )
