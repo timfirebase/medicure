@@ -1,7 +1,16 @@
 import React from "react";
-import {DataGrid} from "@material-ui/data-grid";
+import {DataGrid, GridToolbarContainer, GridToolbarExport} from "@material-ui/data-grid";
 
 const Grid = (props) => {
+
+    function downloadData() {
+        return (
+            <GridToolbarContainer>
+                <GridToolbarExport />
+            </GridToolbarContainer>
+        );
+    }
+
     return (
         <div style={{ height: 400, width: '100%' }}  className="container">
             <DataGrid
@@ -9,6 +18,9 @@ const Grid = (props) => {
                 columns={props.columns}
                 pageSize={props.pageSize}
                 rowsPerPageOptions={[props.pageSize]}
+                components={{
+                    Toolbar: downloadData,
+                }}
             />
         </div>
     );

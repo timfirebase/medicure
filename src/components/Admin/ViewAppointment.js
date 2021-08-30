@@ -3,6 +3,7 @@ import Grid from "../UI/Grid/Grid";
 import * as PatientActions from "../../store/actions/PatientActions";
 import {getAllPatientAppointmentsInit} from "../../store/actions/PatientActions";
 import {connect} from "react-redux";
+import Button from 'react-bootstrap/Button';
 
 
 const columns = [
@@ -68,8 +69,8 @@ const ViewAppointment = (props) => {
 
     return (
         <>
-            <span className="h1 p-3 d-flex justify-content-center"> All Patient Appointments </span>
-            {grid}
+                <span className="h1 p-3 d-flex justify-content-center"> All Patient Appointments </span>
+                {grid}
         </>
     );
 }
