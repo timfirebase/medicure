@@ -27,6 +27,11 @@ const AuthReducer = (state = initialState, action) => {
                 ...state,
                 user: null
             }
+        case actionTypes.CLEAR_REGISTERED_STATUS:
+            return {
+                ...state,
+                isRegistered: false
+            }
         default:
             return state;
     }

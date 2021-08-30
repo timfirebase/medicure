@@ -6,6 +6,7 @@ export const ADMIN_INIT = 'ADMIN_INIT';
 export const ADMIN_SUCCESS = 'ADMIN_SUCCESS';
 export const LOGOUT_INIT = 'LOGOUT_INIT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const CLEAR_REGISTERED_STATUS = 'CLEAR_REGISTERED_STATUS';
 
 export const registerInit = (user) => {
     return {
@@ -57,5 +58,11 @@ export const logoutInit = () => {
 export const logoutSuccess = () => {
     return {
         type:LOGOUT_SUCCESS
+    }
+}
+
+export const clearRegisteredStatus = () => {
+    return {
+        type:CLEAR_REGISTERED_STATUS
     }
 }

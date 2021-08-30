@@ -1,8 +1,8 @@
-import React , {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {Form, Card, Button, Container} from 'react-bootstrap'
 import {connect} from "react-redux";
 import * as authActions from '../../store/actions/AuthActions';
-
+import Swal from "sweetalert2";
 
 const ManageAdmins = (props) => {
 
@@ -11,27 +11,16 @@ const ManageAdmins = (props) => {
     const [name,setName] = useState();
     const [phone,setPhone] = useState();
 
-    let homeRoute = '';
-    let msg = '';
-
-
-    debugger;
     if(props.isRegistered){
-            msg = (<span className={"p-3 mb-2 mt-4 bg-success text-white"}> "Admin has been registered successfully!"</span>);
-            setTimeout(() => {
-                msg = (<span> ""</span>);
-            }, 3000);
-    }
-    else{
-            msg = (<span className={"bg-fail text-white pt-2 h6 width:25%"}> "Admin has been not been registered"</span>);
+        Swal.fire('Admin registered!','','success');
+        props.clearRegisteredStatus();
     }
 
     return(
         <>
-            {homeRoute}
-            <Container className= "w-auto">
-                <Card  className="w-75">
-                    <Card.Body>
+            <Container className= "w-50 h-100">
+                <Card  className="w-100 border-primary">
+                    <Card.Body className="p-3">
                         <h2 className="text-center mb-4">Manage Admins</h2>
                         <Form>
                             <Form.Group id="name">
@@ -50,17 +39,12 @@ const ManageAdmins = (props) => {
                                 <Form.Label>Contact No.</Form.Label>
                                 <Form.Control type="number" required onChange={(event)=>{setPhone(event.target.value)}}/>
                             </Form.Group>
-                            <Button className="w-100 mt-4" type={"button"} onClick={() => props.onSubmit(name,email,password,phone,"admin")}>
+                            <Button className="w-100 mt-4" type={"button"} onClick={() =>  props.onSubmit(name,email,password,phone,"admin")}>
                                 Add Admin
                             </Button>
                         </Form>
                     </Card.Body>
                 </Card>
-            </Container>
-            <Container>
-                <div className={"p-4 border-radius: 8px"}>
-                    {msg}
-                </div>
             </Container>
         </>
     )
@@ -83,7 +67,8 @@ const mapDispatchToProps = dispatch => {
                 role: role
             };
             dispatch(authActions.registerInit(user))
-        }
+        },
+        clearRegisteredStatus: () => dispatch(authActions.clearRegisteredStatus())
     }
 };
 
