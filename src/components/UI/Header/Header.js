@@ -44,7 +44,7 @@ const Header = (props) => {
                             <Nav className="align-items-center">
                                 {
                                     props.tiles.map(tile => (
-                                        <Nav.Link onClick={() => onNavClick(tile.path)} href="#" key={tile.path}> <span className="text-white">{tile.heading} </span></Nav.Link>
+                                        <Nav.Link onClick={() => onNavClick(tile.path)} href="#" key={tile.path}> <span className="text-white">{tile.heading}  |</span></Nav.Link>
                                     ))
                                 }
                             </Nav>
