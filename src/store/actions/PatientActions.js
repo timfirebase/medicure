@@ -71,8 +71,9 @@ export const getAllPatientAppointmentsInit = () => {
     }
 }
 
-export const getAllPatientAppointmentsSuccess = () => {
+export const getAllPatientAppointmentsSuccess = (appointments) => {
     return {
-        type:GET_ALL_PATIENT_APPOINTMENTS_SUCCESS
+        type:GET_ALL_PATIENT_APPOINTMENTS_SUCCESS,
+        allAppointments: appointments
     }
 }
