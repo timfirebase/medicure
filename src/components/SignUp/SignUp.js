@@ -3,6 +3,7 @@ import {Form, Card, Button, Container} from 'react-bootstrap'
 import {connect} from "react-redux";
 import * as authActions from '../../store/actions/AuthActions';
 import {Link,useHistory} from "react-router-dom";
+import Swal from "sweetalert2";
 
 const SignUp = (props) => {
     const history = useHistory();
@@ -12,6 +13,7 @@ const SignUp = (props) => {
     const [phone,setPhone] = useState();
 
     if(props.isRegistered){
+        Swal.close();
         history.push('/');
     }
 
@@ -41,6 +43,15 @@ const SignUp = (props) => {
                             <Button className="w-100 mt-4" type={"submit"}
                                     onClick={(event) => {
                                         event.preventDefault();
+                                        Swal.fire({
+                                            title: 'Please wait...',
+                                            html: '',
+                                            allowEscapeKey: false,
+                                            allowOutsideClick: false,
+                                            didOpen: () => {
+                                                Swal.showLoading()
+                                            }
+                                        });
                                         props.onSubmit(name,email,password,phone,props.roleId)}
                                     }>
                                 Sign Up

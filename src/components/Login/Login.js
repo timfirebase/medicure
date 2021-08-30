@@ -3,6 +3,7 @@ import {Form, Card, Button, Container} from 'react-bootstrap';
 import {connect} from "react-redux";
 import * as authActions from '../../store/actions/AuthActions';
 import {Link, Redirect} from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = (props) => {
 
@@ -11,6 +12,7 @@ const Login = (props) => {
 
     let homeRoute = '';
     if(props.user){
+        Swal.close();
         const role = props.user.role;
         if("patient" === role) {
             homeRoute =  <Redirect to="/patientHome"/>
@@ -19,19 +21,12 @@ const Login = (props) => {
             homeRoute =  <Redirect to="/adminHome"/>
         }
     }
-    let msg = '';
-
-    if(props.isRegistered) {
-        msg = (<span className="bg-success text-white p-2 h6">Admin has been registered</span>);
-    }
-
     return(
         <>
-            {msg}
             {homeRoute}
             <Container className= "w-auto float-end">
                 <Card>
-                    <Card.Body className="p-4">
+                   <Card.Body className="p-4">
                         <h2 className="text-center mb-4">Login</h2>
                         <Form>
                             <Form.Group id="email">
@@ -45,6 +40,15 @@ const Login = (props) => {
                             <Button className="w-100 mt-4" type={"submit"}
                                     onClick={(event) => {
                                          event.preventDefault();
+                                         Swal.fire({
+                                                title: 'Please wait...',
+                                                html: '',
+                                                allowEscapeKey: false,
+                                                allowOutsideClick: false,
+                                                didOpen: () => {
+                                                    Swal.showLoading()
+                                                }
+                                         });
                                          props.onSubmit(email, password)}
                                     }>
                                 Login
@@ -75,7 +79,7 @@ const mapDispatchToProps = dispatch => {
             const user = {
                 email: email,
                 password: pswd
-            };
+            }
             dispatch(authActions.loginInit(user));
         }
     }
