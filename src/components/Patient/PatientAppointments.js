@@ -53,7 +53,7 @@ const PatientAppointments = (props) => {
 
     let grid = '';
 
-    if(props.appointments && props.appointments.length > 0) {
+    if(props.appointments) {
         const rows = [];
         props.appointments.map((appointment, index) => {
             const row = {

@@ -2,55 +2,72 @@ import React , {useState} from "react";
 import {Form, Card, Button, Container} from 'react-bootstrap';
 import {connect} from "react-redux";
 import * as authActions from '../../store/actions/AuthActions';
-import {Link, Redirect} from "react-router-dom";
+import {Link, Redirect, useHistory} from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Login = (props) => {
 
+    const history = useHistory();
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
+    const [validated, setValidated] = useState(false);
 
-    let homeRoute = '';
+    const isFormValid = () => {
+        return email && password;
+    }
+
     if(props.user){
         Swal.close();
         const role = props.user.role;
         if("patient" === role) {
-            homeRoute =  <Redirect to="/patientHome"/>
+            history.push('/patientHome');
         }
         else if ("admin" === role){
-            homeRoute =  <Redirect to="/adminHome"/>
+            history.push('/adminHome');
+        }
+        else if ("doctor" === role){
+            history.push('/doctorHome');
         }
     }
+
+    const handleSubmit = (event) => {
+/*        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }*/
+       // setValidated(true);
+        event.preventDefault();
+        Swal.fire({
+            title: 'Please wait...',
+            html: '',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
+        props.onSubmit(email, password)
+    };
+
     return(
         <>
-            {homeRoute}
             <Container className= "w-auto float-end">
                 <Card>
                    <Card.Body className="p-4">
                         <h2 className="text-center mb-4">Login</h2>
-                        <Form>
-                            <Form.Group id="email">
+                        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                            <Form.Group id="email" controlId="validationCustom01">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control type="email" required onChange={(event)=>{setEmail(event.target.value)}}/>
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
-                            <Form.Group id="password">
+                            <Form.Group id="password" controlId="validationCustom02">
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password"  required onChange={(event)=>{setPassword(event.target.value)}}/>
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
-                            <Button className="w-100 mt-4" type={"submit"}
-                                    onClick={(event) => {
-                                         event.preventDefault();
-                                         Swal.fire({
-                                                title: 'Please wait...',
-                                                html: '',
-                                                allowEscapeKey: false,
-                                                allowOutsideClick: false,
-                                                didOpen: () => {
-                                                    Swal.showLoading()
-                                                }
-                                         });
-                                         props.onSubmit(email, password)}
-                                    }>
+                            <Button className="w-100 mt-4" type={"submit"}>
                                 Login
                             </Button>
                         </Form>

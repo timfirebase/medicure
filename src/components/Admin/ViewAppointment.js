@@ -1,10 +1,7 @@
 import React, {useEffect} from "react";
 import Grid from "../UI/Grid/Grid";
 import * as PatientActions from "../../store/actions/PatientActions";
-import {getAllPatientAppointmentsInit} from "../../store/actions/PatientActions";
 import {connect} from "react-redux";
-import Button from 'react-bootstrap/Button';
-
 
 const columns = [
     {

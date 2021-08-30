@@ -18,7 +18,7 @@ export function* bookAppointment(action) {
 }
 
 export function* getPatientAppointments(action) {
-    const appointments = yield call(firebase.getAppointmentsByPatientId,action.patientId);
+    const appointments = yield call(firebase.getAppointmentsById,"patientId",action.patientId);
     yield put(PatientActions.getPatientAppointmentsSuccess(appointments));
 }
 

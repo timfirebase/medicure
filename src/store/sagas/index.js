@@ -9,6 +9,8 @@ import {
 } from './PatientSagas';
 import { takeEvery, all } from "redux-saga/effects";
 import * as PatientActions from '../actions/PatientActions';
+import * as DoctorActions from '../actions/DoctorActions';
+import {createAndStorePrescriptionFile, getDoctorAppointments} from "./DoctorSagas";
 
 export function* watchAuth() {
     yield all([
@@ -29,3 +31,9 @@ export function* watchPatients() {
     ]);
 }
 
+export function* watchDoctors() {
+    yield all([
+        takeEvery(DoctorActions.GET_DOC_APPOINTMENTS_INIT,getDoctorAppointments),
+        takeEvery(DoctorActions.CREATE_PRESC_FILE_INIT,createAndStorePrescriptionFile)
+    ]);
+}

@@ -9,7 +9,6 @@ const initialState = {
 };
 
 const PatientReducer = (state = initialState, action) => {
-    console.log(action.doc);
     switch (action.type) {
         case actionTypes.GET_DOCTORS_SUCCESS:
             return {
@@ -39,7 +38,7 @@ const PatientReducer = (state = initialState, action) => {
         case actionTypes.UPDATE_DOC_GRID:
             return {
                 ...state,
-                doctors: state.doctors.push(action.doc)
+                doctors: [...state.doctors, action.doc]
             }
         default:
             return state;

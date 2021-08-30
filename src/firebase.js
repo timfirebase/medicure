@@ -45,13 +45,15 @@ class Firebase {
         return users;
     }
 
-    getAppointmentsByPatientId = async (patientId) => {
+    getAppointmentsById = async (fieldToMatch, id) => {
         const appointments = [];
-        await this.db.collection('appointments').where("patientId","==",patientId).get()
+        await this.db.collection('appointments').where(fieldToMatch,"==",id).get()
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                    appointments.push(doc.data());
+                    const appointment = {...doc.data(),appointmentId: doc.id}
+                    appointments.push(appointment);
                 });
+                console.log(appointments);
             })
         return appointments;
     }
@@ -66,6 +68,15 @@ class Firebase {
                 );
             })
         return allAppointments;
+    }
+
+
+    storeFileInDB = async (file) => {
+        const storageRef = this.storage.ref();
+        const fileRef = storageRef.child(file.name);
+        await fileRef.put(file);
+        const filePath = await fileRef.getDownloadURL();
+        return fileRef;
     }
 
 }

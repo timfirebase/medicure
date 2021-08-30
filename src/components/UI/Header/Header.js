@@ -24,6 +24,9 @@ const Header = (props) => {
             else if ("admin" === user.role){
                 history.push("/adminHome");
             }
+            else if ("doctor" === user.role){
+                history.push('/doctorHome');
+            }
         } else {
             history.push('/');
         }
