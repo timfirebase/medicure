@@ -4,7 +4,8 @@ const initialState = {
     doctors: [],
     patients: [],
     appointmentBooked: false,
-    appointments:[]
+    appointments:[],
+    allAppointments:[]
 };
 
 const PatientReducer = (state = initialState, action) => {
@@ -28,6 +29,11 @@ const PatientReducer = (state = initialState, action) => {
             return {
                 ...state,
                 appointments: action.appointments
+            }
+        case actionTypes.GET_ALL_PATIENT_APPOINTMENTS_SUCCESS:
+            return {
+                ...state,
+                allAppointments: action.allAppointments
             }
         default:
             return state;

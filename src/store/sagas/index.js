@@ -1,6 +1,12 @@
 import * as AuthActions from '../actions/AuthActions';
 import {registerUser, login, addAdmin, logOut} from './AuthSagas';
-import {bookAppointment, getDoctors, getPatientAppointments, viewPatients} from './PatientSagas';
+import {
+    bookAppointment,
+    getAllPatientAppointments,
+    getDoctors,
+    getPatientAppointments,
+    viewPatients
+} from './PatientSagas';
 import { takeEvery, all } from "redux-saga/effects";
 import * as PatientActions from '../actions/PatientActions';
 
@@ -18,7 +24,8 @@ export function* watchPatients() {
         takeEvery(PatientActions.GET_DOCTORS_INIT,getDoctors),
         takeEvery(PatientActions.GET_PATIENTS_INIT,viewPatients),
         takeEvery(PatientActions.BOOK_APPOINTMENT_INIT,bookAppointment),
-        takeEvery(PatientActions.GET_PATIENT_APPOINTMENTS_INIT,getPatientAppointments)
+        takeEvery(PatientActions.GET_PATIENT_APPOINTMENTS_INIT,getPatientAppointments),
+        takeEvery(PatientActions.GET_ALL_PATIENT_APPOINTMENTS_INIT,getAllPatientAppointments)
     ]);
 }
 

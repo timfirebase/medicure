@@ -3,7 +3,7 @@ import Layout from "../../components/UI/Layout/Layout";
 import AdminHome from "../../components/Admin/AdminHome";
 import ViewDoctors from "../../components/Admin/ViewDoctors";
 import ViewPatients from "../../components/Admin/ViewPatient";
-import ViewAppointment from "../../components/Admin/viewAppointment";
+import ViewAppointment from "../../components/Admin/ViewAppointment";
 import ManageDoctors from "../../components/Admin/ManageDoctors";
 import ManageAdmins from "../../components/Admin/ManageAdmins";
 import ViewReports from "../../components/Admin/ViewReports";

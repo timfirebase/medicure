@@ -7,6 +7,9 @@ export const GET_PATIENTS_INIT = 'GET_PATIENTS_INIT';
 export const GET_PATIENTS_SUCCESS = 'GET_PATIENTS_SUCCESS';
 export const GET_PATIENT_APPOINTMENTS_INIT = 'GET_PATIENT_APPOINTMENTS_INIT';
 export const GET_PATIENT_APPOINTMENTS_SUCCESS = 'GET_PATIENT_APPOINTMENTS_SUCCESS';
+export const GET_ALL_PATIENT_APPOINTMENTS_INIT = 'GET_ALL_PATIENT_APPOINTMENTS_INIT';
+export const GET_ALL_PATIENT_APPOINTMENTS_SUCCESS = 'GET_ALL_PATIENT_APPOINTMENTS_SUCCESS';
+
 
 export const getDoctorsInit = () => {
     return {
@@ -59,5 +62,17 @@ export const getPatientAppointmentsSuccess = (appointments) => {
     return {
         type:GET_PATIENT_APPOINTMENTS_SUCCESS,
         appointments: appointments
+    }
+}
+
+export const getAllPatientAppointmentsInit = () => {
+    return {
+        type:GET_ALL_PATIENT_APPOINTMENTS_INIT
+    }
+}
+
+export const getAllPatientAppointmentsSuccess = () => {
+    return {
+        type:GET_ALL_PATIENT_APPOINTMENTS_SUCCESS
     }
 }

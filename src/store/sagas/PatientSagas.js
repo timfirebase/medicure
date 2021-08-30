@@ -21,3 +21,8 @@ export function* getPatientAppointments(action) {
     const appointments = yield call(firebase.getAppointmentsByPatientId,action.patientId);
     yield put(PatientActions.getPatientAppointmentsSuccess(appointments));
 }
+
+export function* getAllPatientAppointments() {
+    const appointments = yield call(firebase.getAllAppointments);
+    yield put(PatientActions.getAllPatientAppointmentsSuccess(appointments));
+}

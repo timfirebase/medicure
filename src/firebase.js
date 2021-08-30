@@ -56,6 +56,18 @@ class Firebase {
         return appointments;
     }
 
+    getAllAppointments = async () => {
+        const allAppointments = [];
+        await this.db.collection('appointments').get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                        allAppointments.push(doc.data());
+                },
+                );
+            })
+        return allAppointments;
+    }
+
 }
 
 const firebaseInstance = new Firebase();
