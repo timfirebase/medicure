@@ -12,9 +12,9 @@ const AdminHome = () => {
 
     const history = useHistory();
 
-    const onViewDoctorClick =  () => {
-        history.push('/viewDoctor');
-    }
+    // const onViewDoctorClick =  () => {
+    //     history.push('/viewDoctor');
+    // }
 
     const onViewPatientClick =  () => {
         history.push('/viewPatient');
@@ -32,17 +32,17 @@ const AdminHome = () => {
         history.push('/manageAdmin');
     }
 
-    const onViewReportClick =  () => {
-        history.push('/viewReports');
-    }
+    // const onViewReportClick =  () => {
+    //     history.push('/viewReports');
+    // }
 
     return(
         <>
             <div className="container">
                 <div className="row">
-                    <div className="col-md-4 d-flex justify-content-center">
-                        <Tile imgPath={viewDoctors} text={"View Doctors"} func={onViewDoctorClick}/>
-                    </div>
+                    {/*<div className="col-md-4 d-flex justify-content-center">*/}
+                    {/*    <Tile imgPath={viewDoctors} text={"View Doctors"} func={onViewDoctorClick}/>*/}
+                    {/*</div>*/}
                     <div className="col-md-4 d-flex justify-content-center">
                         <Tile imgPath={viewPatients} text={"View Patients"} func={onViewPatientClick}/>
                     </div>
@@ -50,17 +50,17 @@ const AdminHome = () => {
 
                         <Tile imgPath={manageProfile} text={"View Appointments"} func={onViewAppointmentClick}/>
                     </div>
-                </div>
-                <div className="row">
                     <div className="col-md-4 d-flex justify-content-center">
                         <Tile imgPath={manageDocs} text={"Manage Doctors"} func={onManageDoctorsClick}/>
                     </div>
+                </div>
+                <div className="row">
                     <div className="col-md-4 d-flex justify-content-center">
                         <Tile imgPath={addAdmin} text={"Add Admins"} func={onManageAdminsClick}/>
                     </div>
-                    <div className="col-md-4 d-flex justify-content-center">
-                        <Tile imgPath={viewReports} text={"View and Download Reports"} func={onViewReportClick}/>
-                    </div>
+                    {/*<div className="col-md-4 d-flex justify-content-center">*/}
+                    {/*    <Tile imgPath={viewReports} text={"View and Download Reports"} func={onViewReportClick}/>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </>

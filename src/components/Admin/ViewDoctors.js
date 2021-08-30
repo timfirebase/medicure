@@ -36,7 +36,6 @@ const ViewDoctors = (props) => {
     const rows = [];
 
     let grid = '';
-
     if(props.doctors && props.doctors.length > 0) {
         const rows = [];
         props.doctors.map((doctor, index) => {
@@ -48,7 +47,7 @@ const ViewDoctors = (props) => {
 
     return (
         <>
-            <span className="h1 p-3 d-flex justify-content-center"> View Doctors </span>
+            <span className="h1 p-3 d-flex justify-content-center"> {props.heading}   </span>
             {grid}
         </>
     );

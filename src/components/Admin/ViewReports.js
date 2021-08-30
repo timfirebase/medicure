@@ -51,7 +51,7 @@ const rows = [
 const ManageAdmins = () => {
     return (
         <>
-            <span className="h1 p-3 d-flex justify-content-center"> Appointments </span>
+            <span className="h1 p-3 d-flex justify-content-center"> Reports </span>
             <Grid rows={rows} columns={columns} pageSize={"5"}/>
         </>
     );

@@ -10,6 +10,14 @@ export const GET_PATIENT_APPOINTMENTS_SUCCESS = 'GET_PATIENT_APPOINTMENTS_SUCCES
 export const GET_ALL_PATIENT_APPOINTMENTS_INIT = 'GET_ALL_PATIENT_APPOINTMENTS_INIT';
 export const GET_ALL_PATIENT_APPOINTMENTS_SUCCESS = 'GET_ALL_PATIENT_APPOINTMENTS_SUCCESS';
 
+export const UPDATE_DOC_GRID = 'UPDATE_DOC_GRID';
+
+export const updateDocGrid = (doc) => {
+    return {
+        type:UPDATE_DOC_GRID,
+        doc: doc
+    }
+}
 
 export const getDoctorsInit = () => {
     return {
