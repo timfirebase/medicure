@@ -19,16 +19,18 @@ export const getDocAppointmentsSuccess = (appointments) => {
 }
 
 
-export const createPrescFileInit = (prescription) => {
+export const createPrescFileInit = (prescription,appointmentId) => {
     return {
         type: CREATE_PRESC_FILE_INIT,
-        prescription: prescription
+        prescription: prescription,
+        appointmentId: appointmentId
     }
 }
 
-export const createPrescFileSuccess= (prescription) => {
+export const createPrescFileSuccess= (prescription,appointmentId) => {
     return {
-        type: CREATE_PRESC_FILE_INIT,
-        prescription: prescription
+        type: CREATE_PRESC_FILE_SUCCESS,
+        prescription: prescription,
+        appointmentId: appointmentId
     }
 }

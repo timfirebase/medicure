@@ -6,10 +6,10 @@ export const BOOK_APPOINTMENT_SUCCESS = 'BOOK_APPOINTMENT_SUCCESS';
 export const GET_PATIENTS_INIT = 'GET_PATIENTS_INIT';
 export const GET_PATIENTS_SUCCESS = 'GET_PATIENTS_SUCCESS';
 export const GET_PATIENT_APPOINTMENTS_INIT = 'GET_PATIENT_APPOINTMENTS_INIT';
-export const GET_PATIENT_APPOINTMENTS_SUCCESS = 'GET_PATIENT_APPOINTMENTS_SUCCESS';
+export const GET_PATIENT_APPOINTMENTS_SUCCESS = 'GET_PATIENT_APPOINTMENTS_SUCCESS'
+export const RESET_APPOINTMENT_BOOK_STATUS = 'RESET_APPOINTMENT_BOOK_STATUS';;
 export const GET_ALL_PATIENT_APPOINTMENTS_INIT = 'GET_ALL_PATIENT_APPOINTMENTS_INIT';
 export const GET_ALL_PATIENT_APPOINTMENTS_SUCCESS = 'GET_ALL_PATIENT_APPOINTMENTS_SUCCESS';
-
 export const UPDATE_DOC_GRID = 'UPDATE_DOC_GRID';
 
 export const updateDocGrid = (doc) => {
@@ -83,5 +83,11 @@ export const getAllPatientAppointmentsSuccess = (appointments) => {
     return {
         type:GET_ALL_PATIENT_APPOINTMENTS_SUCCESS,
         allAppointments: appointments
+    }
+}
+
+export const resetAppointmentBookStatus = () => {
+    return {
+        type:RESET_APPOINTMENT_BOOK_STATUS
     }
 }

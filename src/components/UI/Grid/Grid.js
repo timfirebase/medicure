@@ -11,8 +11,14 @@ const Grid = (props) => {
         );
     }
 
+    const classes = props.styles ? '' : 'container';
+    let styles =  {height: 400, width: '100%'};
+    if(props.styles) {
+        const propStyles = props.styles;
+        styles = {...propStyles , ...styles}
+    }
     return (
-        <div style={{ height: 400, width: '100%' }}  className="container">
+        <div style={styles}  className={classes}>
             <DataGrid
                 rows={props.rows}
                 columns={props.columns}
@@ -21,6 +27,8 @@ const Grid = (props) => {
                 components={{
                     Toolbar: downloadData,
                 }}
+                selectionModel={props.selectionModel}
+                onCellClick={props.cellClicked}
             />
         </div>
     );

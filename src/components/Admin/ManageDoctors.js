@@ -6,6 +6,11 @@ import {Link, useHistory} from "react-router-dom";
 import * as authActions from "../../store/actions/AuthActions";
 import {connect} from "react-redux";
 import * as PatientActions from "../../store/actions/PatientActions";
+import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import InputIcon from "react-multi-date-picker/components/input_icon";
+import "react-multi-date-picker/styles/layouts/mobile.css";
 
 const ManageDoctors = (props) => {
 
@@ -14,6 +19,7 @@ const ManageDoctors = (props) => {
     const [password,setPassword] = useState('');
     const [name,setName] = useState('');
     const [phone,setPhone] = useState('');
+    const [availability, setAvailability] = useState();
 
     const clearFormField = () => {
         setEmail('');
@@ -48,16 +54,41 @@ const ManageDoctors = (props) => {
                                     <Form.Label>Contact No.</Form.Label>
                                     <Form.Control type="number" required value={phone} onChange={(event)=>{setPhone(event.target.value)}}/>
                                 </Form.Group>
+                                <Form.Group id="availability">
+                                    <Form.Label>Availability</Form.Label>
+                                    <div>
+                                        <DatePicker
+                                            multiple
+                                            sort
+                                            className="rmdp-mobile"
+                                            render={<InputIcon/>}
+                                            minDate={new Date()}
+                                            value={availability}
+                                            onChange={setAvailability}
+                                            format="MMMM DD YYYY HH:mm A"
+                                            plugins={[
+                                                <TimePicker position="bottom" hideSeconds/>,
+                                                <DatePanel />
+                                            ]}
+                                        />
+                                    </div>
+                                </Form.Group>
                                 <Button className="w-100 mt-4" type={"submit"}
                                         onClick={(event) => {
                                             event.preventDefault();
                                             Swal.fire('Doctor Added!','','success');
+                                            const formattedDates = [];
+                                            availability.map(av => {
+                                                formattedDates.push(av.format("MMMM DD YYYY HH:mm A"));
+
+                                            });
                                             const doctor = {
                                                 name: name,
                                                 email: email,
                                                 password: password,
                                                 phone: phone,
-                                                role: "doctor"
+                                                role: "doctor",
+                                                availability:formattedDates
                                             };
                                             clearFormField();
                                             props.updateDoctors(doctor);

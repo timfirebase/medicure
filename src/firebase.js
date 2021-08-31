@@ -53,7 +53,6 @@ class Firebase {
                     const appointment = {...doc.data(),appointmentId: doc.id}
                     appointments.push(appointment);
                 });
-                console.log(appointments);
             })
         return appointments;
     }
@@ -71,12 +70,13 @@ class Firebase {
     }
 
 
-    storeFileInDB = async (file) => {
+    storeFileInDB = async (file,appointmentId) => {
         const storageRef = this.storage.ref();
-        const fileRef = storageRef.child(file.name);
-        await fileRef.put(file);
+        const fileRef = storageRef.child(appointmentId);
+        await fileRef.put(file,{contentType: 'application/pdf'});
         const filePath = await fileRef.getDownloadURL();
-        return fileRef;
+        await this.db.collection("appointments").doc(appointmentId).update("prescription", filePath);
+        return filePath;
     }
 
 }

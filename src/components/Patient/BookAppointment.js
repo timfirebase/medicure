@@ -3,6 +3,7 @@ import {Button, Card, Container, Form} from "react-bootstrap";
 import * as PatientActions from '../../store/actions/PatientActions';
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
+import Swal from "sweetalert2";
 
 const BookAppointment = (props) => {
     const history = useHistory();
@@ -17,7 +18,6 @@ const BookAppointment = (props) => {
     const onBookAppointmentClick = (event) => {
         event.preventDefault();
         if(props.patient) {
-
             const appointment = {
                 patientId: props.patient.id,
                 name: props.patient.name,
@@ -27,15 +27,26 @@ const BookAppointment = (props) => {
                 doctorId: doctor.id,
                 doctorName: doctor.name,
                 doctorEmail: doctor.email,
-                availability: availability
+                availability: availability,
+                status: 'active'
             };
-
             props.bookAppointment(doctor.id, appointment);
+            Swal.fire({
+                title: 'Please wait...',
+                html: '',
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                }
+            });
         }
     }
 
     if(props.isAppointmentBooked){
-        history.push('/viewAppointment');
+        Swal.close();
+        Swal.fire('Appointment Booked!','','success');
+        props.resetAppointmentBookStatus();
     }
 
     return(
@@ -65,7 +76,7 @@ const BookAppointment = (props) => {
                             <Form.Control as="select" onChange={(event)=>{setAvailability(event.target.value)}}>
                                 <option>Select availability time</option>
                                 {
-                                    doctor ? (
+                                    (doctor && doctor.availability) ? (
                                     doctor.availability.map((avlblty,index) => (
                                        <option key={index} value={avlblty}> {avlblty} </option>  ))
                                      ): ''
@@ -101,7 +112,8 @@ const mapDispatchToProps = dispatch => {
         getAllDoctors: () => dispatch(PatientActions.getDoctorsInit()),
         bookAppointment: (doctorId,appointment) => {
             dispatch(PatientActions.bookAppointmentInit(doctorId,appointment))
-        }
+        },
+        resetAppointmentBookStatus: () => dispatch(PatientActions.resetAppointmentBookStatus())
     }
 };
 

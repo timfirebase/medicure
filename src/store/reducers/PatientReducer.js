@@ -40,6 +40,11 @@ const PatientReducer = (state = initialState, action) => {
                 ...state,
                 doctors: [...state.doctors, action.doc]
             }
+        case actionTypes.RESET_APPOINTMENT_BOOK_STATUS:
+            return {
+                ...state,
+                appointmentBooked: false
+            }
         default:
             return state;
     }
