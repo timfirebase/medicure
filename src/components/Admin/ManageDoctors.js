@@ -31,7 +31,7 @@ const ManageDoctors = (props) => {
                     <Card className={"mt-4 mb-4"} style={{width:'50%', marginLeft:'1%'}}>
                         <Card.Body className="p-3">
                             <h2 className="text-center mb-4">Add a Doctor</h2>
-                            <Form>
+                            <Form autoComplete="off">
                                 <Form.Group id="name">
                                     <Form.Label>Name</Form.Label>
                                     <Form.Control type="text" required value={name} onChange={(event)=>{setName(event.target.value)}}/>
