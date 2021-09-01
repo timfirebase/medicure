@@ -12,7 +12,7 @@ const Grid = (props) => {
     }
 
     const classes = props.styles ? '' : 'container';
-    let styles =  {height: 400, width: '100%'};
+    let styles =  {height: 450, width: '100%'};
     if(props.styles) {
         const propStyles = props.styles;
         styles = {...propStyles , ...styles}

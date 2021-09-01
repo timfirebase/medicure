@@ -1,5 +1,5 @@
 import React from "react";
-import Tile from "../Tiles/Tile";
+import Tile from "../UI/Tiles/Tile";
 import viewDoctors from "../../assets/images/Doctor.png";
 import viewPatients from "../../assets/images/Patients.png";
 import manageProfile from "../../assets/images/manageProfile.png";

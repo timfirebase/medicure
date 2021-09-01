@@ -1,5 +1,5 @@
 import React from "react";
-import Tile from "../Tiles/Tile";
+import Tile from "../UI/Tiles/Tile";
 import manageWalletImg from "../../assets/images/manageWallet.png";
 import appointmentHistoryImg from "../../assets/images/appHistory.jpg";
 import manageProfileImg from "../../assets/images/manageProfile.png";
