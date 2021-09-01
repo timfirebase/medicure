@@ -1,7 +1,6 @@
 import firebase from '../../firebase';
 import { call, put } from 'redux-saga/effects';
 import * as AuthActions from '../actions/AuthActions';
-import {getAuth} from "firebase/empty-import";
 
 export function* registerUser(action) {
     const ref = yield call(firebase.createAccount,action.user.email,action.user.password);
@@ -11,9 +10,9 @@ export function* registerUser(action) {
 }
 
 export function* removeDoctor(action) {
-
-    yield call(firebase.removeDoc, action.user);
-
+    yield call(firebase.deleteUser, action.id, "user");
+    yield call(firebase.deleteAuthUser, action.user);
+    yield put(AuthActions.removeSuccess());
 }
 
 export function* login(action) {

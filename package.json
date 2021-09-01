@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^12.8.3",
     "bootstrap": "^5.1.0",
     "firebase": "^8.10.0",
+    "firebase-admin": "^9.11.1",
     "install": "^0.13.0",
     "jspdf": "^2.3.1",
     "mdbreact": "^5.1.0",

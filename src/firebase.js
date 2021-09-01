@@ -30,6 +30,8 @@ class Firebase {
 
     addUser = (id, user, collectionName) => this.db.collection(collectionName).doc(id).set(user);
 
+    deleteUser = (id,collectionName) => this.db.collection(collectionName).doc(id).delete();
+
     addAppointment = (id, appointment, collectionName) => this.db.collection(collectionName).add(appointment);
 
     getUser = (id,collectionName) => this.db.collection(collectionName).doc(id).get();
