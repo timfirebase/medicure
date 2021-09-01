@@ -47,7 +47,7 @@ const ViewDoctorAppointments = (props) => {
     }
 
     return (
-        <AppointmentGrid appointments={props.appointments} fileSave={props.fileSaved} onPrescribeClick={onPrescribeClick} role={props.doctor.role}/>
+        <AppointmentGrid appointments={props.appointments} fileSave={props.fileSaved} onPrescribeClick={onPrescribeClick} role={props.doctor? props.doctor.role : ""}/>
     );
 };
 

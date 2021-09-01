@@ -4,6 +4,7 @@ import * as PatientActions from '../../store/actions/PatientActions';
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 import Swal from "sweetalert2";
+import * as DoctorActions from "../../store/actions/DoctorActions";
 
 const BookAppointment = (props) => {
     const history = useHistory();
@@ -101,7 +102,7 @@ const BookAppointment = (props) => {
 
 const mapStateToProps = state => {
     return {
-        doctors: state.patientRdcr.doctors,
+        doctors: state.doctorRdcr.doctors,
         patient: state.authRdcr.user,
         isAppointmentBooked: state.patientRdcr.appointmentBooked
     };
@@ -109,7 +110,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getAllDoctors: () => dispatch(PatientActions.getDoctorsInit()),
+        getAllDoctors: () => dispatch(DoctorActions.getDoctorsInit()),
         bookAppointment: (doctorId,appointment) => {
             dispatch(PatientActions.bookAppointmentInit(doctorId,appointment))
         },

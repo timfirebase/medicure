@@ -1,7 +1,6 @@
 import * as actionTypes from '../actions/PatientActions';
 
 const initialState = {
-    doctors: [],
     patients: [],
     appointmentBooked: false,
     appointments:[],
@@ -10,11 +9,6 @@ const initialState = {
 
 const PatientReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.GET_DOCTORS_SUCCESS:
-            return {
-                ...state,
-                doctors: action.doctors,
-            };
         case actionTypes.GET_PATIENTS_SUCCESS:
             return {
                 ...state,
@@ -34,11 +28,6 @@ const PatientReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allAppointments: action.allAppointments
-            }
-        case actionTypes.UPDATE_DOC_GRID:
-            return {
-                ...state,
-                doctors: [...state.doctors, action.doc]
             }
         case actionTypes.RESET_APPOINTMENT_BOOK_STATUS:
             return {

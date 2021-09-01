@@ -6,13 +6,7 @@ export function* registerUser(action) {
     const ref = yield call(firebase.createAccount,action.user.email,action.user.password);
     action.user.id = ref.user.uid;
     yield call(firebase.addUser, ref.user.uid, action.user, "users");
-    yield put(AuthActions.registerSuccess());
-}
-
-export function* removeDoctor(action) {
-    yield call(firebase.deleteUser, action.id, "user");
-    yield call(firebase.deleteAuthUser, action.user);
-    yield put(AuthActions.removeSuccess());
+    yield put(AuthActions.registerSuccess(ref.user.uid));
 }
 
 export function* login(action) {

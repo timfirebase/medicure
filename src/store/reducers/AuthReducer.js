@@ -2,8 +2,8 @@ import * as actionTypes from '../actions/AuthActions';
 
 const initialState = {
     isRegistered: false,
-    isRemoved: false,
-    user: null
+    user: null,
+    id: ''
 };
 
 const AuthReducer = (state = initialState, action) => {
@@ -11,12 +11,8 @@ const AuthReducer = (state = initialState, action) => {
         case actionTypes.REGISTER_SUCCESS:
             return {
                 ...state,
-                isRegistered: true
-            }
-        case actionTypes.REMOVE_SUCCESS:
-            return {
-                ...state,
-                isRemoved: true
+                isRegistered: true,
+                id: action.id
             }
         case actionTypes.LOGIN_SUCCESS:
             return {

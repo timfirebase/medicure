@@ -30,7 +30,7 @@ class Firebase {
 
     addUser = (id, user, collectionName) => this.db.collection(collectionName).doc(id).set(user);
 
-    deleteUser = (id,collectionName) => this.db.collection(collectionName).doc(id).delete();
+    deleteUser = (id, collectionName) => this.db.collection(collectionName).doc(id).delete();
 
     addAppointment = (id, appointment, collectionName) => this.db.collection(collectionName).add(appointment);
 
@@ -82,12 +82,11 @@ class Firebase {
     }
 
     deleteAuthUser = async (user) => {
-        const secondaryApp = new Firebase('secondary');
+        let secondaryApp = new Firebase(user.id + Math.random());
         await secondaryApp.auth.signInWithEmailAndPassword(user.email, user.password)
               .then(() => {
-                secondaryApp.auth.currentUser.delete();
-                secondaryApp.auth.signOut();
-                // Then you can delete the user from db
+                  secondaryApp.auth.currentUser.delete();
+                  secondaryApp = null;
               })
     }
 }

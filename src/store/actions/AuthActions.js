@@ -1,7 +1,5 @@
 export const REGISTER_INIT = 'REGISTER_INIT';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REMOVE_INIT = 'REGISTER_INIT';
-export const REMOVE_SUCCESS = 'REGISTER_SUCCESS';
 export const LOGIN_INIT = 'LOGIN_INIT';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const ADMIN_INIT = 'ADMIN_INIT';
@@ -17,25 +15,12 @@ export const registerInit = (user) => {
     }
 }
 
-export const registerSuccess = () => {
+export const registerSuccess = (id) => {
     return {
-        type:REGISTER_SUCCESS
+        type:REGISTER_SUCCESS,
+        id: id
     }
 }
-
-export const removeInit = (user) => {
-    return {
-        type:REMOVE_INIT,
-        user: user
-    }
-}
-
-export const removeSuccess = () => {
-    return {
-        type:REMOVE_SUCCESS
-    }
-}
-
 
 export const loginInit = (user) => {
     return {

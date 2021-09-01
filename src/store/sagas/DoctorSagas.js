@@ -18,3 +18,21 @@ export function* createAndStorePrescriptionFile(action) {
     const filePath = yield call(firebase.storeFileInDB,doc.output('blob'),action.appointmentId);
     yield put(DoctorActions.createPrescFileSuccess(filePath,action.appointmentId));
 }
+
+export function* getDoctors() {
+    const doctors = yield call(firebase.getUsersByRole,"doctor");
+    yield put(DoctorActions.getDoctorsSuccess(doctors));
+}
+
+export function* registerDoc(action) {
+    const ref = yield call(firebase.createAccount,action.user.email,action.user.password);
+    action.user.id = ref.user.uid;
+    yield call(firebase.addUser, ref.user.uid, action.user, "users");
+    yield put(DoctorActions.registerDocSuccess(action.user));
+}
+
+export function* removeDoctor(action) {
+    yield call(firebase.deleteUser, action.user.id, "users");
+    yield call(firebase.deleteAuthUser, action.user);
+    yield put(DoctorActions.removeDoctorSuccess(action.user.id));
+}

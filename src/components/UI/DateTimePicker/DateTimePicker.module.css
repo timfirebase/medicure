@@ -1,0 +1,16 @@
+
+.style {
+    width: 100%;
+    box-sizing: border-box;
+    height: 26px
+}
+
+.customContainer {
+    width: 100%;
+}
+
+.customContainer .rmdp-input {
+    width: 100%;
+    box-sizing: border-box;
+    height: 26px;
+}

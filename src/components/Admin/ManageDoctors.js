@@ -1,16 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ViewDoctors from "./ViewDoctors";
 import {Button, Card, Container, Form, Row} from "react-bootstrap";
 import Swal from "sweetalert2";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import * as authActions from "../../store/actions/AuthActions";
 import {connect} from "react-redux";
 import * as PatientActions from "../../store/actions/PatientActions";
-import DatePicker from "react-multi-date-picker";
-import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import DatePanel from "react-multi-date-picker/plugins/date_panel";
-import InputIcon from "react-multi-date-picker/components/input_icon";
 import "react-multi-date-picker/styles/layouts/mobile.css";
+import DateTimePicker from "../UI/DateTimePicker/DateTimePicker";
+import * as DoctorActions from "../../store/actions/DoctorActions";
 
 const ManageDoctors = (props) => {
 
@@ -21,19 +19,60 @@ const ManageDoctors = (props) => {
     const [phone,setPhone] = useState('');
     const [availability, setAvailability] = useState();
 
+    const formattedDates = [];
+    const doctor = {
+        name: name,
+        email: email,
+        password: password,
+        phone: phone,
+        role: "doctor",
+        availability:formattedDates
+    };
+
+    useEffect(() => {
+        props.clearRegisteredStatus();
+        props.getAllDoctors();
+    },[]);
+
     const clearFormField = () => {
         setEmail('');
         setPassword('');
         setName('');
         setPhone('');
+        setAvailability('');
+    }
+
+    const onDeleteClick = (id) => {
+        const filteredDoctor = props.doctors.filter(doc => doc.id === id)[0];
+        Swal.fire({
+            title: 'Please wait...',
+            html: '',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        })
+        props.onDeleteDoctor(filteredDoctor);
+    }
+
+    if(props.isRegistered) {
+        Swal.close();
+        Swal.fire('Doctor Added!','','success');
+        props.clearRegisteredStatus();
+    }
+
+    if(props.isUserRemoved) {
+        Swal.close();
+        props.clearUserRemovedStatus();
+        Swal.fire('Doctor Deleted!','','success');
     }
 
     return (
         <>
-            <ViewDoctors heading="Manage Doctors"/>
-
+            <ViewDoctors heading="Manage Doctors" doctors={props.doctors} onDeleteClick={onDeleteClick}/>
             <Container className= "w-auto">
-                <Row>
+                <Row className={"d-flex justify-content-center pt-3 pb-3"}>
                     <Card className={"mt-4 mb-4"} style={{width:'50%', marginLeft:'1%'}}>
                         <Card.Body className="p-3">
                             <h2 className="text-center mb-4">Add a Doctor</h2>
@@ -57,74 +96,28 @@ const ManageDoctors = (props) => {
                                 <Form.Group id="availability">
                                     <Form.Label>Availability</Form.Label>
                                     <div>
-                                        <DatePicker
-                                            multiple
-                                            sort
-                                            className="rmdp-mobile"
-                                            render={<InputIcon/>}
-                                            minDate={new Date()}
-                                            value={availability}
-                                            onChange={setAvailability}
-                                            format="MMMM DD YYYY HH:mm A"
-                                            plugins={[
-                                                <TimePicker position="bottom" hideSeconds/>,
-                                                <DatePanel />
-                                            ]}
-                                        />
+                                        <DateTimePicker availability={availability} setAvailability={setAvailability}/>
                                     </div>
                                 </Form.Group>
                                 <Button className="w-100 mt-4" type={"submit"}
                                         onClick={(event) => {
                                             event.preventDefault();
-                                            Swal.fire('Doctor Added!','','success');
-                                            const formattedDates = [];
                                             availability.map(av => {
                                                 formattedDates.push(av.format("MMMM DD YYYY HH:mm A"));
-
                                             });
-                                            const doctor = {
-                                                name: name,
-                                                email: email,
-                                                password: password,
-                                                phone: phone,
-                                                role: "doctor",
-                                                availability:formattedDates
-                                            };
+                                            Swal.fire({
+                                                title: 'Please wait...',
+                                                html: '',
+                                                allowEscapeKey: false,
+                                                allowOutsideClick: false,
+                                                didOpen: () => {
+                                                    Swal.showLoading()
+                                                }
+                                            })
+                                            props.onAddDoctor(doctor);
                                             clearFormField();
-                                            props.updateDoctors(doctor);
-                                            props.onSubmit(doctor);
                                         }}>
                                     Add
-                                </Button>
-                            </Form>
-                        </Card.Body>
-                    </Card>
-
-                    <Card className={"mt-4 mb-4"} style={{width : '40%' ,marginLeft : '8%'}}>
-                        <Card.Body className="p-3">
-                            <h2 className="text-center mb-4">Remove a Doctor</h2>
-                            <Form>
-                                <Form.Group id="name">
-                                    <Form.Label>ID</Form.Label>
-                                    <Form.Control type="number" required onChange={(event)=>{setName(event.target.value)}}/>
-                                </Form.Group>
-                                <Button className="w-100 mt-4" type={"submit"}
-                                        onClick={(event) => {
-                                            event.preventDefault();
-                                            Swal.fire('Doctor Removed!','','success');
-                                            const doctor = {
-                                                name: name,
-                                                email: email,
-                                                password: password,
-                                                phone: phone,
-                                                role: "doctor"
-                                            };
-                                            clearFormField();
-                                            props.updateDoctors(doctor);
-                                            props.onSubmitRemove(doctor);
-                                        }
-                                        }>
-                                    Remove
                                 </Button>
                             </Form>
                         </Card.Body>
@@ -137,19 +130,20 @@ const ManageDoctors = (props) => {
 
 const mapStateToProps = state => {
     return {
-        isRegistered: state.authRdcr.isRegistered
+        isRegistered: state.doctorRdcr.isRegistered,
+        isUserRemoved: state.doctorRdcr.isUserRemoved,
+        doctors: state.doctorRdcr.doctors,
+        gotDoctors: state.doctorRdcr.gotDoctors
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSubmit: (doctor) => {
-            dispatch(authActions.registerInit(doctor))
-        },
-        onSubmitRemove: (doctor) => {
-            dispatch(authActions.removeInit(doctor))
-        },
-        updateDoctors: (doctor) => dispatch(PatientActions.updateDocGrid(doctor))
+        onAddDoctor: (doctor) => dispatch(DoctorActions.registerDocInit(doctor)),
+        onDeleteDoctor: (doctor) => dispatch(DoctorActions.removeDoctorInit(doctor)),
+        getAllDoctors: () => dispatch(DoctorActions.getDoctorsInit()),
+        clearRegisteredStatus: () => dispatch(DoctorActions.clearRegisteredStatus()),
+        clearUserRemovedStatus: () => dispatch(DoctorActions.clearUserRemovedStatus())
     }
 };
 
