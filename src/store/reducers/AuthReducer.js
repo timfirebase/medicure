@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/AuthActions';
 
 const initialState = {
     isRegistered: false,
+    isRemoved: false,
     user: null
 };
 
@@ -11,6 +12,11 @@ const AuthReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isRegistered: true
+            }
+        case actionTypes.REMOVE_SUCCESS:
+            return {
+                ...state,
+                isRemoved: true
             }
         case actionTypes.LOGIN_SUCCESS:
             return {
