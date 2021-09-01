@@ -111,7 +111,7 @@ const ManageDoctors = (props) => {
                                 <Button className="w-100 mt-4" type={"submit"}
                                         onClick={(event) => {
                                             event.preventDefault();
-                                            Swal.fire('Doctor Added!','','success');
+                                            Swal.fire('Doctor Removed!','','success');
                                             const doctor = {
                                                 name: name,
                                                 email: email,
@@ -121,7 +121,7 @@ const ManageDoctors = (props) => {
                                             };
                                             clearFormField();
                                             props.updateDoctors(doctor);
-                                            props.onSubmit(doctor);
+                                            props.onSubmitRemove(doctor);
                                         }
                                         }>
                                     Remove
@@ -145,6 +145,9 @@ const mapDispatchToProps = dispatch => {
     return {
         onSubmit: (doctor) => {
             dispatch(authActions.registerInit(doctor))
+        },
+        onSubmitRemove: (doctor) => {
+            dispatch(authActions.removeInit(doctor))
         },
         updateDoctors: (doctor) => dispatch(PatientActions.updateDocGrid(doctor))
     }
