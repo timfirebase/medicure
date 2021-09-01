@@ -38,29 +38,21 @@ const AdminHome = () => {
 
     return(
         <>
-            <div className="container">
+            <div className="container pt-5">
                 <div className="row">
-                    {/*<div className="col-md-4 d-flex justify-content-center">*/}
-                    {/*    <Tile imgPath={viewDoctors} text={"View Doctors"} func={onViewDoctorClick}/>*/}
-                    {/*</div>*/}
-                    <div className="col-md-4 d-flex justify-content-center">
+                    <div className="col-md-3 d-flex justify-content-center">
                         <Tile imgPath={viewPatients} text={"View Patients"} func={onViewPatientClick}/>
                     </div>
-                    <div className="col-md-4 d-flex justify-content-center">
+                    <div className="col-md-3 d-flex justify-content-center">
 
                         <Tile imgPath={manageProfile} text={"View Appointments"} func={onViewAppointmentClick}/>
                     </div>
-                    <div className="col-md-4 d-flex justify-content-center">
+                    <div className="col-md-3 d-flex justify-content-center">
                         <Tile imgPath={manageDocs} text={"Manage Doctors"} func={onManageDoctorsClick}/>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-4 d-flex justify-content-center">
-                        <Tile imgPath={addAdmin} text={"Add Admins"} func={onManageAdminsClick}/>
+                    <div className="col-md-3 d-flex justify-content-center">
+                        <Tile imgPath={addAdmin} text={"Manage Admins"} func={onManageAdminsClick}/>
                     </div>
-                    {/*<div className="col-md-4 d-flex justify-content-center">*/}
-                    {/*    <Tile imgPath={viewReports} text={"View and Download Reports"} func={onViewReportClick}/>*/}
-                    {/*</div>*/}
                 </div>
             </div>
         </>

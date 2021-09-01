@@ -9,6 +9,12 @@ import ManageAdmins from "../../components/Admin/ManageAdmins";
 import ViewReports from "../../components/Admin/ViewReports";
 import React from "react";
 
+const tiles = [
+    {path:'/viewPatient',heading:'View Patients'},
+    {path:'/viewAllAppointments',heading:'View Appointments'},
+    {path:'/manageDoctor',heading:'Manage Doctors'},
+    {path:'/manageAdmin',heading:'Manage Admins'},
+]
 
 export default [
     <Route path="/adminHome">
@@ -17,68 +23,32 @@ export default [
         </Layout>
     </Route>,
     <Route path="/viewDoctor">
-        <Layout tiles={[
-            {path:'/viewPatient',heading:'View Patients'},
-            {path:'/viewAllAppointments',heading:'View Appointments'},
-            {path:'/manageDoctor',heading:'Manage Doctors'},
-            {path:'/manageAdmin',heading:'Manage Admin'},
-            {path:'/viewReports',heading:'View Reports'}
-        ]}>
+        <Layout tiles={tiles}>
             <ViewDoctors/>
         </Layout>
     </Route>,
     <Route path="/viewPatient">
-        <Layout tiles={[
-            {path:'/viewDoctor',heading:'View Doctors'},
-            {path:'/viewAllAppointments',heading:'View Appointments'},
-            {path:'/manageDoctor',heading:'Manage Doctors'},
-            {path:'/manageAdmin',heading:'Manage Admin'},
-            {path:'/viewReports',heading:'View Reports'}
-        ]}>
+        <Layout tiles={tiles}>
             <ViewPatients/>
         </Layout>
     </Route>,
     <Route path="/viewAllAppointments">
-        <Layout tiles={[
-            {path:'/viewDoctor',heading:'View Doctors'},
-            {path:'/viewPatient',heading:'View Patients'},
-            {path:'/manageDoctor',heading:'Manage Doctors'},
-            {path:'/manageAdmin',heading:'Manage Admin'},
-            {path:'/viewReports',heading:'View Reports'}
-        ]}>
+        <Layout tiles={tiles}>
             <ViewAppointment/>
         </Layout>
     </Route>,
     <Route path="/manageDoctor">
-        <Layout tiles={[
-            {path:'/viewDoctor',heading:'View Doctors'},
-            {path:'/viewPatient',heading:'View Patients'},
-            {path:'/viewAllAppointments',heading:'View Appointments'},
-            {path:'/manageAdmin',heading:'Manage Admin'},
-            {path:'/viewReports',heading:'View Reports'}
-        ]}>
+        <Layout tiles={tiles}>
             <ManageDoctors/>
         </Layout>
     </Route>,
     <Route path="/manageAdmin">
-        <Layout tiles={[
-            {path:'/viewDoctor',heading:'View Doctors'},
-            {path:'/viewPatient',heading:'View Patients'},
-            {path:'/viewAllAppointments',heading:'View Appointments'},
-            {path:'/manageDoctor',heading:'Manage Doctors'},
-            {path:'/viewReports',heading:'View Reports'}
-        ]}>
+        <Layout tiles={tiles}>
             <ManageAdmins/>
         </Layout>
     </Route>,
     <Route path="/viewReports">
-        <Layout tiles={[
-            {path:'/viewDoctor',heading:'View Doctors'},
-            {path:'/viewPatient',heading:'View Patients'},
-            {path:'/viewAllAppointments',heading:'View Appointments'},
-            {path:'/manageDoctor',heading:'Manage Doctors'},
-            {path:'/manageAdmin',heading:'Manage Admin'}
-        ]}>
+        <Layout tiles={tiles}>
             <ViewReports/>
         </Layout>
     </Route>

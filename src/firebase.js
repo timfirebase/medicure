@@ -15,8 +15,8 @@ const firebaseConfig = {
 
 class Firebase {
 
-    constructor() {
-        app.initializeApp(firebaseConfig);
+    constructor(name) {
+        app.initializeApp(firebaseConfig,name);
         this.storage = app.storage();
         this.db = app.firestore();
         this.auth = app.auth();
@@ -79,6 +79,15 @@ class Firebase {
         return filePath;
     }
 
+    deleteAuthUser = async (user) => {
+        const secondaryApp = new Firebase('secondary');
+        await secondaryApp.auth.signInWithEmailAndPassword(user.email, user.password)
+              .then(() => {
+                secondaryApp.auth.currentUser.delete();
+                secondaryApp.auth.signOut();
+                // Then you can delete the user from db
+              })
+    }
 }
 
 const firebaseInstance = new Firebase();
