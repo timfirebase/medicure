@@ -3,7 +3,7 @@ import {Container, Nav, Navbar} from "react-bootstrap";
 
 const Footer = () => {
     return (
-        <div className="container pt-5">
+        <div className="container pt-5 mt-5">
             <Navbar expand="lg" bg="primary" variant="dark" className="fixed-bottom mt-5">
                 <Container className="justify-content-center">
                         <Nav>

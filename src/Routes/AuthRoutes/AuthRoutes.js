@@ -15,8 +15,12 @@ const sectionStyle = {
 export default [
     <Route path="/signup">
         <Layout sectionStyle={sectionStyle}>
-            <div style={{marginRight: "10%"}}>
-                <SignUp roleId={"patient"}/>
+            <div className="row" style={{marginRight: "10%"}}>
+                <div className="col-md-6">
+                </div>
+                <div className="col-md-6">
+                    <SignUp roleId={"patient"}/>
+                </div>
             </div>
         </Layout>
     </Route>,

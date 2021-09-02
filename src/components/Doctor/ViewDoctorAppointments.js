@@ -11,7 +11,6 @@ const ViewDoctorAppointments = (props) => {
     if(props.fileSaved.length > 0 || props.appointments) {
         Swal.close();
     }
-
     useEffect(()=>{
         if(props.doctor) {
             props.getDocAppointments(props.doctor.id);
