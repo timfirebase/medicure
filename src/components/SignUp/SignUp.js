@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import * as authActions from '../../store/actions/AuthActions';
 import {Link,useHistory} from "react-router-dom";
 import Swal from "sweetalert2";
+import UploadImage from "../UI/UploadImage/UploadImage";
 
 const SignUp = (props) => {
     const history = useHistory();
@@ -11,6 +12,11 @@ const SignUp = (props) => {
     const [password,setPassword] = useState();
     const [name,setName] = useState();
     const [phone,setPhone] = useState();
+    const [img,setImg] = useState();
+
+    const setProfileImg = (img) => {
+        setImg(img);
+    }
 
     if(props.isRegistered){
         Swal.close();
@@ -21,8 +27,11 @@ const SignUp = (props) => {
         <>
             <Container className= "w-auto float-end">
                 <Card>
+                    <Card.Header><h2 className="text-center mb-2 mt-2">Sign up!</h2></Card.Header>
                     <Card.Body className="p-3">
-                        <h2 className="text-center mb-4">Sign up!</h2>
+                        <div className="container">
+                             <UploadImage setProfileImg={setProfileImg}/>
+                        </div>
                         <Form>
                             <Form.Group id="name">
                                 <Form.Label>Name</Form.Label>
@@ -52,7 +61,7 @@ const SignUp = (props) => {
                                                 Swal.showLoading()
                                             }
                                         });
-                                        props.onSubmit(name,email,password,phone,props.roleId)}
+                                        props.onSubmit(name,email,password,phone,img,props.roleId)}
                                     }>
                                 Sign Up
                             </Button>
@@ -78,12 +87,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSubmit: (name,email,pswd,phone,role) => {
+        onSubmit: (name,email,pswd,phone,img,role) => {
             const user = {
                 name: name,
                 email: email,
                 password: pswd,
                 phone: phone,
+                img: img,
                 role: role
             };
             dispatch(authActions.registerInit(user))

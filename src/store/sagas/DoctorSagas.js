@@ -27,6 +27,8 @@ export function* getDoctors() {
 export function* registerDoc(action) {
     const ref = yield call(firebase.createAccount,action.user.email,action.user.password);
     action.user.id = ref.user.uid;
+    const imgPath = yield call(firebase.storeImgInDB,action.user.img);
+    action.user.img = imgPath;
     yield call(firebase.addUser, ref.user.uid, action.user, "users");
     yield put(DoctorActions.registerDocSuccess(action.user));
 }

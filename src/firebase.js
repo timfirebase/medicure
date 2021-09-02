@@ -89,6 +89,15 @@ class Firebase {
                   secondaryApp = null;
               })
     }
+
+    storeImgInDB = async (file) => {
+        const storageRef = this.storage.ref('images');
+        const fileRef = storageRef.child(file.name);
+        await fileRef.put(file);
+        const filePath = await fileRef.getDownloadURL();
+        return filePath;
+    }
+
 }
 
 const firebaseInstance = new Firebase();
