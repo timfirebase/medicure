@@ -5,8 +5,10 @@ import * as AuthActions from '../actions/AuthActions';
 export function* registerUser(action) {
     const ref = yield call(firebase.createAccount,action.user.email,action.user.password);
     action.user.id = ref.user.uid;
-    const imgPath = yield call(firebase.storeImgInDB,action.user.img);
-    action.user.img = imgPath;
+    if(action.user.img) {
+        const imgPath = yield call(firebase.storeImgInDB, action.user.img);
+        action.user.img = imgPath;
+    }
     yield call(firebase.addUser, ref.user.uid, action.user, "users");
     yield put(AuthActions.registerSuccess(ref.user.uid));
 }

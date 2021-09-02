@@ -20,7 +20,7 @@ const ManageDoctors = (props) => {
     const [name,setName] = useState('');
     const [phone,setPhone] = useState('');
     const [availability, setAvailability] = useState();
-    const [img,setImg] = useState();
+    const [img,setImg] = useState(null);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
