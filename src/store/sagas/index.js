@@ -1,5 +1,5 @@
 import * as AuthActions from '../actions/AuthActions';
-import {registerUser, login, addAdmin, logOut} from './AuthSagas';
+import {registerUser, login, addAdmin, logOut, removeAdmin, getAdmins} from './AuthSagas';
 import {
     bookAppointment,
     getAllPatientAppointments,
@@ -23,6 +23,8 @@ export function* watchAuth() {
         takeEvery(AuthActions.LOGIN_INIT,login),
         takeEvery(AuthActions.ADMIN_INIT,addAdmin),
         takeEvery(AuthActions.LOGOUT_INIT,logOut),
+        takeEvery(AuthActions.REMOVE_ADMIN_INIT,removeAdmin),
+        takeEvery(AuthActions.GET_ADMIN_INIT,getAdmins)
     ]);
 }
 

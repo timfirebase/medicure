@@ -1,6 +1,7 @@
 import firebase from '../../firebase';
 import { call, put } from 'redux-saga/effects';
 import * as AuthActions from '../actions/AuthActions';
+import * as DoctorActions from "../actions/DoctorActions";
 
 export function* registerUser(action) {
     const ref = yield call(firebase.createAccount,action.user.email,action.user.password);
@@ -27,6 +28,18 @@ export function* addAdmin(action) {
     action.user.id = ref.user.uid;
     yield call(firebase.addUser, ref.user.uid, action.user, "users");
     yield put(AuthActions.adminSuccess());
+}
+
+export function* getAdmins() {
+    debugger;
+    const admins = yield call(firebase.getUsersByRole,"admin");
+    yield put(AuthActions.getAdminSuccess(admins));
+}
+
+export function* removeAdmin(action) {
+    yield call(firebase.deleteUser, action.user.id, "users");
+    yield call(firebase.deleteAuthUser, action.user);
+    yield put(AuthActions.removeAdminSuccess(action.user.id));
 }
 
 export function* logOut() {

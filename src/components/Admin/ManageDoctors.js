@@ -7,8 +7,6 @@ import "react-multi-date-picker/styles/layouts/mobile.css";
 import DateTimePicker from "../UI/DateTimePicker/DateTimePicker";
 import * as DoctorActions from "../../store/actions/DoctorActions";
 import {Button, Card, Container, Form, Modal, Row} from "react-bootstrap";
-import { makeStyles } from '@material-ui/core/styles';
-import { withStyles } from '@material-ui/core/styles';
 import UploadImage from "../UI/UploadImage/UploadImage";
 
 
