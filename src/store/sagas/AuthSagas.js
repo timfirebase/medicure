@@ -31,7 +31,6 @@ export function* addAdmin(action) {
 }
 
 export function* getAdmins() {
-    debugger;
     const admins = yield call(firebase.getUsersByRole,"admin");
     yield put(AuthActions.getAdminSuccess(admins));
 }

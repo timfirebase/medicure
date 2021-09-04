@@ -11,6 +11,16 @@ export const CLEAR_DOC_REGISTERED_STATUS = 'CLEAR_DOC_REGISTERED_STATUS';
 export const REMOVE_DOC_INIT = 'REMOVE_DOC_INIT';
 export const REMOVE_DOC_SUCCESS = 'REMOVE_DOC_SUCCESS';
 export const CLEAR_USER_REMOVED_STATUS = 'CLEAR_USER_REMOVED_STATUS';
+export const UPDATE_DOC_BALANCE_INIT = 'UPDATE_DOC_BALANCE_INIT';
+export const UPDATE_DOC_BALANCE_SUCCESS = 'UPDATE_DOC_BALANCE_SUCCESS';
+export const CLEAR_BALANCE_WITHDRAW_STATUS = 'CLEAR_BALANCE_WITHDRAW_STATUS';
+export const DOCTOR_CANCEL_APPOINTMENT_INIT = 'DOCTOR_CANCEL_APPOINTMENT_INIT';
+export const DOCTOR_CANCEL_APPOINTMENT_SUCCESS = 'DOCTOR_CANCEL_APPOINTMENT_SUCCESS';
+export const RESET_DOCTOR_APPOINTMENT_CANCEL_STATUS = 'RESET_DOCTOR_APPOINTMENT_CANCEL_STATUS';
+export const RESCHDEULE_APPT_INIT = 'RESCHDEULE_APPT_INIT';
+export const RESCHDEULE_APPT_SUCCESS = 'RESCHDEULE_APPT_SUCCESS';
+export const RESET_DOCTOR_APPOINTMENT_RESCHEDULE_STATUS = 'RESET_DOCTOR_APPOINTMENT_RESCHEDULE_STATUS';
+
 
 export const getDocAppointmentsInit = (docId) => {
     return {
@@ -103,5 +113,70 @@ export const removeDoctorSuccess = (id) => {
 export const clearUserRemovedStatus = () => {
     return {
         type:CLEAR_USER_REMOVED_STATUS
+    }
+}
+
+export const updateDoctorBalanceInit = (doctor) => {
+    return {
+        type:UPDATE_DOC_BALANCE_INIT,
+        doctor:doctor
+    }
+}
+
+export const updateDoctorBalanceSuccess = (doctor) => {
+    return {
+        type:UPDATE_DOC_BALANCE_SUCCESS,
+        doctor:doctor
+    }
+}
+
+export const clearBalanceWithdrawStatus = () => {
+    return {
+        type:CLEAR_BALANCE_WITHDRAW_STATUS
+    }
+}
+
+export const cancelDoctorAppointmentInit = (appointmentId,status) => {
+    return {
+        type:DOCTOR_CANCEL_APPOINTMENT_INIT,
+        appointmentId:appointmentId,
+        status: status
+    }
+}
+
+export const cancelDoctorAppointmentSuccess = (appointmentId,status) => {
+    return {
+        type:DOCTOR_CANCEL_APPOINTMENT_SUCCESS,
+        appointmentId:appointmentId,
+        status: status
+    }
+}
+
+export const resetAppointmentCancelStatus = () => {
+    return {
+        type:RESET_DOCTOR_APPOINTMENT_CANCEL_STATUS
+    }
+}
+
+
+export const rescheduleAppointmentInit = (availability,appointmentId) => {
+    return {
+        type: RESCHDEULE_APPT_INIT,
+        availability: availability,
+        appointmentId: appointmentId
+    }
+}
+
+export const rescheduleAppointmentSuccess = (availability,appointmentId) => {
+    return {
+        type: RESCHDEULE_APPT_SUCCESS,
+        availability: availability,
+        appointmentId: appointmentId
+    }
+}
+
+export const resetAppointmentRescheduleStatus = () => {
+    return {
+        type:RESET_DOCTOR_APPOINTMENT_RESCHEDULE_STATUS
     }
 }

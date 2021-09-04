@@ -79,6 +79,20 @@ const AppointmentGrid = (props) => {
                 }
             },
             {
+                field: 'doctorName',
+                headerName: 'Doctor Name',
+                headerAlign: 'center',
+                sortable: false,
+                width: 150,
+                renderCell: (cellValues) => {
+                    return (
+                        <span style={rowStyle} >
+                            {cellValues.value}
+                        </span>
+                    );
+                }
+            },
+            {
                 field: 'availability',
                 headerName: 'Doctor Availability',
                 headerAlign: 'center',
@@ -121,7 +135,7 @@ const AppointmentGrid = (props) => {
                                         variant="contained"
                                         color="primary"
                                         size="small"
-                                        style={{alignItems: "center"}}
+                                        style={{alignItems: "center", cursor: "pointer"}}
                                         onClick={() => window.open(filteredAppointment.prescription, '_blank', 'noopener,noreferrer')}
                                     >
                                         View Prescription
@@ -129,14 +143,14 @@ const AppointmentGrid = (props) => {
                                 </strong>
                             );
                         } else {
-                            if("doctor" === props.role) {
+                            if("doctor" === props.role && "active" === filteredAppointment.status) {
                                 return(
                                     <strong style={rowStyle}>
                                         <Button
                                             variant="contained"
                                             color="secondary"
                                             size="small"
-                                            style={{alignItems: "center"}}
+                                            style={{alignItems: "center", cursor: "pointer"}}
                                             onClick={() => props.onPrescribeClick(params.value)}
                                         >
                                             Prescribe
@@ -157,11 +171,70 @@ const AppointmentGrid = (props) => {
                 headerAlign: 'center',
                 width: 150,
                 renderCell: (cellValues) => {
-                    return (
-                        <span style={rowStyle} >
+                    const status = cellValues.value;
+                    if("active" === status) {
+                        return (
+                            <span style={rowStyle} className="bg-success text-white">
                             {cellValues.value}
-                        </span>
-                    );
+                             </span>
+                        );
+                    } else {
+                        return (
+                            <span style={rowStyle} className="bg-danger text-white">
+                            {cellValues.value}
+                            </span>
+                        );
+                    }
+                }
+            },
+            {
+                field: 'action',
+                headerName: 'Action',
+                headerAlign: 'center',
+                hide: (props.role && "admin" === props.role) ? true : false ,
+                sortable: false,
+                width: 200,
+                renderCell: (cellValues) => {
+                    if(props.appointments) {
+                        const filteredAppointment = props.appointments.filter(appt => appt.appointmentId === cellValues.value)[0];
+                        if("active" === filteredAppointment.status) {
+                            return (
+                                <div style={rowStyle}>
+                                    <span>
+                                        <Button
+                                              variant="contained"
+                                              color="secondary"
+                                              size="small"
+                                              style={{alignItems: "center", cursor: "pointer", marginRight:"2px"}}
+                                              onClick={() => props.onCancelClick(cellValues.value)}
+                                          >
+                                          Cancel
+                                        </Button>
+                                     </span>
+                                    {
+                                        "doctor" === props.role ? (
+                                            <span>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    size="small"
+                                                    style={{alignItems: "center", cursor: "pointer"}}
+                                                    onClick={() => props.onRescheduleClick(cellValues.value)}
+                                                >
+                                                    Reschedule
+                                                </Button>
+                                            </span>
+                                        ) : ''
+
+                                    }
+                                </div>
+                            );
+                        } else {
+                            return (
+                                <span style={rowStyle}>N/A</span>
+                            );
+                        }
+                    }
                 }
             }
         ];
@@ -173,12 +246,12 @@ const AppointmentGrid = (props) => {
         const rows = [];
         props.appointments.map((appointment, index) => {
             const row = {
-                id: index+1, patientName: appointment.name,symptoms: appointment.symptoms, patientPhone: appointment.phone,
-                availability: appointment.availability,patientEmail: appointment.email, prescription:appointment.appointmentId, status: appointment.status
+                id: index+1, patientName: appointment.name,symptoms: appointment.symptoms, patientPhone: appointment.phone, doctorName: appointment. doctorName,
+                availability: appointment.availability,patientEmail: appointment.email, prescription:appointment.appointmentId, status: appointment.status, action:appointment.appointmentId
             };
             rows.push(row);
         });
-        grid =  <Grid rows={rows} columns={columns} pageSize={parseInt("5")} selectionModel={props.fileSaved} cellClicked={handleCellClick} styles={{paddingLeft: '15%', paddingRight: '10%'}}/>;
+        grid =  <Grid rows={rows} columns={columns} pageSize={parseInt("8")} selectionModel={props.fileSaved} cellClicked={handleCellClick} styles={{paddingLeft: '3%', paddingRight: '3%'}}/>;
     }
 
     return (

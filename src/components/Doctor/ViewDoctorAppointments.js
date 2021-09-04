@@ -1,12 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
-import Grid from "../UI/Grid/Grid";
 import * as DoctorActions from "../../store/actions/DoctorActions";
 import {connect} from "react-redux";
-import {Button} from "@material-ui/core";
 import Swal from "sweetalert2";
 import AppointmentGrid from "../UI/Grid/AppointmentGrid";
+import withReactContent from "sweetalert2-react-content";
 
 const ViewDoctorAppointments = (props) => {
+
+    const MySwal = withReactContent(Swal);
 
     if(props.fileSaved.length > 0 || props.appointments) {
         Swal.close();
@@ -24,6 +25,8 @@ const ViewDoctorAppointments = (props) => {
                 }
             });
         }
+        props.resetAppointmentRescheduleStatus();
+        props.resetAppointmentCancelStatus();
     },[]);
 
     const onPrescribeClick = (appointmentId) => {
@@ -45,8 +48,70 @@ const ViewDoctorAppointments = (props) => {
         });
     }
 
+    const onCancelClick = (appointmentId) => {
+        Swal.fire({
+            title: 'Please wait...',
+            html: '',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
+        props.onCancelAppointment(appointmentId,"cancelled");
+    }
+
+    if(props.appointmentCancelled) {
+        Swal.close();
+        Swal.fire('Appointment Cancelled!','','success');
+    }
+
+    const onRescheduleClick = (appointmentId) => {
+        const SelectData = () => {
+            return(
+                <select name="availability" id="doctorAvailability">
+                    <option>Select availability time</option>
+                    {
+                        (props.doctor && props.doctor.availability) ? (
+                            props.doctor.availability.map((avlblty,index) => (
+                                <option key={index} value={avlblty}> {avlblty} </option>)
+                            )
+                        ): ''
+                    }
+                </select>
+            );
+        }
+        MySwal.fire({
+            showCancelButton:true,
+            html:<SelectData/>,
+            preConfirm:function(){
+                props.onRescheduleClick(document.getElementById('doctorAvailability').value,appointmentId);
+                Swal.fire({
+                    title: 'Please wait...',
+                    html: '',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                });
+            }
+        });
+    }
+
+    if(props.isRescheduled) {
+        Swal.close();
+        Swal.fire('Appointment Rescheduled!','','success');
+    }
+
     return (
-        <AppointmentGrid appointments={props.appointments} fileSave={props.fileSaved} onPrescribeClick={onPrescribeClick} role={props.doctor? props.doctor.role : ""}/>
+        <AppointmentGrid appointments={props.appointments}
+                         fileSave={props.fileSaved}
+                         onPrescribeClick={onPrescribeClick}
+                         role={props.doctor? props.doctor.role : ""}
+                         onCancelClick={onCancelClick}
+                         onRescheduleClick = {onRescheduleClick}
+        />
     );
 };
 
@@ -55,14 +120,20 @@ const mapStateToProps = state => {
     return {
         appointments : state.doctorRdcr.doctorAppointments,
         doctor: state.authRdcr.user,
-        fileSaved: state.doctorRdcr.fileSaved
+        fileSaved: state.doctorRdcr.fileSaved,
+        appointmentCancelled : state.doctorRdcr.appointmentCancelled,
+        isRescheduled: state.doctorRdcr.isRescheduled
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getDocAppointments: (docId) => dispatch(DoctorActions.getDocAppointmentsInit(docId)),
-        createAndStorePresc: (presc,appointmentId) => dispatch(DoctorActions.createPrescFileInit(presc,appointmentId))
+        createAndStorePresc: (presc,appointmentId) => dispatch(DoctorActions.createPrescFileInit(presc,appointmentId)),
+        onCancelAppointment: (appointmentId,status) => dispatch(DoctorActions.cancelDoctorAppointmentInit(appointmentId,status)),
+        resetAppointmentCancelStatus: () => dispatch(DoctorActions.resetAppointmentCancelStatus()),
+        onRescheduleClick: (date,appointmentId) => dispatch(DoctorActions.rescheduleAppointmentInit(date,appointmentId)),
+        resetAppointmentRescheduleStatus: () => dispatch(DoctorActions.resetAppointmentRescheduleStatus())
     }
 };
 

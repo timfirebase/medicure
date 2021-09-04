@@ -9,7 +9,7 @@ const DoctorHome = () => {
     const history = useHistory();
 
     const onManageWalletClick =  () => {
-        history.push('/bookAppointment');
+        history.push('/ManageWallet');
     }
 
     const onViewAppointmentClick =  () => {
@@ -17,7 +17,7 @@ const DoctorHome = () => {
     }
 
     const onManageProfileClick =  () => {
-        alert('clicked');
+        history.push('/ManageWallet');
     }
 
     return(

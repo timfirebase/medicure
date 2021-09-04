@@ -4,8 +4,22 @@ const initialState = {
     patients: [],
     appointmentBooked: false,
     appointments:[],
-    allAppointments:[]
+    allAppointments:[],
+    appointmentCancelled: false
 };
+
+const onCancelAppointment = (state,action) => {
+    const filteredAppointmentIndx = state.appointments.findIndex(appt => appt.appointmentId === action.appointmentId);
+    const filteredAppointment = state.appointments[filteredAppointmentIndx];
+    filteredAppointment.status = action.status;
+    const updatedAppointments = [...state.appointments];
+    updatedAppointments[filteredAppointmentIndx] = filteredAppointment;
+    return {
+        ...state,
+        appointmentCancelled: true,
+        appointments: updatedAppointments
+    }
+}
 
 const PatientReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -33,6 +47,13 @@ const PatientReducer = (state = initialState, action) => {
             return {
                 ...state,
                 appointmentBooked: false
+            }
+        case actionTypes.PATIENT_CANCEL_APPOINTMENT_SUCCESS:
+            return onCancelAppointment(state,action);
+        case actionTypes.RESET_PATIENT_APPOINTMENT_CANCEL_STATUS:
+            return {
+                ...state,
+                appointmentCancelled: false
             }
         default:
             return state;

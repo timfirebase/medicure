@@ -1,7 +1,9 @@
 import {call, put} from "redux-saga/effects";
 import firebase from "../../firebase";
 import * as DoctorActions from "../actions/DoctorActions";
+import * as AuthActions from "../actions/AuthActions";
 import jsPDF from "jspdf";
+import * as PatientActions from "../actions/PatientActions";
 
 export function* getDoctorAppointments(action) {
     const appointments = yield call(firebase.getAppointmentsById,"doctorId",action.doctorId);
@@ -39,4 +41,20 @@ export function* removeDoctor(action) {
     yield call(firebase.deleteUser, action.user.id, "users");
     yield call(firebase.deleteAuthUser, action.user);
     yield put(DoctorActions.removeDoctorSuccess(action.user.id));
+}
+
+export function* updateTotalBalance(action) {
+    yield call(firebase.updateDoctorBalance,action.doctor.id,action.doctor.totalBalance);
+    yield put(DoctorActions.updateDoctorBalanceSuccess(action.doctor));
+    yield put(AuthActions.updateUser(action.doctor));
+}
+
+export function* cancelDoctorAppointment(action) {
+    yield call(firebase.updateAppointmentStatus,action.appointmentId,action.status);
+    yield put(DoctorActions.cancelDoctorAppointmentSuccess(action.appointmentId,action.status));
+}
+
+export function* rescheduleAppointment(action) {
+    yield call(firebase.updateAppointmentSchedule,action.appointmentId,action.availability);
+    yield put(DoctorActions.rescheduleAppointmentSuccess(action.availability,action.appointmentId));
 }

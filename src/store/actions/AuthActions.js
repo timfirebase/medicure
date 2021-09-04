@@ -12,6 +12,8 @@ export const LOGOUT_INIT = 'LOGOUT_INIT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const CLEAR_REGISTERED_STATUS = 'CLEAR_REGISTERED_STATUS';
 export const CLEAR_USER_REMOVED_STATUS= 'CLEAR_USER_REMOVED_STATUS';
+export const UPDATE_USER = 'UPDATE_USER';
+
 
 export const registerInit = (user) => {
     return {
@@ -100,5 +102,12 @@ export const clearRegisteredStatus = () => {
 export const clearUserRemovedStatus = () => {
     return {
         type:CLEAR_USER_REMOVED_STATUS
+    }
+}
+
+export const updateUser = (user) => {
+    return {
+        type:UPDATE_USER,
+        user: user
     }
 }

@@ -1,4 +1,5 @@
 import * as DoctorActions from "../actions/DoctorActions";
+import * as actionTypes from "../actions/PatientActions";
 
 const initialState = {
     doctorAppointments: [],
@@ -6,7 +7,10 @@ const initialState = {
     doctors: [],
     gotDoctors: false,
     isRegistered: false,
-    isUserRemoved: false
+    isUserRemoved: false,
+    isWithdrawSuccess: false,
+    appointmentCancelled: false,
+    isRescheduled: false
 }
 
 const onDeleteDoctor = (state,action) => {
@@ -29,6 +33,32 @@ const updatePrescPath = (state,action) => {
     return {
         ...state,
         fileSaved: [1],
+        doctorAppointments: updatedAppointments
+    }
+}
+
+const updateAppointmentAvailability = (state,action) => {
+    const filteredAppointmentIdx = state.doctorAppointments.findIndex(appt => appt.appointmentId === action.appointmentId);
+    const filteredAppointment = state.doctorAppointments[filteredAppointmentIdx];
+    filteredAppointment.availability = action.availability;
+    const updatedAppointments = [...state.doctorAppointments];
+    updatedAppointments[filteredAppointmentIdx] = filteredAppointment;
+    return {
+        ...state,
+        isRescheduled: true,
+        doctorAppointments: updatedAppointments
+    }
+}
+
+const onCancelDoctorAppointment = (state,action) => {
+    const filteredAppointmentIndx = state.doctorAppointments.findIndex(appt => appt.appointmentId === action.appointmentId);
+    const filteredAppointment = state.doctorAppointments[filteredAppointmentIndx];
+    filteredAppointment.status = action.status;
+    const updatedAppointments = [...state.doctorAppointments];
+    updatedAppointments[filteredAppointmentIndx] = filteredAppointment;
+    return {
+        ...state,
+        appointmentCancelled: true,
         doctorAppointments: updatedAppointments
     }
 }
@@ -70,6 +100,30 @@ const DoctorReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isUserRemoved: false
+            }
+        case DoctorActions.UPDATE_DOC_BALANCE_SUCCESS:
+            return {
+                ...state,
+                isWithdrawSuccess: true
+            }
+        case DoctorActions.CLEAR_BALANCE_WITHDRAW_STATUS:
+            return {
+                ...state,
+                isWithdrawSuccess: false
+            }
+        case DoctorActions.DOCTOR_CANCEL_APPOINTMENT_SUCCESS:
+            return onCancelDoctorAppointment(state,action);
+        case DoctorActions.RESET_DOCTOR_APPOINTMENT_CANCEL_STATUS:
+            return {
+                ...state,
+                appointmentCancelled: false
+            }
+        case DoctorActions.RESCHDEULE_APPT_SUCCESS:
+            return updateAppointmentAvailability(state,action);
+        case DoctorActions.RESET_DOCTOR_APPOINTMENT_RESCHEDULE_STATUS:
+            return {
+                ...state,
+                isRescheduled: false
             }
         default:
             return state;

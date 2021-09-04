@@ -5,11 +5,8 @@ import * as authActions from '../../store/actions/AuthActions';
 import Swal from "sweetalert2";
 import ViewAdmins from "./ViewAdmins";
 import UploadImage from "../UI/UploadImage/UploadImage";
-import DateTimePicker from "../UI/DateTimePicker/DateTimePicker";
 
 const ManageAdmins = (props) => {
-
-    console.log(props.admins);
 
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();

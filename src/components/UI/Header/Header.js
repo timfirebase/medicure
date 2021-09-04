@@ -62,7 +62,7 @@ const Header = (props) => {
                         props.user ? (
                         <Nav className="align-items-center">
                             <Nav.Link>
-                                <img src={props.user.img || placeholder} alt={"img"} className="rounded-circle img-fluid" style={{width:'82px', height:'68px',marginRight:'10px'}}/>
+                                <img src={props.user.img || placeholder} alt={"img"} className="rounded-circle img-fluid" style={{width:'75px', height:'68px',marginRight:'10px'}}/>
                                 <span className="text-white h5" style={{fontSize:'0.9rem'}}>{props.user.name} ({props.user.role})</span>
                             </Nav.Link>
                             <Nav.Link onClick={props.onLogout} href="#">

@@ -1,7 +1,7 @@
 import * as AuthActions from '../actions/AuthActions';
 import {registerUser, login, addAdmin, logOut, removeAdmin, getAdmins} from './AuthSagas';
 import {
-    bookAppointment,
+    bookAppointment, cancelPatientAppointment,
     getAllPatientAppointments,
     getPatientAppointments,
     viewPatients
@@ -10,11 +10,12 @@ import { takeEvery, all } from "redux-saga/effects";
 import * as PatientActions from '../actions/PatientActions';
 import * as DoctorActions from '../actions/DoctorActions';
 import {
+    cancelDoctorAppointment,
     createAndStorePrescriptionFile,
     getDoctorAppointments,
     getDoctors,
     registerDoc,
-    removeDoctor
+    removeDoctor, rescheduleAppointment, updateTotalBalance
 } from "./DoctorSagas";
 
 export function* watchAuth() {
@@ -33,7 +34,8 @@ export function* watchPatients() {
         takeEvery(PatientActions.GET_PATIENTS_INIT,viewPatients),
         takeEvery(PatientActions.BOOK_APPOINTMENT_INIT,bookAppointment),
         takeEvery(PatientActions.GET_PATIENT_APPOINTMENTS_INIT,getPatientAppointments),
-        takeEvery(PatientActions.GET_ALL_PATIENT_APPOINTMENTS_INIT,getAllPatientAppointments)
+        takeEvery(PatientActions.GET_ALL_PATIENT_APPOINTMENTS_INIT,getAllPatientAppointments),
+        takeEvery(PatientActions.PATIENT_CANCEL_APPOINTMENT_INIT,cancelPatientAppointment)
     ]);
 }
 
@@ -44,5 +46,8 @@ export function* watchDoctors() {
         takeEvery(DoctorActions.GET_DOCTORS_INIT,getDoctors),
         takeEvery(DoctorActions.REGISTER_DOC_INIT,registerDoc),
         takeEvery(DoctorActions.REMOVE_DOC_INIT,removeDoctor),
+        takeEvery(DoctorActions.UPDATE_DOC_BALANCE_INIT,updateTotalBalance),
+        takeEvery(DoctorActions.DOCTOR_CANCEL_APPOINTMENT_INIT,cancelDoctorAppointment),
+        takeEvery(DoctorActions.RESCHDEULE_APPT_INIT,rescheduleAppointment)
     ]);
 }

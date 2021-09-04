@@ -18,6 +18,7 @@ const ManageDoctors = (props) => {
     const [name,setName] = useState('');
     const [phone,setPhone] = useState('');
     const [availability, setAvailability] = useState();
+    const [docFee, setDocFee] = useState();
     const [img,setImg] = useState(null);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -31,7 +32,9 @@ const ManageDoctors = (props) => {
         phone: phone,
         role: "doctor",
         availability:formattedDates,
-        img: img
+        img: img,
+        fee: docFee,
+        totalBalance: 0
     };
 
     useEffect(() => {
@@ -111,6 +114,10 @@ const ManageDoctors = (props) => {
                                     <Form.Group id="phone">
                                         <Form.Label>Contact No.</Form.Label>
                                         <Form.Control type="number" required value={phone} onChange={(event)=>{setPhone(event.target.value)}}/>
+                                    </Form.Group>
+                                    <Form.Group id="fee">
+                                        <Form.Label>Fee</Form.Label>
+                                        <Form.Control type="number" required value={docFee} onChange={(event)=>{setDocFee(event.target.value)}}/>
                                     </Form.Group>
                                     <Form.Group id="availability">
                                         <Form.Label>Availability</Form.Label>

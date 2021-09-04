@@ -7,12 +7,14 @@ export const GET_PATIENT_APPOINTMENTS_SUCCESS = 'GET_PATIENT_APPOINTMENTS_SUCCES
 export const RESET_APPOINTMENT_BOOK_STATUS = 'RESET_APPOINTMENT_BOOK_STATUS';
 export const GET_ALL_PATIENT_APPOINTMENTS_INIT = 'GET_ALL_PATIENT_APPOINTMENTS_INIT';
 export const GET_ALL_PATIENT_APPOINTMENTS_SUCCESS = 'GET_ALL_PATIENT_APPOINTMENTS_SUCCESS';
+export const PATIENT_CANCEL_APPOINTMENT_INIT = 'PATIENT_CANCEL_APPOINTMENT_INIT';
+export const PATIENT_CANCEL_APPOINTMENT_SUCCESS = 'PATIENT_CANCEL_APPOINTMENT_SUCCESS';
+export const RESET_PATIENT_APPOINTMENT_CANCEL_STATUS = 'RESET_PATIENT_APPOINTMENT_CANCEL_STATUS';
 
 
-export const bookAppointmentInit = (doctor,appointment) => {
+export const bookAppointmentInit = (appointment) => {
     return {
         type:BOOK_APPOINTMENT_INIT,
-        doctor: doctor,
         appointment: appointment
     }
 }
@@ -66,5 +68,27 @@ export const getAllPatientAppointmentsSuccess = (appointments) => {
 export const resetAppointmentBookStatus = () => {
     return {
         type:RESET_APPOINTMENT_BOOK_STATUS
+    }
+}
+
+export const cancelPatientAppointmentInit = (appointmentId,status) => {
+    return {
+        type:PATIENT_CANCEL_APPOINTMENT_INIT,
+        appointmentId:appointmentId,
+        status: status
+    }
+}
+
+export const cancelPatientAppointmentSuccess = (appointmentId,status) => {
+    return {
+        type:PATIENT_CANCEL_APPOINTMENT_SUCCESS,
+        appointmentId:appointmentId,
+        status: status
+    }
+}
+
+export const resetAppointmentCancelStatus = () => {
+    return {
+        type:RESET_PATIENT_APPOINTMENT_CANCEL_STATUS
     }
 }

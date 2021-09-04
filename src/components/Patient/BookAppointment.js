@@ -5,6 +5,8 @@ import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 import Swal from "sweetalert2";
 import * as DoctorActions from "../../store/actions/DoctorActions";
+import StripePayment from "../UI/StripePayment/StripePayment";
+import logo from '../../assets/images/logo.png';
 
 const BookAppointment = (props) => {
     const history = useHistory();
@@ -16,9 +18,14 @@ const BookAppointment = (props) => {
         props.getAllDoctors();
     },[]);
 
-    const onBookAppointmentClick = (event) => {
-        event.preventDefault();
-        if(props.patient) {
+    const clearFormField = () => {
+        setDoctor('');
+        setAvailability('');
+        setSymptoms('');
+    }
+
+    const onBookAppointmentClick = (token) => {
+        if(props.patient && token) {
             const appointment = {
                 patientId: props.patient.id,
                 name: props.patient.name,
@@ -29,9 +36,10 @@ const BookAppointment = (props) => {
                 doctorName: doctor.name,
                 doctorEmail: doctor.email,
                 availability: availability,
+                doctorTotalBalance: parseInt(doctor.totalBalance) + parseInt(doctor.fee),
                 status: 'active'
             };
-            props.bookAppointment(doctor.id, appointment);
+            props.bookAppointment(appointment);
             Swal.fire({
                 title: 'Please wait...',
                 html: '',
@@ -88,12 +96,16 @@ const BookAppointment = (props) => {
                             <Form.Label className="h6">Symptoms</Form.Label>
                             <Form.Control as="textarea" rows={3}  onChange={(event)=>{setSymptoms(event.target.value)}}/>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <Button className="w-100" type={"submit"} onClick={onBookAppointmentClick}>
-                                Book
-                            </Button>
-                        </Form.Group>
                     </Form>
+                    <StripePayment label={"Book Now"}
+                                   name={"Medicure"}
+                                   desc={"Fee"}
+                                   panelLabel={"Pay Now"}
+                                   img={logo} price={doctor ? doctor.fee : 100}
+                                   onPaymentSubmit={onBookAppointmentClick}
+                                   publishableKey={process.env.REACT_APP_PUBLISHABLE_KEY}
+                                   btnStyle={"w-100 bg-primary border-primary p-2"}
+                    />
                 </Card.Body>
             </Card>
         </Container>
@@ -111,8 +123,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getAllDoctors: () => dispatch(DoctorActions.getDoctorsInit()),
-        bookAppointment: (doctorId,appointment) => {
-            dispatch(PatientActions.bookAppointmentInit(doctorId,appointment))
+        bookAppointment: (appointment) => {
+            dispatch(PatientActions.bookAppointmentInit(appointment))
         },
         resetAppointmentBookStatus: () => dispatch(PatientActions.resetAppointmentBookStatus())
     }
