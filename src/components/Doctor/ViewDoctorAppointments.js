@@ -4,8 +4,10 @@ import {connect} from "react-redux";
 import Swal from "sweetalert2";
 import AppointmentGrid from "../UI/Grid/AppointmentGrid";
 import withReactContent from "sweetalert2-react-content";
+import sendEmail from "../../emailSender";
 
 const ViewDoctorAppointments = (props) => {
+
 
     const MySwal = withReactContent(Swal);
 
@@ -42,10 +44,18 @@ const ViewDoctorAppointments = (props) => {
                     allowOutsideClick: false,
                     didOpen: () => {
                         Swal.showLoading()
-                    }
-                });
+                    },
+            });
+                sendEmail(prescribeEmail, "template_0g17kx2")
             }
         });
+        const filteredAppointment = props.appointments.filter(appt => appt.appointmentId === appointmentId)[0];
+        const prescribeEmail = {
+            fromName : filteredAppointment.doctorName,
+            toName : filteredAppointment.name,
+            message: "Please review your prescription from the portal",
+            toMail: filteredAppointment.email,
+        };
     }
 
     const onCancelClick = (appointmentId) => {

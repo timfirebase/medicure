@@ -3,6 +3,7 @@ import * as PatientActions from "../../store/actions/PatientActions";
 import {connect} from "react-redux";
 import AppointmentGrid from "../UI/Grid/AppointmentGrid";
 import Swal from "sweetalert2";
+import sendEmail from "../../emailSender";
 
 const PatientAppointments = (props) => {
 
@@ -11,6 +12,8 @@ const PatientAppointments = (props) => {
             props.getAppointmentsByPatientId(props.patient.id);
         }
     },[]);
+
+
 
     const onCancelClick = (appointmentId) => {
         Swal.fire({
@@ -22,6 +25,14 @@ const PatientAppointments = (props) => {
                 Swal.showLoading()
             }
         });
+        const filteredAppointment = props.appointments.filter(appt => appt.patientId === props.patient.id)[0];
+        const cancelAppointmentEmail = {
+            fromName: filteredAppointment.name,
+            toName: filteredAppointment.doctorName,
+            message: "The appointment has been cancelled",
+            toMail: filteredAppointment.doctorEmail,
+        };
+        sendEmail(cancelAppointmentEmail, "template_cdrprtd");
         props.onCancelAppointment(appointmentId,"cancelled");
     }
 

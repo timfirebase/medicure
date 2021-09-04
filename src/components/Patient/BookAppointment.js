@@ -7,8 +7,8 @@ import Swal from "sweetalert2";
 import * as DoctorActions from "../../store/actions/DoctorActions";
 import StripePayment from "../UI/StripePayment/StripePayment";
 import logo from '../../assets/images/logo.png';
-import emailjs from 'emailjs-com';
 import{ init } from 'emailjs-com';
+import sendEmail from "../../emailSender";
 init("user_rXFdbUGC883OnZ2dBYK1u");
 
 
@@ -28,22 +28,6 @@ const BookAppointment = (props) => {
         setSymptoms('');
     }
 
-    function sendEmail(e) {
-
-        var templateParams = {
-            from_name : e.name,
-            to_name : e.doctorName,
-            message : e.symptoms,
-            to_mail : e.doctorEmail
-        };
-        emailjs.send('service_bh1e9mq', "template_cdrprtd", templateParams, "user_rXFdbUGC883OnZ2dBYK1u")
-            .then((result) => {
-                console.log(result.text);
-            }, (error) => {
-                console.log(error.text);
-            });
-    }
-
     const onBookAppointmentClick = (token) => {
         if(props.patient && token) {
             const appointment = {
@@ -59,7 +43,13 @@ const BookAppointment = (props) => {
                 doctorTotalBalance: parseInt(doctor.totalBalance) + parseInt(doctor.fee),
                 status: 'active'
             };
-            sendEmail(appointment);
+            const appointmentEmail = {
+                fromName: props.patient.name,
+                toName: doctor.name,
+                message: symptoms,
+                toMail: doctor.email,
+            };
+            sendEmail(appointmentEmail, "template_cdrprtd");
             props.bookAppointment(appointment);
             Swal.fire({
                 title: 'Please wait...',
