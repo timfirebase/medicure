@@ -19,7 +19,7 @@ export default [
                 <div className="col-md-6">
                 </div>
                 <div className="col-md-6">
-                    <SignUp roleId={"patient"}/>
+                    <SignUp roleId={"patient"} mode={"Signup"} label={"Sign Up"}/>
                 </div>
             </div>
         </Layout>

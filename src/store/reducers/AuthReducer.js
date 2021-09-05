@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/AuthActions';
+import {UPDATE_USER_SUCCESS} from "../actions/AuthActions";
 
 const initialState = {
     admins: [],
@@ -6,7 +7,8 @@ const initialState = {
     isRegistered: false,
     user: null,
     id: '',
-    isUserRemoved: false
+    isUserRemoved: false,
+    isUserUpdated: false
 };
 
 const onDeleteAdmin = (state,action) => {
@@ -61,10 +63,16 @@ const AuthReducer = (state = initialState, action) => {
                 ...state,
                 isUserRemoved: false
             }
-        case actionTypes.UPDATE_USER:
+        case actionTypes.UPDATE_USER_SUCCESS:
             return {
                 ...state,
-                user: action.user
+                user: action.user,
+                isUserUpdated: true
+            }
+        case actionTypes.CLEAR_PROFILE_UPDATE_STATUS:
+            return {
+                ...state,
+                isUserUpdated: false
             }
         default:
             return state;

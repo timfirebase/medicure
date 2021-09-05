@@ -12,7 +12,9 @@ export const LOGOUT_INIT = 'LOGOUT_INIT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const CLEAR_REGISTERED_STATUS = 'CLEAR_REGISTERED_STATUS';
 export const CLEAR_USER_REMOVED_STATUS= 'CLEAR_USER_REMOVED_STATUS';
-export const UPDATE_USER = 'UPDATE_USER';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const UPDATE_USER_INIT = 'UPDATE_USER_INIT';
+export const CLEAR_PROFILE_UPDATE_STATUS= 'CLEAR_PROFILE_UPDATE_STATUS';
 
 
 export const registerInit = (user) => {
@@ -105,9 +107,23 @@ export const clearUserRemovedStatus = () => {
     }
 }
 
-export const updateUser = (user) => {
+export const updateUserSuccess = (user) => {
     return {
-        type:UPDATE_USER,
+        type:UPDATE_USER_SUCCESS,
         user: user
+    }
+}
+
+export const updateUserInit = (user,currentUser) => {
+    return {
+        type:UPDATE_USER_INIT,
+        user: user,
+        currentUser:currentUser
+    }
+}
+
+export const clearProfileUpdateStatus = () => {
+    return {
+        type:CLEAR_PROFILE_UPDATE_STATUS
     }
 }

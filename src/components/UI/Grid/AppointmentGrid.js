@@ -251,7 +251,11 @@ const AppointmentGrid = (props) => {
             };
             rows.push(row);
         });
-        grid =  <Grid rows={rows} columns={columns} pageSize={parseInt("8")} selectionModel={props.fileSaved} cellClicked={handleCellClick} styles={{paddingLeft: '3%', paddingRight: '3%'}}/>;
+        grid =  <Grid rows={rows} columns={columns}
+                      pageSize={parseInt("8")}
+                      selectionModel={props.fileSaved}
+                      cellClicked={handleCellClick}
+                      styles={{paddingLeft: '3%', paddingRight: '3%', height:'570px'}}/>;
     }
 
     return (

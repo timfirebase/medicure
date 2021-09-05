@@ -15,7 +15,7 @@ const Grid = (props) => {
     let styles =  {height: 450, width: '100%'};
     if(props.styles) {
         const propStyles = props.styles;
-        styles = {...propStyles , ...styles}
+        styles = {...styles,...propStyles}
     }
     return (
         <div style={styles}  className={classes}>
