@@ -32,6 +32,14 @@ const ViewDoctorAppointments = (props) => {
     },[]);
 
     const onPrescribeClick = (appointmentId) => {
+        const filteredAppointment = props.appointments.filter(appt => appt.appointmentId === appointmentId)[0];
+        const prescribeEmail = {
+            fromName : filteredAppointment.doctorName,
+            toName : filteredAppointment.name,
+            message: "Please review your prescription from the portal",
+            toMail: filteredAppointment.email,
+        };
+
         Swal.fire({
             showCancelButton:true,
             html:`<textarea type="text" rows="8" cols="50" id="prescriptionText"/>`,
@@ -49,16 +57,16 @@ const ViewDoctorAppointments = (props) => {
                 sendEmail(prescribeEmail, "template_0g17kx2")
             }
         });
-        const filteredAppointment = props.appointments.filter(appt => appt.appointmentId === appointmentId)[0];
-        const prescribeEmail = {
-            fromName : filteredAppointment.doctorName,
-            toName : filteredAppointment.name,
-            message: "Please review your prescription from the portal",
-            toMail: filteredAppointment.email,
-        };
     }
 
     const onCancelClick = (appointmentId) => {
+        const filteredAppointment = props.appointments.filter(appt => appt.appointmentId === appointmentId)[0];
+        const onCancelEmail = {
+            fromName : filteredAppointment.doctorName,
+            toName : filteredAppointment.name,
+            message: "The appointment has been cancelled by your doctor",
+            toMail: filteredAppointment.email,
+        };
         Swal.fire({
             title: 'Please wait...',
             html: '',
@@ -68,6 +76,7 @@ const ViewDoctorAppointments = (props) => {
                 Swal.showLoading()
             }
         });
+        sendEmail(onCancelEmail, "template_cdrprtd")
         props.onCancelAppointment(appointmentId,"cancelled");
     }
 
@@ -77,6 +86,7 @@ const ViewDoctorAppointments = (props) => {
     }
 
     const onRescheduleClick = (appointmentId) => {
+
         const SelectData = () => {
             return(
                 <select name="availability" id="doctorAvailability">
@@ -96,6 +106,13 @@ const ViewDoctorAppointments = (props) => {
             html:<SelectData/>,
             preConfirm:function(){
                 props.onRescheduleClick(document.getElementById('doctorAvailability').value,appointmentId);
+                const filteredAppointment = props.appointments.filter(appt => appt.appointmentId === appointmentId)[0];
+                const onRescheduleEmail = {
+                    fromName: filteredAppointment.doctorName,
+                    toName: filteredAppointment.name,
+                    message: "The appointment has been rescheduled by "+filteredAppointment.doctorName+" to "+document.getElementById('doctorAvailability').value,
+                    toMail: filteredAppointment.email,
+                }
                 Swal.fire({
                     title: 'Please wait...',
                     html: '',
@@ -105,8 +122,11 @@ const ViewDoctorAppointments = (props) => {
                         Swal.showLoading()
                     }
                 });
+                sendEmail(onRescheduleEmail, "template_cdrprtd")
             }
         });
+
+
     }
 
     if(props.isRescheduled) {

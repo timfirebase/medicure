@@ -46,7 +46,8 @@ const BookAppointment = (props) => {
             const appointmentEmail = {
                 fromName: props.patient.name,
                 toName: doctor.name,
-                message: symptoms,
+                message:"A new appointment has been booked, this is the message " +
+                    "from the patient = '"+ symptoms + "'",
                 toMail: doctor.email,
             };
             sendEmail(appointmentEmail, "template_cdrprtd");
