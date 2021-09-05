@@ -17,7 +17,7 @@ const DoctorHome = () => {
     }
 
     const onManageProfileClick =  () => {
-        history.push('/ManageWallet');
+        history.push('/updateProfile');
     }
 
     return(

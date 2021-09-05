@@ -4,6 +4,13 @@ import PatientHome from "../../components/Patient/PatientHome";
 import PatientAppointments from "../../components/Patient/PatientAppointments";
 import BookAppointment from "../../components/Patient/BookAppointment";
 import React from "react";
+import UpdateProfile from "../../components/UI/UpdateProfile/UpdateProfile";
+
+const tiles = [
+    {path:'/bookAppointment',heading:'Book Appointments'},
+    {path:'/viewAppointment',heading:'View Appointments'},
+    {path:'/updateProfile',heading:'Manage Profile'},
+]
 
 export default [
     <Route path="/patientHome">
@@ -12,19 +19,18 @@ export default [
         </Layout>
     </Route>,
     <Route path="/bookAppointment">
-        <Layout tiles={[
-            {path:'/viewAppointment',heading:'View Appointments'},
-            {path:'/managePatientProfile',heading:'Manage Profile'}
-        ]}>
+        <Layout tiles={tiles}>
             <BookAppointment/>
         </Layout>
     </Route>,
     <Route path="/viewAppointment">
-        <Layout tiles={[
-            {path:'/bookAppointment',heading:'Book Appointments'},
-            {path:'/managePatientProfile',heading:'Manage Profile'}
-        ]}>
+        <Layout tiles={tiles}>
             <PatientAppointments/>
+        </Layout>
+    </Route>,
+    <Route path="/updateProfile">
+        <Layout tiles={tiles}>
+            <UpdateProfile/>
         </Layout>
     </Route>
 ];

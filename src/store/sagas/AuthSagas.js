@@ -1,7 +1,6 @@
 import firebase from '../../firebase';
 import { call, put } from 'redux-saga/effects';
 import * as AuthActions from '../actions/AuthActions';
-import * as DoctorActions from "../actions/DoctorActions";
 
 export function* registerUser(action) {
     const ref = yield call(firebase.createAccount,action.user.email,action.user.password);
@@ -44,4 +43,21 @@ export function* removeAdmin(action) {
 export function* logOut() {
     yield call(firebase.signOut);
     yield put(AuthActions.logoutSuccess());
+}
+
+export function* updateUser(action) {
+    if(action.user.imgChanged) {
+        const imgPath = yield call(firebase.storeImgInDB, action.user.img);
+        action.user.img = imgPath;
+    }
+    if(action.user.recreateUser) {
+        yield call(firebase.deleteUser, action.user.id, "users");
+        yield call(firebase.deleteAuthUser, action.currentUser);
+        const ref = yield call(firebase.createAccount,action.user.email,action.user.password);
+        action.user.id = ref.user.uid;
+        yield call(firebase.addUser, ref.user.uid, action.user, "users");
+    } else {
+        yield call(firebase.updateUser,action.user.id,action.user);
+    }
+    yield put(AuthActions.updateUserSuccess(action.user));
 }

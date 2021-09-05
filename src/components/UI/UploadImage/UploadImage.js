@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import React from "react";
 import placeholder from '../../../assets/images/placeholder.jpg';
 
@@ -8,6 +8,15 @@ const UploadImage = (props) => {
             src: placeholder,
             alt: 'Upload an Image'
         });
+
+        useEffect(() => {
+            if(props.placeholder && props.mode && "update" === props.mode) {
+                setImg({
+                    src: props.placeholder,
+                    alt: 'Upload an Image'
+                });
+            }
+        },[]);
 
         const handleImg = (e) => {
             const file = e.target.files[0];
@@ -45,8 +54,8 @@ const UploadImage = (props) => {
                         top: 0,
                         left: 0,
                         display: 'block',
-                        width: '300px',
-                        height: '300px',
+                        width: '250px',
+                        height: '230px',
                         borderRadius: '50%',
                         cursor: 'pointer',
                     }}>

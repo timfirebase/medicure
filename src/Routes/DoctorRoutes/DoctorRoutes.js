@@ -4,10 +4,11 @@ import React from "react";
 import DoctorHome from "../../components/Doctor/DoctorHome";
 import ViewDoctorAppointments from "../../components/Doctor/ViewDoctorAppointments";
 import ManageWallet from "../../components/Doctor/ManageWallet";
+import UpdateProfile from "../../components/UI/UpdateProfile/UpdateProfile";
 
 const tiles = [
     {path:'/ViewDoctorAppointments',heading:'View Appointments'},
-    {path:'/ManageDoctorProfile',heading:'Manage Profile'},
+    {path:'/updateProfile',heading:'Manage Profile'},
     {path:'/ManageWallet',heading:'Manage Wallet'},
 ]
 
@@ -25,6 +26,11 @@ export default [
     <Route path="/ManageWallet">
         <Layout tiles={tiles}>
             <ManageWallet/>
+        </Layout>
+    </Route>,
+    <Route path="/updateProfile">
+        <Layout tiles={tiles}>
+            <UpdateProfile/>
         </Layout>
     </Route>
 ];

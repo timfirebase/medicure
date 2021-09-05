@@ -46,7 +46,7 @@ export function* removeDoctor(action) {
 export function* updateTotalBalance(action) {
     yield call(firebase.updateDoctorBalance,action.doctor.id,action.doctor.totalBalance);
     yield put(DoctorActions.updateDoctorBalanceSuccess(action.doctor));
-    yield put(AuthActions.updateUser(action.doctor));
+    yield put(AuthActions.updateUserSuccess(action.doctor));
 }
 
 export function* cancelDoctorAppointment(action) {

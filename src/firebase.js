@@ -32,6 +32,8 @@ class Firebase {
 
     deleteUser = (id, collectionName) => this.db.collection(collectionName).doc(id).delete();
 
+    updateUser = (id,user) => this.db.collection("users").doc(id).update(user);
+
     addAppointment = (id, appointment, collectionName) => this.db.collection(collectionName).add(appointment);
 
     updateDoctorBalance = (id,totalBalance) => this.db.collection("users").doc(id).update({'totalBalance': totalBalance});
