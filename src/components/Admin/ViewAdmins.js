@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Grid from "../UI/Grid/Grid";
 import {Button} from "@material-ui/core";
 
@@ -54,7 +54,6 @@ const ViewAdmins = (props) => {
         }
     ];
 
-    const rows = [];
     let grid = '';
     if(props.admins && props.admins.length > 0) {
         const rows = [];

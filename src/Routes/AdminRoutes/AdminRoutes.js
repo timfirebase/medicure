@@ -16,7 +16,7 @@ const tiles = [
     {path:'/manageAdmin',heading:'Manage Admins'},
 ]
 
-export default [
+let adminRoutes = [
     <Route path="/adminHome">
         <Layout>
             <AdminHome/>
@@ -53,3 +53,5 @@ export default [
         </Layout>
     </Route>
 ];
+
+export default adminRoutes;

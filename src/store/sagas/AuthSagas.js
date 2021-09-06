@@ -1,6 +1,8 @@
 import firebase from '../../firebase';
 import { call, put } from 'redux-saga/effects';
 import * as AuthActions from '../actions/AuthActions';
+import * as DoctorActions from "../actions/DoctorActions";
+import * as AdminActions from "../actions/AdminActions";
 
 export function* registerUser(action) {
     try {
@@ -12,6 +14,11 @@ export function* registerUser(action) {
         }
         yield call(firebase.addUser, ref.user.uid, action.user, "users");
         yield put(AuthActions.registerSuccess(ref.user.uid));
+        if("admin" ===  action.mode) {
+            yield put(AdminActions.registerAdminSuccess(action.user));
+        } else if ("doctor" ===  action.mode) {
+            yield put(DoctorActions.registerDocSuccess(action.user));
+        }
     }
     catch (error) {
         yield put(AuthActions.registerFail(error));
@@ -27,22 +34,19 @@ export function* login(action) {
     }
 }
 
-export function* addAdmin(action) {
-    const ref = yield call(firebase.createAccount, action.user.email, action.user.password);
-    action.user.id = ref.user.uid;
-    yield call(firebase.addUser, ref.user.uid, action.user, "users");
-    yield put(AuthActions.adminSuccess());
-}
+export function* removeUser(action) {
+    try{
+        debugger;
+        yield call(firebase.deleteUser, action.user.id, "users");
+        yield call(firebase.deleteAuthUser, action.user);
+        if("admin" ===  action.mode) {
+            yield put(AdminActions.removeAdminSuccess(action.user.id));
+        } else if ("doctor" ===  action.mode) {
+            yield put(DoctorActions.removeDoctorSuccess(action.user));
+        }
+    } catch (error) {
 
-export function* getAdmins() {
-    const admins = yield call(firebase.getUsersByRole,"admin");
-    yield put(AuthActions.getAdminSuccess(admins));
-}
-
-export function* removeAdmin(action) {
-    yield call(firebase.deleteUser, action.user.id, "users");
-    yield call(firebase.deleteAuthUser, action.user);
-    yield put(AuthActions.removeAdminSuccess(action.user.id));
+    }
 }
 
 export function* logOut() {

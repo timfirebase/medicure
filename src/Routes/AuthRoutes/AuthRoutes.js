@@ -12,7 +12,7 @@ const sectionStyle = {
     height: '100vh'
 }
 
-export default [
+let authRoutes = [
     <Route path="/signup">
         <Layout sectionStyle={sectionStyle}>
             <div className="row" style={{marginRight: "10%"}}>
@@ -32,3 +32,5 @@ export default [
         </Layout>
     </Route>
 ];
+
+export default authRoutes;

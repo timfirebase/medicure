@@ -1,18 +1,17 @@
 import React, {useEffect, useState} from "react";
 import ViewDoctors from "./ViewDoctors";
 import Swal from "sweetalert2";
-import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import "react-multi-date-picker/styles/layouts/mobile.css";
 import DateTimePicker from "../UI/DateTimePicker/DateTimePicker";
 import * as DoctorActions from "../../store/actions/DoctorActions";
 import {Button, Card, Container, Form, Modal, Row} from "react-bootstrap";
 import UploadImage from "../UI/UploadImage/UploadImage";
+import * as authActions from "../../store/actions/AuthActions";
 
 
 const ManageDoctors = (props) => {
 
-    const history = useHistory();
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [name,setName] = useState('');
@@ -164,7 +163,7 @@ const ManageDoctors = (props) => {
 
 const mapStateToProps = state => {
     return {
-        isRegistered: state.doctorRdcr.isRegistered,
+        isRegistered: state.authRdcr.isRegistered,
         isUserRemoved: state.doctorRdcr.isUserRemoved,
         doctors: state.doctorRdcr.doctors,
         gotDoctors: state.doctorRdcr.gotDoctors
@@ -173,10 +172,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddDoctor: (doctor) => dispatch(DoctorActions.registerDocInit(doctor)),
-        onDeleteDoctor: (doctor) => dispatch(DoctorActions.removeDoctorInit(doctor)),
+        onAddDoctor: (doctor) => dispatch(authActions.registerInit(doctor,"doctor")),
+        onDeleteDoctor: (doctor) => dispatch(authActions.removeUserInit(doctor,"doctor")),
         getAllDoctors: () => dispatch(DoctorActions.getDoctorsInit()),
-        clearRegisteredStatus: () => dispatch(DoctorActions.clearRegisteredStatus()),
+        clearRegisteredStatus: () => dispatch(authActions.clearRegisteredStatus()),
         clearUserRemovedStatus: () => dispatch(DoctorActions.clearUserRemovedStatus())
     }
 };

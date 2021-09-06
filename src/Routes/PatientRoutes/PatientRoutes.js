@@ -12,7 +12,7 @@ const tiles = [
     {path:'/updatePatientProfile',heading:'Manage Profile'},
 ]
 
-export default [
+let patientRoutes =  [
     <Route path="/patientHome">
         <Layout>
             <PatientHome/>
@@ -34,3 +34,5 @@ export default [
         </Layout>
     </Route>
 ];
+
+export default patientRoutes;

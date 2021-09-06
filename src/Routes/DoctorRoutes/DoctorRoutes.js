@@ -12,7 +12,7 @@ const tiles = [
     {path:'/ManageWallet',heading:'Manage Wallet'},
 ]
 
-export default [
+let doctorRoutes = [
     <Route path="/doctorHome">
         <Layout>
             <DoctorHome/>
@@ -34,3 +34,5 @@ export default [
         </Layout>
     </Route>
 ];
+
+export default doctorRoutes;

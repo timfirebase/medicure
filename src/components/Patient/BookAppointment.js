@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {Button, Card, Container, Form} from "react-bootstrap";
+import {Card, Container, Form} from "react-bootstrap";
 import * as PatientActions from '../../store/actions/PatientActions';
 import {connect} from "react-redux";
-import {useHistory} from "react-router-dom";
 import Swal from "sweetalert2";
 import * as DoctorActions from "../../store/actions/DoctorActions";
 import StripePayment from "../UI/StripePayment/StripePayment";
@@ -13,7 +12,6 @@ init("user_rXFdbUGC883OnZ2dBYK1u");
 
 
 const BookAppointment = (props) => {
-    const history = useHistory();
     const [doctor,setDoctor] = useState();
     const [availability,setAvailability] = useState();
     const [symptoms,setSymptoms] = useState();
@@ -21,12 +19,6 @@ const BookAppointment = (props) => {
     useEffect(()=>{
         props.getAllDoctors();
     },[]);
-
-    const clearFormField = () => {
-        setDoctor('');
-        setAvailability('');
-        setSymptoms('');
-    }
 
     const onBookAppointmentClick = (token) => {
         if(props.patient && token) {

@@ -3,7 +3,6 @@ import firebase from "../../firebase";
 import * as DoctorActions from "../actions/DoctorActions";
 import * as AuthActions from "../actions/AuthActions";
 import jsPDF from "jspdf";
-import * as PatientActions from "../actions/PatientActions";
 
 export function* getDoctorAppointments(action) {
     const appointments = yield call(firebase.getAppointmentsById,"doctorId",action.doctorId);
@@ -24,17 +23,6 @@ export function* createAndStorePrescriptionFile(action) {
 export function* getDoctors() {
     const doctors = yield call(firebase.getUsersByRole,"doctor");
     yield put(DoctorActions.getDoctorsSuccess(doctors));
-}
-
-export function* registerDoc(action) {
-    const ref = yield call(firebase.createAccount,action.user.email,action.user.password);
-    action.user.id = ref.user.uid;
-    if(action.user.img) {
-        const imgPath = yield call(firebase.storeImgInDB, action.user.img);
-        action.user.img = imgPath;
-    }
-    yield call(firebase.addUser, ref.user.uid, action.user, "users");
-    yield put(DoctorActions.registerDocSuccess(action.user));
 }
 
 export function* removeDoctor(action) {

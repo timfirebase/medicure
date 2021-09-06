@@ -5,6 +5,7 @@ import * as authActions from '../../store/actions/AuthActions';
 import Swal from "sweetalert2";
 import ViewAdmins from "./ViewAdmins";
 import UploadImage from "../UI/UploadImage/UploadImage";
+import * as AdminActions from "../../store/actions/AdminActions";
 
 const ManageAdmins = (props) => {
 
@@ -139,19 +140,19 @@ const ManageAdmins = (props) => {
 const mapStateToProps = state => {
     return {
         isRegistered: state.authRdcr.isRegistered,
-        isUserRemoved: state.authRdcr.isUserRemoved,
-        admins: state.authRdcr.admins,
-        gotAdmins: state.authRdcr.gotAdmins
+        isUserRemoved: state.adminRdcr.isUserRemoved,
+        admins: state.adminRdcr.admins,
+        gotAdmins: state.adminRdcr.gotAdmins
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddAdmin: (admin) => dispatch(authActions.registerInit(admin)),
-        onDeleteAdmin: (admin) => dispatch(authActions.removeAdminInit(admin)),
-        getAllAdmins: () => dispatch(authActions.getAdminInit()),
+        onAddAdmin: (admin) => dispatch(authActions.registerInit(admin,"admin")),
+        onDeleteAdmin: (admin) => dispatch(authActions.removeUserInit(admin,"admin")),
+        getAllAdmins: () => dispatch(AdminActions.getAdminInit()),
         clearRegisteredStatus: () => dispatch(authActions.clearRegisteredStatus()),
-        clearUserRemovedStatus: () => dispatch(authActions.clearUserRemovedStatus())
+        clearUserRemovedStatus: () => dispatch(AdminActions.clearUserRemovedStatus())
     }
 };
 

@@ -1,20 +1,15 @@
-import React , {useState} from "react";
+import React  from "react";
 import {Form, Card, Button, Container} from 'react-bootstrap';
 import {connect} from "react-redux";
 import * as authActions from '../../store/actions/AuthActions';
-import {Link, Redirect, useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import Swal from "sweetalert2";
+import {useFormik} from 'formik'
+import * as Yup from 'yup'
 
 const Login = (props) => {
 
     const history = useHistory();
-    const [email,setEmail] = useState();
-    const [password,setPassword] = useState();
-    const [validated, setValidated] = useState(false);
-
-    const isFormValid = () => {
-        return email && password;
-    }
 
     if(props.user){
         Swal.close();
@@ -29,26 +24,28 @@ const Login = (props) => {
             history.push('/doctorHome');
         }
     }
-
-    const handleSubmit = (event) => {
-/*        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }*/
-       // setValidated(true);
-        event.preventDefault();
-        Swal.fire({
-            title: 'Please wait...',
-            html: '',
-            allowEscapeKey: false,
-            allowOutsideClick: false,
-            didOpen: () => {
-                Swal.showLoading()
-            }
-        });
-        props.onSubmit(email, password)
-    };
+    const {handleSubmit, handleChange, values, touched, errors, handleBlur} = useFormik({
+        initialValues: {
+            email: '',
+            password: ''
+        },
+        validationSchema: Yup.object({
+            email: Yup.string().max(20, 'Email must be shorter than 10 characters').required().email(),
+            password: Yup.string().min(6, 'Password should be longer than 6 characters').required()
+        }),
+        onSubmit: ({email, password}) => {
+            Swal.fire({
+                title: 'Please wait...',
+                html: '',
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                }
+            });
+            props.onSubmit(email, password)
+        }
+    });
 
     return(
         <>
@@ -56,16 +53,28 @@ const Login = (props) => {
                 <Card>
                    <Card.Body className="p-4">
                         <h2 className="text-center mb-4">Login</h2>
-                        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                            <Form.Group id="email" controlId="validationCustom01">
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group>
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control type="email" required onChange={(event)=>{setEmail(event.target.value)}}/>
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                <Form.Control type="email"
+                                              value={values.email}
+                                              onChange={handleChange}
+                                              onBlur={handleBlur}
+                                              id="email"/>
+                                {touched.email && errors.email ? (
+                                    <div className="text-danger h6 pt-3 pb-3">{errors.email}</div>
+                                ): null}
                             </Form.Group>
-                            <Form.Group id="password" controlId="validationCustom02">
+                            <Form.Group>
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password"  required onChange={(event)=>{setPassword(event.target.value)}}/>
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                <Form.Control type="password"
+                                              value={values.password}
+                                              onChange={handleChange}
+                                              onBlur={handleBlur}
+                                              id="password"/>
+                                {touched.password && errors.password ? (
+                                    <div className="text-danger h6 pt-3 pb-3">{errors.password}</div>
+                                ): null}
                             </Form.Group>
                             <Button className="w-100 mt-4" type={"submit"}>
                                 Login

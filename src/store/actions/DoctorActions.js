@@ -5,10 +5,8 @@ export const CREATE_PRESC_FILE_SUCCESS = 'CREATE_PRESC_FILE_SUCCESS';
 export const GET_DOCTORS_INIT = 'GET_DOCTORS_INIT';
 export const GET_DOCTORS_SUCCESS = 'GET_DOCTORS_SUCCESS';
 export const UPDATE_DOC_GRID = 'UPDATE_DOC_GRID';
-export const REGISTER_DOC_INIT = 'REGISTER_DOC_INIT';
 export const REGISTER_DOC_SUCCESS = 'REGISTER_DOC_SUCCESS';
 export const CLEAR_DOC_REGISTERED_STATUS = 'CLEAR_DOC_REGISTERED_STATUS';
-export const REMOVE_DOC_INIT = 'REMOVE_DOC_INIT';
 export const REMOVE_DOC_SUCCESS = 'REMOVE_DOC_SUCCESS';
 export const CLEAR_USER_REMOVED_STATUS = 'CLEAR_USER_REMOVED_STATUS';
 export const UPDATE_DOC_BALANCE_INIT = 'UPDATE_DOC_BALANCE_INIT';
@@ -67,21 +65,6 @@ export const getDoctorsSuccess = (doctors) => {
     }
 }
 
-
-export const updateDocGrid = (doctors) => {
-    return {
-        type:UPDATE_DOC_GRID,
-        doctors: doctors
-    }
-}
-
-export const registerDocInit = (user) => {
-    return {
-        type:REGISTER_DOC_INIT,
-        user: user
-    }
-}
-
 export const registerDocSuccess = (doctor) => {
     return {
         type:REGISTER_DOC_SUCCESS,
@@ -95,20 +78,12 @@ export const clearRegisteredStatus = () => {
     }
 }
 
-export const removeDoctorInit = (user) => {
-    return {
-        type:REMOVE_DOC_INIT,
-        user: user
-    }
-}
-
 export const removeDoctorSuccess = (id) => {
     return {
         type:REMOVE_DOC_SUCCESS,
         id: id
     }
 }
-
 
 export const clearUserRemovedStatus = () => {
     return {

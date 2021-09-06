@@ -1,5 +1,4 @@
 import * as DoctorActions from "../actions/DoctorActions";
-import * as actionTypes from "../actions/PatientActions";
 
 const initialState = {
     doctorAppointments: [],

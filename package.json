@@ -15,6 +15,7 @@
     "emailjs-com": "^3.2.0",
     "firebase": "^8.10.0",
     "firebase-admin": "^9.11.1",
+    "formik": "^2.2.9",
     "install": "^0.13.0",
     "jspdf": "^2.3.1",
     "mdbreact": "^5.1.0",
@@ -23,6 +24,7 @@
     "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
     "react-element-popper": "^2.0.0",
+    "react-hook-form": "^7.15.0",
     "react-loading-overlay": "^1.0.1",
     "react-multi-date-picker": "^3.1.2",
     "react-redux": "^7.2.4",
@@ -36,7 +38,8 @@
     "redux-thunk": "^2.3.0",
     "sweetalert2": "^11.1.4",
     "sweetalert2-react-content": "^4.1.1",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "predeploy": "npm run build",

@@ -1,20 +1,15 @@
 import React from "react";
 import Tile from "../UI/Tiles/Tile";
-import viewDoctors from "../../assets/images/Doctor.png";
 import viewPatients from "../../assets/images/Patients.png";
 import manageProfile from "../../assets/images/manageProfile.png";
 import manageDocs from "../../assets/images/manageDocs.png";
 import addAdmin from "../../assets/images/addAdmin.png";
-import viewReports from "../../assets/images/viewReports.png";
 import {useHistory} from "react-router-dom";
 
 const AdminHome = () => {
 
     const history = useHistory();
 
-    // const onViewDoctorClick =  () => {
-    //     history.push('/viewDoctor');
-    // }
 
     const onViewPatientClick =  () => {
         history.push('/viewPatient');
@@ -32,9 +27,6 @@ const AdminHome = () => {
         history.push('/manageAdmin');
     }
 
-    // const onViewReportClick =  () => {
-    //     history.push('/viewReports');
-    // }
 
     return(
         <>
