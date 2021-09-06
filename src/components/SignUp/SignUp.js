@@ -13,7 +13,7 @@ const SignUp = (props) => {
     const [password,setPassword] = useState();
     const [name,setName] = useState();
     const [phone,setPhone] = useState();
-    const [img,setImg] = useState();
+    const [img,setImg] = useState(null);
 
     useEffect(() => {
         if( props.mode && "update" === props.mode && props.user) {
@@ -34,9 +34,8 @@ const SignUp = (props) => {
         history.push('/');
     }
     if(props.isNotRegistered){
-        console.log(props.error);
         Swal.close();
-        Swal.fire(props.error,'','error');
+        Swal.fire(props.error.message,'','error');
         props.clearIsNotRegisteredStatus();
     }
 

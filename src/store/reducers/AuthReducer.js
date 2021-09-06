@@ -85,7 +85,8 @@ const AuthReducer = (state = initialState, action) => {
         case actionTypes.CLEAR_IS_NOT_REGISTERED_STATUS:
             return {
                 ...state,
-                isNotRegistered: false
+                isNotRegistered: false,
+                error: ''
             }
         default:
             return state;
