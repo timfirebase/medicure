@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect} from "react";
 import * as DoctorActions from "../../store/actions/DoctorActions";
 import {connect} from "react-redux";
 import Swal from "sweetalert2";
@@ -7,10 +7,7 @@ import withReactContent from "sweetalert2-react-content";
 import sendEmail from "../../emailSender";
 
 const ViewDoctorAppointments = (props) => {
-
-
     const MySwal = withReactContent(Swal);
-
     if(props.fileSaved.length > 0 || props.appointments) {
         Swal.close();
     }
@@ -27,9 +24,23 @@ const ViewDoctorAppointments = (props) => {
                 }
             });
         }
-        props.resetAppointmentRescheduleStatus();
         props.resetAppointmentCancelStatus();
+        props.resetAppointmentRescheduleStatus();
     },[]);
+
+    useEffect(()=>{
+        if(props.appointmentCancelled) {
+            Swal.close();
+            Swal.fire('Appointment Cancelled!','','success');
+        }
+    },[props.appointmentCancelled])
+
+    useEffect(()=>{
+        if(props.isRescheduled) {
+            Swal.close();
+            Swal.fire('Appointment Rescheduled!','','success');
+        }
+    },[props.isRescheduled])
 
     const onPrescribeClick = (appointmentId) => {
         const filteredAppointment = props.appointments.filter(appt => appt.appointmentId === appointmentId)[0];
@@ -80,11 +91,6 @@ const ViewDoctorAppointments = (props) => {
         props.onCancelAppointment(appointmentId,"cancelled");
     }
 
-    if(props.appointmentCancelled) {
-        Swal.close();
-        Swal.fire('Appointment Cancelled!','','success');
-    }
-
     const onRescheduleClick = (appointmentId) => {
 
         const SelectData = () => {
@@ -129,10 +135,6 @@ const ViewDoctorAppointments = (props) => {
 
     }
 
-    if(props.isRescheduled) {
-        Swal.close();
-        Swal.fire('Appointment Rescheduled!','','success');
-    }
 
     return (
         <AppointmentGrid appointments={props.appointments}

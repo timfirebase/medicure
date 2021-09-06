@@ -9,7 +9,7 @@ import UpdateProfile from "../../components/UI/UpdateProfile/UpdateProfile";
 const tiles = [
     {path:'/bookAppointment',heading:'Book Appointments'},
     {path:'/viewAppointment',heading:'View Appointments'},
-    {path:'/updateProfile',heading:'Manage Profile'},
+    {path:'/updatePatientProfile',heading:'Manage Profile'},
 ]
 
 export default [
@@ -28,7 +28,7 @@ export default [
             <PatientAppointments/>
         </Layout>
     </Route>,
-    <Route path="/updateProfile">
+    <Route path="/updatePatientProfile">
         <Layout tiles={tiles}>
             <UpdateProfile/>
         </Layout>
