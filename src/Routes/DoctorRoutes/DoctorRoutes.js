@@ -8,7 +8,7 @@ import UpdateProfile from "../../components/UI/UpdateProfile/UpdateProfile";
 
 const tiles = [
     {path:'/ViewDoctorAppointments',heading:'View Appointments'},
-    {path:'/updateProfile',heading:'Manage Profile'},
+    {path:'/updateDoctorProfile',heading:'Manage Profile'},
     {path:'/ManageWallet',heading:'Manage Wallet'},
 ]
 
@@ -28,7 +28,7 @@ export default [
             <ManageWallet/>
         </Layout>
     </Route>,
-    <Route path="/updateProfile">
+    <Route path="/updateDoctorProfile">
         <Layout tiles={tiles}>
             <UpdateProfile/>
         </Layout>

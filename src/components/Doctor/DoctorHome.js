@@ -17,7 +17,7 @@ const DoctorHome = () => {
     }
 
     const onManageProfileClick =  () => {
-        history.push('/updateProfile');
+        history.push('/updateDoctorProfile');
     }
 
     return(
