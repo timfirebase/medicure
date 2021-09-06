@@ -1,5 +1,6 @@
 export const REGISTER_INIT = 'REGISTER_INIT';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const LOGIN_INIT = 'LOGIN_INIT';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const ADMIN_INIT = 'ADMIN_INIT';
@@ -15,6 +16,7 @@ export const CLEAR_USER_REMOVED_STATUS= 'CLEAR_USER_REMOVED_STATUS';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const UPDATE_USER_INIT = 'UPDATE_USER_INIT';
 export const CLEAR_PROFILE_UPDATE_STATUS= 'CLEAR_PROFILE_UPDATE_STATUS';
+export const CLEAR_IS_NOT_REGISTERED_STATUS= 'CLEAR_IS_NOT_REGISTERED_STATUS';
 
 
 export const registerInit = (user) => {
@@ -28,6 +30,13 @@ export const registerSuccess = (id) => {
     return {
         type:REGISTER_SUCCESS,
         id: id
+    }
+}
+
+export const registerFail = (error) => {
+    return {
+        type:REGISTER_FAIL,
+        error : error
     }
 }
 
@@ -125,5 +134,11 @@ export const updateUserInit = (user,currentUser) => {
 export const clearProfileUpdateStatus = () => {
     return {
         type:CLEAR_PROFILE_UPDATE_STATUS
+    }
+}
+
+export const clearIsNotRegisteredStatus = () => {
+    return {
+        type:CLEAR_IS_NOT_REGISTERED_STATUS
     }
 }

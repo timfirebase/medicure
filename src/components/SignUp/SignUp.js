@@ -33,6 +33,12 @@ const SignUp = (props) => {
         Swal.close();
         history.push('/');
     }
+    if(props.isNotRegistered){
+        console.log(props.error);
+        Swal.close();
+        Swal.fire(props.error,'','error');
+        props.clearIsNotRegisteredStatus();
+    }
 
     if(props.isUserUpdated){
         Swal.close();
@@ -106,6 +112,8 @@ const SignUp = (props) => {
 const mapStateToProps = state => {
     return {
         isRegistered: state.authRdcr.isRegistered,
+        isNotRegistered: state.authRdcr.isNotRegistered,
+        error: state.authRdcr.error,
         isUserUpdated: state.authRdcr.isUserUpdated
     }
 };
@@ -141,7 +149,8 @@ const mapDispatchToProps = dispatch => {
             }
             dispatch(authActions.updateUserInit(user,currentUser))
         },
-        clearProfileUpdateStatus: () => dispatch(authActions.clearProfileUpdateStatus())
+        clearProfileUpdateStatus: () => dispatch(authActions.clearProfileUpdateStatus()),
+        clearIsNotRegisteredStatus:() => dispatch(authActions.clearIsNotRegisteredStatus())
     }
 };
 

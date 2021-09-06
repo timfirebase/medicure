@@ -5,10 +5,12 @@ const initialState = {
     admins: [],
     gotAdmins: false,
     isRegistered: false,
+    isNotRegistered: false,
     user: null,
     id: '',
     isUserRemoved: false,
-    isUserUpdated: false
+    isUserUpdated: false,
+    error: ''
 };
 
 const onDeleteAdmin = (state,action) => {
@@ -29,6 +31,12 @@ const AuthReducer = (state = initialState, action) => {
                 ...state,
                 isRegistered: true,
                 id: action.id
+            }
+        case actionTypes.REGISTER_FAIL:
+            return {
+                ...state,
+                isNotRegistered: true,
+                error : action.error
             }
         case actionTypes.LOGIN_SUCCESS:
             return {
@@ -73,6 +81,11 @@ const AuthReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isUserUpdated: false
+            }
+        case actionTypes.CLEAR_IS_NOT_REGISTERED_STATUS:
+            return {
+                ...state,
+                isNotRegistered: false
             }
         default:
             return state;
