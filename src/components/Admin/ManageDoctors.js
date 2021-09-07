@@ -112,8 +112,9 @@ const ManageDoctors = (props) => {
             name: Yup.string().required().matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
             phone: Yup.number().required(),
             fee: Yup.number().required(),
+            availability: Yup.string().required()
         }),
-        onSubmit: ({email, password, name, phone, fee}) => {
+        onSubmit: ({email, password, name, phone, fee, availability}) => {
             availability.map(av => {
                 formattedDates.push(av.format("MMMM DD YYYY HH:mm A"));
             });
@@ -225,7 +226,10 @@ const ManageDoctors = (props) => {
                                     <Form.Group id="availability">
                                         <Form.Label>Availability</Form.Label>
                                         <div className="col-md-10">
-                                            <DateTimePicker availability={availability} setAvailability={setAvailability}/>
+                                            <DateTimePicker availability={values.availability} setAvailability={handleChange}/>
+                                            {touched.availability && errors.availability ? (
+                                                <div className="text-danger h6 pt-3 pb-3">{errors.availability}</div>
+                                            ): null}
                                         </div>
                                     </Form.Group>
                                     <Button className="w-100 mt-4 btn-md" type={"submit"}>
