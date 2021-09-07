@@ -111,18 +111,17 @@ const ViewDoctorAppointments = (props) => {
             showCancelButton:true,
             html:<SelectData/>,
             preConfirm:function(){
-                props.onRescheduleClick(document.getElementById('doctorAvailability').value,appointmentId);
-                const filteredAppointment = props.appointments.filter(appt => appt.appointmentId === appointmentId)[0];
-                const onRescheduleEmail = {
-                    fromName: filteredAppointment.doctorName,
-                    toName: filteredAppointment.name,
-                    message: "The appointment has been rescheduled by "+filteredAppointment.doctorName+" to "+document.getElementById('doctorAvailability').value,
-                    toMail: filteredAppointment.email,
-                }
-
                 if(document.getElementById('doctorAvailability').value === "Select availability time") {
                     Swal.fire('Availability cannot be empty!', '', 'error');
                 } else {
+                    props.onRescheduleClick(document.getElementById('doctorAvailability').value, appointmentId);
+                    const filteredAppointment = props.appointments.filter(appt => appt.appointmentId === appointmentId)[0];
+                    const onRescheduleEmail = {
+                        fromName: filteredAppointment.doctorName,
+                        toName: filteredAppointment.name,
+                        message: "The appointment has been rescheduled by " + filteredAppointment.doctorName + " to " + document.getElementById('doctorAvailability').value,
+                        toMail: filteredAppointment.email,
+                    }
                     Swal.fire({
                         title: 'Please wait...',
                         html: '',

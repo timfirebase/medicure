@@ -38,7 +38,7 @@ const Login = (props) => {
             password: ''
         },
         validationSchema: Yup.object({
-            email: Yup.string().max(30, 'Email must be shorter than 30 characters').required().email(),
+            email: Yup.string().max(50, 'Email must be shorter than 50 characters').required().email(),
             password: Yup.string().min(6, 'Password should be longer than 6 characters').required()
         }),
         onSubmit: ({email, password}) => {
