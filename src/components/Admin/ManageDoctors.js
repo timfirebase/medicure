@@ -103,7 +103,6 @@ const ManageDoctors = (props) => {
             name: '',
             phone: '',
             fee: '',
-            availability: '',
             img: ''
         },
         validationSchema: Yup.object({
@@ -111,36 +110,40 @@ const ManageDoctors = (props) => {
             password: Yup.string().min(6, 'Password should be longer than 6 characters').required(),
             name: Yup.string().required().matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
             phone: Yup.number().required(),
-            fee: Yup.number().required(),
-            availability: Yup.string().required()
+            fee: Yup.number().required()
         }),
-        onSubmit: ({email, password, name, phone, fee, availability}) => {
-            availability.map(av => {
-                formattedDates.push(av.format("MMMM DD YYYY HH:mm A"));
-            });
-            const doctor = {
-                name: name,
-                email: email,
-                password: password,
-                phone: phone,
-                role: "doctor",
-                availability:formattedDates,
-                img: img,
-                fee: fee,
-                totalBalance: 0
-            };
-            Swal.fire({
-                title: 'Please wait...',
-                html: '',
-                allowEscapeKey: false,
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading()
-                }
-            })
-            props.onAddDoctor(doctor);
-            clearFormField();
-            handleClose();
+        onSubmit: ({email, password, name, phone, fee}) => {
+
+            if (!availability) {
+                Swal.fire('Availability cannot be empty!', '', 'error');
+            } else {
+                availability.map(av => {
+                    formattedDates.push(av.format("MMMM DD YYYY HH:mm A"));
+                });
+                const doctor = {
+                    name: name,
+                    email: email,
+                    password: password,
+                    phone: phone,
+                    role: "doctor",
+                    availability: formattedDates,
+                    img: img,
+                    fee: fee,
+                    totalBalance: 0
+                };
+                Swal.fire({
+                    title: 'Please wait...',
+                    html: '',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                })
+                props.onAddDoctor(doctor);
+                clearFormField();
+                handleClose();
+            }
         }
     });
 
@@ -223,13 +226,10 @@ const ManageDoctors = (props) => {
                                             <div className="text-danger h6 pt-2 pb-2">{errors.fee}</div>
                                         ): null}
                                     </Form.Group>
-                                    <Form.Group id="availability">
+                                    <Form.Group>
                                         <Form.Label>Availability</Form.Label>
                                         <div className="col-md-10">
-                                            <DateTimePicker availability={values.availability} setAvailability={handleChange}/>
-                                            {touched.availability && errors.availability ? (
-                                                <div className="text-danger h6 pt-3 pb-3">{errors.availability}</div>
-                                            ): null}
+                                            <DateTimePicker availability={availability} setAvailability={setAvailability}/>
                                         </div>
                                     </Form.Group>
                                     <Button className="w-100 mt-4 btn-md" type={"submit"}>
