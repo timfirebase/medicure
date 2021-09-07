@@ -21,7 +21,17 @@ const BookAppointment = (props) => {
     },[]);
 
     const onBookAppointmentClick = (token) => {
-        if(props.patient && token) {
+        if(document.getElementById('doctorName').value === "Select a doctor"){
+            Swal.fire('Please choose a doctor', '', 'error');
+        }
+        if(document.getElementById('availability').value === "Select availability time") {
+            Swal.fire('Availability cannot be empty!', '', 'error');
+        }
+        if(document.getElementById('symptoms').value === "") {
+            Swal.fire('Availability cannot be empty!', '', 'error');
+        }
+        else {
+        if (props.patient && token) {
             const appointment = {
                 patientId: props.patient.id,
                 name: props.patient.name,
@@ -38,11 +48,10 @@ const BookAppointment = (props) => {
             const appointmentEmail = {
                 fromName: props.patient.name,
                 toName: doctor.name,
-                message:"A new appointment has been booked, this is the message " +
-                    "from the patient = '"+ symptoms + "'",
+                message: "A new appointment has been booked, this is the message " +
+                    "from the patient = '" + symptoms + "'",
                 toMail: doctor.email,
             };
-            sendEmail(appointmentEmail, "template_cdrprtd");
             props.bookAppointment(appointment);
             Swal.fire({
                 title: 'Please wait...',
@@ -53,7 +62,9 @@ const BookAppointment = (props) => {
                     Swal.showLoading()
                 }
             });
+            sendEmail(appointmentEmail, "template_cdrprtd");
         }
+    }
     }
 
     if(props.isAppointmentBooked){
@@ -70,7 +81,7 @@ const BookAppointment = (props) => {
                     <Form>
                         <Form.Group controlId="formGridState"  className="mb-3">
                             <Form.Label className="h6">Doctors</Form.Label>
-                            <Form.Control as="select" onChange={(event)=>{
+                            <Form.Control as="select" id="doctorName" onChange={(event)=>{
                                 setDoctor(props.doctors.filter(doc => doc.id === event.target.value)[0]);
                               }
                             }>

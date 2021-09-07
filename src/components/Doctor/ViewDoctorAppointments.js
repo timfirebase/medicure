@@ -54,18 +54,22 @@ const ViewDoctorAppointments = (props) => {
         Swal.fire({
             showCancelButton:true,
             html:`<textarea type="text" rows="8" cols="50" id="prescriptionText"/>`,
-            preConfirm:function(){
-                props.createAndStorePresc(document.getElementById('prescriptionText').value,appointmentId);
-                Swal.fire({
-                    title: 'Please wait...',
-                    html: '',
-                    allowEscapeKey: false,
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading()
-                    },
-            });
-                sendEmail(prescribeEmail, "template_0g17kx2")
+            preConfirm:function() {
+                if (document.getElementById('prescriptionText').value === "") {
+                    Swal.fire('Prescription cannot be empty!', '', 'error');
+                } else {
+                    props.createAndStorePresc(document.getElementById('prescriptionText').value, appointmentId);
+                    Swal.fire({
+                        title: 'Please wait...',
+                        html: '',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        },
+                    });
+                    sendEmail(prescribeEmail, "template_0g17kx2")
+                }
             }
         });
     }
