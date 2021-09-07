@@ -119,16 +119,21 @@ const ViewDoctorAppointments = (props) => {
                     message: "The appointment has been rescheduled by "+filteredAppointment.doctorName+" to "+document.getElementById('doctorAvailability').value,
                     toMail: filteredAppointment.email,
                 }
-                Swal.fire({
-                    title: 'Please wait...',
-                    html: '',
-                    allowEscapeKey: false,
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading()
-                    }
-                });
-                sendEmail(onRescheduleEmail, "template_cdrprtd")
+
+                if(document.getElementById('doctorAvailability').value === "Select availability time") {
+                    Swal.fire('Availability cannot be empty!', '', 'error');
+                } else {
+                    Swal.fire({
+                        title: 'Please wait...',
+                        html: '',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
+                    });
+                    sendEmail(onRescheduleEmail, "template_cdrprtd")
+                }
             }
         });
 
