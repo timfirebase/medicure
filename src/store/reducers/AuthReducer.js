@@ -7,7 +7,8 @@ const initialState = {
     id: '',
     isUserRemoved: false,
     isUserUpdated: false,
-    error: ''
+    error: '',
+    loginError: false
 };
 
 const AuthReducer = (state = initialState, action) => {
@@ -54,6 +55,18 @@ const AuthReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isNotRegistered: false,
+                error: ''
+            }
+        case actionTypes.LOGIN_FAIL:
+            return {
+                ...state,
+                loginError: true,
+                error : action.error
+            }
+        case actionTypes.CLEAR_LOGIN_ERROR_STATUS:
+            return {
+                ...state,
+                loginError: false,
                 error: ''
             }
         default:

@@ -1,4 +1,4 @@
-import React  from "react";
+import React, {useEffect} from "react";
 import {Form, Card, Button, Container} from 'react-bootstrap';
 import {connect} from "react-redux";
 import * as authActions from '../../store/actions/AuthActions';
@@ -10,6 +10,14 @@ import * as Yup from 'yup'
 const Login = (props) => {
 
     const history = useHistory();
+
+    useEffect(()=> {
+        if(props.loginError){
+            Swal.close();
+            Swal.fire(props.error.message,'','error');
+            props.clearLoginError();
+        }
+    },[props.loginError])
 
     if(props.user){
         Swal.close();
@@ -61,7 +69,7 @@ const Login = (props) => {
                                               onChange={handleChange}
                                               onBlur={handleBlur}
                                               id="email"
-                                              className={errors.email && "border-danger"}
+                                              className={touched.email && errors.email && "border-danger"}
                                 />
                                 {touched.email && errors.email ? (
                                     <div className="text-danger h6 pt-3 pb-3">{errors.email}</div>
@@ -74,7 +82,7 @@ const Login = (props) => {
                                               onChange={handleChange}
                                               onBlur={handleBlur}
                                               id="password"
-                                              className={errors.password && "border-danger"}
+                                              className={touched.password && errors.password  && "border-danger"}
                                 />
                                 {touched.password && errors.password ? (
                                     <div className="text-danger h6 pt-3 pb-3">{errors.password}</div>
@@ -99,7 +107,9 @@ const Login = (props) => {
 
 const mapStateToProps = state => {
     return {
-        user: state.authRdcr.user
+        user: state.authRdcr.user,
+        loginError: state.authRdcr.loginError,
+        error: state.authRdcr.error
     }
 };
 
@@ -111,7 +121,8 @@ const mapDispatchToProps = dispatch => {
                 password: pswd
             }
             dispatch(authActions.loginInit(user));
-        }
+        },
+        clearLoginError: () => dispatch(authActions.clearLoginErrorStatus())
     }
 };
 

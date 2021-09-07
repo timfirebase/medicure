@@ -3,6 +3,7 @@ import { call, put } from 'redux-saga/effects';
 import * as AuthActions from '../actions/AuthActions';
 import * as DoctorActions from "../actions/DoctorActions";
 import * as AdminActions from "../actions/AdminActions";
+import {loginFail} from "../actions/AuthActions";
 
 export function* registerUser(action) {
     try {
@@ -26,11 +27,15 @@ export function* registerUser(action) {
 }
 
 export function* login(action) {
-    const ref = yield call(firebase.signIn,action.user.email,action.user.password);
-    const snapshot = yield call(firebase.getUser, ref.user.uid, "users");
-    if (snapshot.data()) { // if user exists in database
-        const user = snapshot.data();
-        yield put(AuthActions.loginSuccess(user));
+    try {
+        const ref = yield call(firebase.signIn, action.user.email, action.user.password);
+        const snapshot = yield call(firebase.getUser, ref.user.uid, "users");
+        if (snapshot.data()) { // if user exists in database
+            const user = snapshot.data();
+            yield put(AuthActions.loginSuccess(user));
+        }
+    } catch(error) {
+        yield put(AuthActions.loginFail(error));
     }
 }
 
