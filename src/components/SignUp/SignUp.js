@@ -175,7 +175,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onSubmit: (name,email,pswd,phone,img,role) => {
             const user = {
-                name: name,
+            name: name,
                 email: email,
                 password: pswd,
                 phone: phone,

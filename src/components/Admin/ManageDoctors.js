@@ -8,6 +8,8 @@ import * as DoctorActions from "../../store/actions/DoctorActions";
 import {Button, Card, Container, Form, Modal, Row} from "react-bootstrap";
 import UploadImage from "../UI/UploadImage/UploadImage";
 import * as authActions from "../../store/actions/AuthActions";
+import {useFormik} from "formik";
+import * as Yup from "yup";
 
 
 const ManageDoctors = (props) => {
@@ -17,7 +19,7 @@ const ManageDoctors = (props) => {
     const [name,setName] = useState('');
     const [phone,setPhone] = useState('');
     const [availability, setAvailability] = useState();
-    const [docFee, setDocFee] = useState();
+    const [fee, setfee] = useState();
     const [img,setImg] = useState(null);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -32,7 +34,7 @@ const ManageDoctors = (props) => {
         role: "doctor",
         availability:formattedDates,
         img: img,
-        fee: docFee,
+        fee: fee,
         totalBalance: 0
     };
 
@@ -79,6 +81,64 @@ const ManageDoctors = (props) => {
        setImg(img);
     }
 
+
+    let initValues = {
+        email: '',
+        password: '',
+        name: '',
+        phone: '',
+        fee: '',
+        availability: '',
+        img: null
+    }
+
+    const {handleSubmit, handleChange, values, touched, errors, handleBlur} = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            name: '',
+            phone: '',
+            fee: '',
+            availability: '',
+            img: ''
+        },
+        validationSchema: Yup.object({
+            email: Yup.string().max(20, 'Email must be shorter than 10 characters').required().email(),
+            password: Yup.string().min(6, 'Password should be longer than 6 characters').required(),
+            name: Yup.string().required().matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
+            phone: Yup.number().required(),
+            fee: Yup.number().required(),
+        }),
+        onSubmit: ({email, password, name, phone, fee}) => {
+            availability.map(av => {
+                formattedDates.push(av.format("MMMM DD YYYY HH:mm A"));
+            });
+            const doctor = {
+                name: name,
+                email: email,
+                password: password,
+                phone: phone,
+                role: "doctor",
+                availability:formattedDates,
+                img: img,
+                fee: fee,
+                totalBalance: 0
+            };
+            Swal.fire({
+                title: 'Please wait...',
+                html: '',
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                }
+            })
+            props.onAddDoctor(doctor);
+            clearFormField();
+            handleClose();
+        }
+    });
+
     return (
         <>
             <ViewDoctors heading="Manage Doctors" doctors={props.doctors} onDeleteClick={onDeleteClick}/>
@@ -97,26 +157,66 @@ const ManageDoctors = (props) => {
                                 <div className="container">
                                     <UploadImage setProfileImg={setProfileImg}/>
                                 </div>
-                                <Form autoComplete="off">
-                                    <Form.Group id="name">
+                                <Form autoComplete="off" onSubmit={handleSubmit}>
+                                    <Form.Group>
                                         <Form.Label>Name</Form.Label>
-                                        <Form.Control type="text" required value={name} onChange={(event)=>{event.stopPropagation();setName(event.target.value)}}/>
+                                        <Form.Control type="text"
+                                                      value={values.name}
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                      id="name"
+                                                      className={touched.name && errors.name && "border-danger"}/>
+                                        {touched.name && errors.name ? (
+                                            <div className="text-danger h6 pt-2 pb-2">{errors.name}</div>
+                                        ): null}
                                     </Form.Group>
-                                    <Form.Group id="email">
+                                    <Form.Group>
                                         <Form.Label>Email</Form.Label>
-                                        <Form.Control type="email" required value={email} onChange={(event)=>{setEmail(event.target.value)}}/>
+                                        <Form.Control type="email"
+                                                      value={values.email}
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                      id="email"
+                                                      className={touched.email && errors.email && "border-danger"}/>
+                                        {touched.email && errors.email ? (
+                                            <div className="text-danger h6 pt-2 pb-2">{errors.email}</div>
+                                        ): null}
                                     </Form.Group>
-                                    <Form.Group id="password">
+                                    <Form.Group>
                                         <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password"  required value={password} onChange={(event)=>{setPassword(event.target.value)}}/>
+                                        <Form.Control type="password"
+                                                      value={values.password}
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                      id="password"
+                                                      className={touched.password && errors.password && "border-danger"}/>
+                                        {touched.password && errors.password ? (
+                                            <div className="text-danger h6 pt-2 pb-2">{errors.password}</div>
+                                        ): null}
                                     </Form.Group>
-                                    <Form.Group id="phone">
+                                    <Form.Group>
                                         <Form.Label>Contact No.</Form.Label>
-                                        <Form.Control type="number" required value={phone} onChange={(event)=>{setPhone(event.target.value)}}/>
+                                        <Form.Control type="number"
+                                                      value={values.phone}
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                      id="phone"
+                                                      className={touched.phone && errors.phone && "border-danger"}/>
+                                        {touched.phone && errors.phone ? (
+                                            <div className="text-danger h6 pt-2 pb-2">{errors.phone}</div>
+                                        ): null}
                                     </Form.Group>
-                                    <Form.Group id="fee">
+                                    <Form.Group>
                                         <Form.Label>Fee</Form.Label>
-                                        <Form.Control type="number" required value={docFee} onChange={(event)=>{setDocFee(event.target.value)}}/>
+                                        <Form.Control type="number"
+                                                      value={values.fee}
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                      id="fee"
+                                                      className={touched.fee && errors.fee && "border-danger"}/>
+                                        {touched.phone && errors.phone ? (
+                                            <div className="text-danger h6 pt-2 pb-2">{errors.fee}</div>
+                                        ): null}
                                     </Form.Group>
                                     <Form.Group id="availability">
                                         <Form.Label>Availability</Form.Label>
@@ -124,25 +224,7 @@ const ManageDoctors = (props) => {
                                             <DateTimePicker availability={availability} setAvailability={setAvailability}/>
                                         </div>
                                     </Form.Group>
-                                    <Button className="w-100 mt-4 btn-md" type={"submit"}
-                                            onClick={(event) => {
-                                                event.preventDefault();
-                                                availability.map(av => {
-                                                    formattedDates.push(av.format("MMMM DD YYYY HH:mm A"));
-                                                });
-                                                Swal.fire({
-                                                    title: 'Please wait...',
-                                                    html: '',
-                                                    allowEscapeKey: false,
-                                                    allowOutsideClick: false,
-                                                    didOpen: () => {
-                                                        Swal.showLoading()
-                                                    }
-                                                })
-                                                props.onAddDoctor(doctor);
-                                                clearFormField();
-                                                handleClose();
-                                            }}>
+                                    <Button className="w-100 mt-4 btn-md" type={"submit"}>
                                         Add
                                     </Button>
                                 </Form>
