@@ -16,7 +16,7 @@ const UploadImage = (props) => {
                     alt: 'Upload an Image'
                 });
             }
-        },[]);
+        },[props.placeholder,props.mode]);
 
         const handleImg = (e) => {
             const file = e.target.files[0];

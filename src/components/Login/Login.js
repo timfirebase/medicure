@@ -60,7 +60,9 @@ const Login = (props) => {
                                               value={values.email}
                                               onChange={handleChange}
                                               onBlur={handleBlur}
-                                              id="email"/>
+                                              id="email"
+                                              className={errors.email && "border-danger"}
+                                />
                                 {touched.email && errors.email ? (
                                     <div className="text-danger h6 pt-3 pb-3">{errors.email}</div>
                                 ): null}
@@ -71,7 +73,9 @@ const Login = (props) => {
                                               value={values.password}
                                               onChange={handleChange}
                                               onBlur={handleBlur}
-                                              id="password"/>
+                                              id="password"
+                                              className={errors.password && "border-danger"}
+                                />
                                 {touched.password && errors.password ? (
                                     <div className="text-danger h6 pt-3 pb-3">{errors.password}</div>
                                 ): null}

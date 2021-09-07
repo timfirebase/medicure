@@ -53,16 +53,20 @@ const ManageAdmins = (props) => {
         props.onDeleteAdmin(filteredAdmin);
     }
 
-    if(props.isRegistered){
-        Swal.fire('Admin registered!','','success');
-        props.clearRegisteredStatus();
-    }
+    useEffect(() => {
+        if(props.isRegistered){
+            Swal.fire('Admin registered!','','success');
+            props.clearRegisteredStatus();
+        }
+    },[props.isRegistered]);
 
-    if(props.isUserRemoved) {
-        Swal.close();
-        props.clearUserRemovedStatus();
-        Swal.fire('Admin Deleted!','','success');
-    }
+    useEffect(()=>{
+        if(props.isUserRemoved) {
+            Swal.close();
+            props.clearUserRemovedStatus();
+            Swal.fire('Admin Deleted!','','success');
+        }
+    },[props.isUserRemoved]);
 
     const setProfileImg = (img) => {
         setImg(img);
