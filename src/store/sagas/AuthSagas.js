@@ -36,7 +36,6 @@ export function* login(action) {
 
 export function* removeUser(action) {
     try{
-        debugger;
         yield call(firebase.deleteUser, action.user.id, "users");
         yield call(firebase.deleteAuthUser, action.user);
         if("admin" ===  action.mode) {

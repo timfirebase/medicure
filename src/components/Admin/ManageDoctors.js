@@ -65,17 +65,21 @@ const ManageDoctors = (props) => {
         props.onDeleteDoctor(filteredDoctor);
     }
 
-    if(props.isRegistered) {
-        Swal.close();
-        Swal.fire('Doctor Added!','','success');
-        props.clearRegisteredStatus();
-    }
+    useEffect(() => {
+        if(props.isRegistered) {
+            Swal.close();
+            Swal.fire('Doctor Added!','','success');
+            props.clearRegisteredStatus();
+        }
+    },[props.isRegistered])
 
-    if(props.isUserRemoved) {
-        Swal.close();
-        props.clearUserRemovedStatus();
-        Swal.fire('Doctor Deleted!','','success');
-    }
+    useEffect(()=>{
+        if(props.isUserRemoved) {
+            Swal.close();
+            props.clearUserRemovedStatus();
+            Swal.fire('Doctor Deleted!','','success');
+        }
+    },[props.isUserRemoved])
 
     const setProfileImg = (img) => {
        setImg(img);

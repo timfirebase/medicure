@@ -1,5 +1,5 @@
 import * as AuthActions from '../actions/AuthActions';
-import {registerUser, login, logOut, updateUser} from './AuthSagas';
+import {registerUser, login, logOut, updateUser, removeUser} from './AuthSagas';
 import {
     bookAppointment, cancelPatientAppointment,
     getAllPatientAppointments,
@@ -21,6 +21,7 @@ import {getAdmins} from "./AdminSagas";
 export function* watchAuth() {
     yield all([
         takeEvery(AuthActions.REGISTER_INIT,registerUser),
+        takeEvery(AuthActions.REMOVE_USER_INIT,removeUser),
         takeEvery(AuthActions.LOGIN_INIT,login),
         takeEvery(AuthActions.LOGOUT_INIT,logOut),
         takeEvery(AuthActions.UPDATE_USER_INIT,updateUser)

@@ -75,7 +75,6 @@ const SignUp = (props) => {
 
     useEffect(()=> {
         if(props.isNotRegistered){
-            console.log(props.error);
             Swal.close();
             Swal.fire(props.error.message,'','error');
             props.clearIsNotRegisteredStatus();
