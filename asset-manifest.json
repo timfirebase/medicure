@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/medicure/static/js/main.4ec0f916.chunk.js",
-    "main.js.map": "/medicure/static/js/main.4ec0f916.chunk.js.map",
+    "main.js": "/medicure/static/js/main.2be10bf4.chunk.js",
+    "main.js.map": "/medicure/static/js/main.2be10bf4.chunk.js.map",
     "runtime-main.js": "/medicure/static/js/runtime-main.a947ddb4.js",
     "runtime-main.js.map": "/medicure/static/js/runtime-main.a947ddb4.js.map",
     "static/js/2.1d2a4452.chunk.js": "/medicure/static/js/2.1d2a4452.chunk.js",
@@ -33,6 +33,6 @@
     "static/js/runtime-main.a947ddb4.js",
     "static/css/3.c7ae18eb.chunk.css",
     "static/js/3.8645d47d.chunk.js",
-    "static/js/main.4ec0f916.chunk.js"
+    "static/js/main.2be10bf4.chunk.js"
   ]
 }
