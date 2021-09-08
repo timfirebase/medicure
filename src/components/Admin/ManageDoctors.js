@@ -73,6 +73,14 @@ const ManageDoctors = (props) => {
         }
     },[props.isRegistered])
 
+    useEffect(()=> {
+        if(props.isNotRegistered){
+            Swal.close();
+            Swal.fire(props.error.message,'','error');
+            props.clearIsNotRegisteredStatus();
+        }
+    },[props.isNotRegistered])
+
     useEffect(()=>{
         if(props.isUserRemoved) {
             Swal.close();
@@ -106,7 +114,7 @@ const ManageDoctors = (props) => {
             img: ''
         },
         validationSchema: Yup.object({
-            email: Yup.string().max(30, 'Email must be shorter than 30 characters').required().email(),
+            email: Yup.string().max(50, 'Email must be shorter than 50 characters').required().email(),
             password: Yup.string().min(6, 'Password should be longer than 6 characters').required(),
             name: Yup.string().required().matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
             phone: Yup.number().required(),
@@ -256,7 +264,9 @@ const mapStateToProps = state => {
         isRegistered: state.authRdcr.isRegistered,
         isUserRemoved: state.doctorRdcr.isUserRemoved,
         doctors: state.doctorRdcr.doctors,
-        gotDoctors: state.doctorRdcr.gotDoctors
+        gotDoctors: state.doctorRdcr.gotDoctors,
+        isNotRegistered: state.authRdcr.isNotRegistered,
+        error: state.authRdcr.error,
     }
 };
 
@@ -266,7 +276,8 @@ const mapDispatchToProps = dispatch => {
         onDeleteDoctor: (doctor) => dispatch(authActions.removeUserInit(doctor,"doctor")),
         getAllDoctors: () => dispatch(DoctorActions.getDoctorsInit()),
         clearRegisteredStatus: () => dispatch(authActions.clearRegisteredStatus()),
-        clearUserRemovedStatus: () => dispatch(DoctorActions.clearUserRemovedStatus())
+        clearUserRemovedStatus: () => dispatch(DoctorActions.clearUserRemovedStatus()),
+        clearIsNotRegisteredStatus:() => dispatch(authActions.clearIsNotRegisteredStatus())
     }
 };
 

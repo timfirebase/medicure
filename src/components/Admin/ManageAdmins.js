@@ -20,14 +20,6 @@ const ManageAdmins = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const admin = {
-        name: name,
-        email: email,
-        password: password,
-        phone: phone,
-        role: "admin",
-        img: img
-    };
 
     useEffect(() => {
         props.clearRegisteredStatus();
@@ -62,6 +54,14 @@ const ManageAdmins = (props) => {
         }
     },[props.isRegistered]);
 
+    useEffect(()=> {
+        if(props.isNotRegistered){
+            Swal.close();
+            Swal.fire(props.error.message,'','error');
+            props.clearIsNotRegisteredStatus();
+        }
+    },[props.isNotRegistered])
+
     useEffect(()=>{
         if(props.isUserRemoved) {
             Swal.close();
@@ -91,12 +91,20 @@ const ManageAdmins = (props) => {
             img: ''
         },
         validationSchema: Yup.object({
-            email: Yup.string().max(20, 'Email must be shorter than 10 characters').required().email(),
+            email: Yup.string().max(50, 'Email must be shorter than 50 characters').required().email(),
             password: Yup.string().min(6, 'Password should be longer than 6 characters').required(),
             name: Yup.string().required().matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
             phone: Yup.number().required()
         }),
         onSubmit: ({email, password, name, phone}) => {
+            const admin = {
+                name: name,
+                email: email,
+                password: password,
+                phone: phone,
+                role: "admin",
+                img: img
+            };
             Swal.fire({
                 title: 'Please wait...',
                 html: '',
@@ -106,7 +114,8 @@ const ManageAdmins = (props) => {
                     Swal.showLoading()
                 }
             });
-            props.onSubmit(email, password, name, phone)
+            props.onAddAdmin(admin);
+            handleClose();
         }
     });
 
@@ -144,7 +153,7 @@ const ManageAdmins = (props) => {
                                         <Form.Group>
                                             <Form.Label>Email</Form.Label>
                                             <Form.Control type="email"
-                                                          value={email}
+                                                          value={values.email}
                                                           onChange={handleChange}
                                                           onBlur={handleBlur}
                                                           id="email"
@@ -156,7 +165,7 @@ const ManageAdmins = (props) => {
                                         <Form.Group>
                                             <Form.Label>Password</Form.Label>
                                             <Form.Control type="password"
-                                                          value={password}
+                                                          value={values.password}
                                                           onChange={handleChange}
                                                           onBlur={handleBlur}
                                                           id="password"
@@ -201,7 +210,9 @@ const mapStateToProps = state => {
         isRegistered: state.authRdcr.isRegistered,
         isUserRemoved: state.adminRdcr.isUserRemoved,
         admins: state.adminRdcr.admins,
-        gotAdmins: state.adminRdcr.gotAdmins
+        gotAdmins: state.adminRdcr.gotAdmins,
+        isNotRegistered: state.authRdcr.isNotRegistered,
+        error: state.authRdcr.error,
     }
 };
 
@@ -211,7 +222,8 @@ const mapDispatchToProps = dispatch => {
         onDeleteAdmin: (admin) => dispatch(authActions.removeUserInit(admin,"admin")),
         getAllAdmins: () => dispatch(AdminActions.getAdminInit()),
         clearRegisteredStatus: () => dispatch(authActions.clearRegisteredStatus()),
-        clearUserRemovedStatus: () => dispatch(AdminActions.clearUserRemovedStatus())
+        clearUserRemovedStatus: () => dispatch(AdminActions.clearUserRemovedStatus()),
+        clearIsNotRegisteredStatus:() => dispatch(authActions.clearIsNotRegisteredStatus())
     }
 };
 

@@ -41,7 +41,7 @@ const SignUp = (props) => {
     const {handleSubmit, handleChange, values, touched, errors, handleBlur} = useFormik({
         initialValues: initValues,
         validationSchema: Yup.object({
-            email: Yup.string().max(20, 'Email must be shorter than 10 characters').required().email(),
+            email: Yup.string().max(50, 'Email must be shorter than 50 characters').required().email(),
             password: Yup.string().min(6, 'Password should be longer than 6 characters').required(),
             name: Yup.string().required().matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
             phone: Yup.number().required()

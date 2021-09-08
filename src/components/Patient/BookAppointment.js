@@ -20,51 +20,55 @@ const BookAppointment = (props) => {
         props.getAllDoctors();
     },[]);
 
-    const onBookAppointmentClick = (token) => {
-        if(document.getElementById('doctorName').value === "Select a doctor"){
+    const validate = (e) => {
+        if(!doctor){
             Swal.fire('Please choose a doctor', '', 'error');
+            e.stopPropagation();
         }
-        if(document.getElementById('availability').value === "Select availability time") {
+        else if(!availability) {
             Swal.fire('Availability cannot be empty!', '', 'error');
+            e.stopPropagation();
         }
-        if(document.getElementById('symptoms').value === "") {
-            Swal.fire('Availability cannot be empty!', '', 'error');
-        }
-        else {
-        if (props.patient && token) {
-            const appointment = {
-                patientId: props.patient.id,
-                name: props.patient.name,
-                email: props.patient.email,
-                phone: props.patient.phone,
-                symptoms: symptoms,
-                doctorId: doctor.id,
-                doctorName: doctor.name,
-                doctorEmail: doctor.email,
-                availability: availability,
-                doctorTotalBalance: parseInt(doctor.totalBalance) + parseInt(doctor.fee),
-                status: 'active'
-            };
-            const appointmentEmail = {
-                fromName: props.patient.name,
-                toName: doctor.name,
-                message: "A new appointment has been booked, this is the message " +
-                    "from the patient = '" + symptoms + "'",
-                toMail: doctor.email,
-            };
-            props.bookAppointment(appointment);
-            Swal.fire({
-                title: 'Please wait...',
-                html: '',
-                allowEscapeKey: false,
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading()
-                }
-            });
-            sendEmail(appointmentEmail, "template_cdrprtd");
+        else if(!symptoms) {
+            Swal.fire('Symptoms cannot be empty!', '', 'error');
+            e.stopPropagation();
         }
     }
+
+    const onBookAppointmentClick = (token) => {
+            if (props.patient && token) {
+                const appointment = {
+                    patientId: props.patient.id,
+                    name: props.patient.name,
+                    email: props.patient.email,
+                    phone: props.patient.phone,
+                    symptoms: symptoms,
+                    doctorId: doctor.id,
+                    doctorName: doctor.name,
+                    doctorEmail: doctor.email,
+                    availability: availability,
+                    doctorTotalBalance: parseInt(doctor.totalBalance) + parseInt(doctor.fee),
+                    status: 'active'
+                };
+                const appointmentEmail = {
+                    fromName: props.patient.name,
+                    toName: doctor.name,
+                    message: "A new appointment has been booked, this is the message " +
+                        "from the patient = '" + symptoms + "'",
+                    toMail: doctor.email,
+                };
+                props.bookAppointment(appointment);
+                Swal.fire({
+                    title: 'Please wait...',
+                    html: '',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading()
+                    }
+                });
+                sendEmail(appointmentEmail, "template_cdrprtd");
+            }
     }
 
     if(props.isAppointmentBooked){
@@ -79,7 +83,7 @@ const BookAppointment = (props) => {
                 <Card.Body>
                     <h2 className="text-center mb-4">Book Appointment!</h2>
                     <Form>
-                        <Form.Group controlId="formGridState"  className="mb-3">
+                        <Form.Group  className="mb-3">
                             <Form.Label className="h6">Doctors</Form.Label>
                             <Form.Control as="select" id="doctorName" onChange={(event)=>{
                                 setDoctor(props.doctors.filter(doc => doc.id === event.target.value)[0]);
@@ -95,7 +99,7 @@ const BookAppointment = (props) => {
                                 }
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group controlId="formGridState"  className="mb-3">
+                        <Form.Group  className="mb-3">
                             <Form.Label className="h6">Availability</Form.Label>
                             <Form.Control as="select" onChange={(event)=>{setAvailability(event.target.value)}}>
                                 <option>Select availability time</option>
@@ -107,7 +111,7 @@ const BookAppointment = (props) => {
                                 }
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        <Form.Group className="mb-3" >
                             <Form.Label className="h6">Symptoms</Form.Label>
                             <Form.Control as="textarea" rows={3}  onChange={(event)=>{setSymptoms(event.target.value)}}/>
                         </Form.Group>
@@ -120,6 +124,7 @@ const BookAppointment = (props) => {
                                    onPaymentSubmit={onBookAppointmentClick}
                                    publishableKey={process.env.REACT_APP_PUBLISHABLE_KEY}
                                    btnStyle={"w-100 bg-primary border-primary p-2"}
+                                   validate={validate}
                     />
                 </Card.Body>
             </Card>

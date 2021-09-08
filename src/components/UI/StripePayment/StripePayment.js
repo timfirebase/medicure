@@ -16,7 +16,7 @@ const StripePayment = (props) => {
             token={props.onPaymentSubmit}
             stripeKey={props.publishableKey}
             >
-            <Button className={props.btnStyle} type={"btn"}>
+            <Button className={props.btnStyle} type={"btn"} onClick={(event)=> props.validate(event)}>
                <span className="h6"> {props.label} </span>
             </Button>
         </StripeCheckout>
