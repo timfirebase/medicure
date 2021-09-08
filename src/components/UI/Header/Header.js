@@ -10,9 +10,7 @@ import placeholder from '../../../assets/images/placeholder.jpg';
 const Header = (props) => {
     const history = useHistory();
     const [active, setActive] = useState('default');
-
     let user = props.user;
-
     if(!props.user) {
         if(localStorage.getItem('user')) {
             user = JSON.parse(localStorage.getItem('user'));

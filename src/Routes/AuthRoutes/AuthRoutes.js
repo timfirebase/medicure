@@ -24,7 +24,7 @@ let authRoutes = [
             </div>
         </Layout>
     </Route>,
-    <Route path="/" exact >
+    <Route path="/" exact>
         <Layout sectionStyle={sectionStyle}>
             <div style={{marginRight: "10%"}}>
                 <Login/>
