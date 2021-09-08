@@ -13,6 +13,7 @@ export const UPDATE_USER_INIT = 'UPDATE_USER_INIT';
 export const CLEAR_PROFILE_UPDATE_STATUS= 'CLEAR_PROFILE_UPDATE_STATUS';
 export const CLEAR_IS_NOT_REGISTERED_STATUS= 'CLEAR_IS_NOT_REGISTERED_STATUS';
 export const CLEAR_LOGIN_ERROR_STATUS= 'CLEAR_LOGIN_ERROR_STATUS';
+export const CHECK_AUTH_CHANGE = 'CHECK_AUTH_CHANGE';
 
 export const registerInit = (user,mode) => {
     return {
@@ -114,5 +115,11 @@ export const loginFail = (error) => {
     return {
         type:LOGIN_FAIL,
         error : error
+    }
+}
+
+export const checkAuthChange = () => {
+    return {
+        type:CHECK_AUTH_CHANGE
     }
 }

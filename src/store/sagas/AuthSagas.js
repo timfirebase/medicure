@@ -3,7 +3,6 @@ import { call, put } from 'redux-saga/effects';
 import * as AuthActions from '../actions/AuthActions';
 import * as DoctorActions from "../actions/DoctorActions";
 import * as AdminActions from "../actions/AdminActions";
-import {loginFail} from "../actions/AuthActions";
 
 export function* registerUser(action) {
     try {
@@ -32,6 +31,7 @@ export function* login(action) {
         const snapshot = yield call(firebase.getUser, ref.user.uid, "users");
         if (snapshot.data()) { // if user exists in database
             const user = snapshot.data();
+            localStorage.setItem('user',JSON.stringify(user));
             yield put(AuthActions.loginSuccess(user));
         }
     } catch(error) {
@@ -55,7 +55,15 @@ export function* removeUser(action) {
 
 export function* logOut() {
     yield call(firebase.signOut);
+    localStorage.removeItem('user');
     yield put(AuthActions.logoutSuccess());
+}
+
+export function* checkAuthChange() {
+    const user = localStorage.getItem('user');
+    if(user) {
+        yield put(AuthActions.loginSuccess(JSON.parse(user)));
+    }
 }
 
 export function* updateUser(action) {
