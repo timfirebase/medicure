@@ -18,6 +18,11 @@ let doctorRoutes = [
             <DoctorHome/>
         </Layout>
     </Route>,
+    <Route path="/updateDoctorProfile">
+        <Layout tiles={tiles}>
+            <UpdateProfile/>
+        </Layout>
+    </Route>,
     <Route path="/ViewDoctorAppointments">
         <Layout tiles={tiles}>
             <ViewDoctorAppointments/>
@@ -26,11 +31,6 @@ let doctorRoutes = [
     <Route path="/ManageWallet">
         <Layout tiles={tiles}>
             <ManageWallet/>
-        </Layout>
-    </Route>,
-    <Route path="/updateDoctorProfile">
-        <Layout tiles={tiles}>
-            <UpdateProfile/>
         </Layout>
     </Route>
 ];
