@@ -14,6 +14,10 @@ export function* registerUser(action) {
         }
         yield call(firebase.addUser, ref.user.uid, action.user, "users");
         yield put(AuthActions.registerSuccess(ref.user.uid));
+        if("patient" === action.mode) {
+            localStorage.setItem('user',JSON.stringify(action.user));
+            yield put(AuthActions.loginSuccess(action.user));
+        }
         if("admin" ===  action.mode) {
             yield put(AdminActions.registerAdminSuccess(action.user));
         } else if ("doctor" ===  action.mode) {

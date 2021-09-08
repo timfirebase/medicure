@@ -68,9 +68,18 @@ const SignUp = (props) => {
         setImg(img);
     }
 
-    if(props.isRegistered){
+    if(props.isRegistered && props.user ){
         Swal.close();
-        history.push('/');
+        const role = props.user.role;
+        if("patient" === role) {
+            history.push('/patientHome');
+        }
+        else if ("admin" === role){
+            history.push('/adminHome');
+        }
+        else if ("doctor" === role){
+            history.push('/doctorHome');
+        }
     }
 
     useEffect(()=> {
@@ -163,6 +172,7 @@ const SignUp = (props) => {
 
 const mapStateToProps = state => {
     return {
+        user: state.authRdcr.user,
         isRegistered: state.authRdcr.isRegistered,
         isNotRegistered: state.authRdcr.isNotRegistered,
         error: state.authRdcr.error,
@@ -199,7 +209,7 @@ const mapDispatchToProps = dispatch => {
             if(img !== currentUser.img) {
                 user.imgChanged = true;
             }
-            dispatch(authActions.updateUserInit(user,currentUser))
+            dispatch(authActions.updateUserInit(user,currentUser));
         },
         clearProfileUpdateStatus: () => dispatch(authActions.clearProfileUpdateStatus()),
         clearIsNotRegisteredStatus:() => dispatch(authActions.clearIsNotRegisteredStatus())

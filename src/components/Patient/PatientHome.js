@@ -1,11 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Tile from "../UI/Tiles/Tile";
 import bookAppointmentImg from "../../assets/images/bookapp.jpg";
 import appointmentHistoryImg from "../../assets/images/appHistory.jpg";
 import manageProfile from "../../assets/images/manageProfile.png";
 import {useHistory} from "react-router-dom";
+import * as authActions from "../../store/actions/AuthActions";
+import {connect} from "react-redux";
 
-const PatientHome = () => {
+const PatientHome = (props) => {
+
+    useEffect(() => {
+        props.clearRegisteredStatus();
+    },[]);
 
     const history = useHistory();
 
@@ -40,4 +46,17 @@ const PatientHome = () => {
     );
 }
 
-export default PatientHome;
+
+const mapStateToProps = state => {
+    return {
+    }
+};
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        clearRegisteredStatus: () => dispatch(authActions.clearRegisteredStatus())
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(PatientHome);
