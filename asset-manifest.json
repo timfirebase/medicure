@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.js": "/medicure/static/js/main.4ce203d0.chunk.js",
+    "main.js.map": "/medicure/static/js/main.4ce203d0.chunk.js.map",
+    "runtime-main.js": "/medicure/static/js/runtime-main.a947ddb4.js",
+    "runtime-main.js.map": "/medicure/static/js/runtime-main.a947ddb4.js.map",
+    "static/js/2.1d2a4452.chunk.js": "/medicure/static/js/2.1d2a4452.chunk.js",
+    "static/js/2.1d2a4452.chunk.js.map": "/medicure/static/js/2.1d2a4452.chunk.js.map",
+    "static/css/3.c7ae18eb.chunk.css": "/medicure/static/css/3.c7ae18eb.chunk.css",
+    "static/js/3.a5c89573.chunk.js": "/medicure/static/js/3.a5c89573.chunk.js",
+    "static/js/3.a5c89573.chunk.js.map": "/medicure/static/js/3.a5c89573.chunk.js.map",
+    "static/js/4.cad8c0b9.chunk.js": "/medicure/static/js/4.cad8c0b9.chunk.js",
+    "static/js/4.cad8c0b9.chunk.js.map": "/medicure/static/js/4.cad8c0b9.chunk.js.map",
+    "static/js/5.7e5c9250.chunk.js": "/medicure/static/js/5.7e5c9250.chunk.js",
+    "static/js/5.7e5c9250.chunk.js.map": "/medicure/static/js/5.7e5c9250.chunk.js.map",
+    "index.html": "/medicure/index.html",
+    "static/css/3.c7ae18eb.chunk.css.map": "/medicure/static/css/3.c7ae18eb.chunk.css.map",
+    "static/js/2.1d2a4452.chunk.js.LICENSE.txt": "/medicure/static/js/2.1d2a4452.chunk.js.LICENSE.txt",
+    "static/js/3.a5c89573.chunk.js.LICENSE.txt": "/medicure/static/js/3.a5c89573.chunk.js.LICENSE.txt",
+    "static/js/4.cad8c0b9.chunk.js.LICENSE.txt": "/medicure/static/js/4.cad8c0b9.chunk.js.LICENSE.txt",
+    "static/js/5.7e5c9250.chunk.js.LICENSE.txt": "/medicure/static/js/5.7e5c9250.chunk.js.LICENSE.txt",
+    "static/media/Patients.586eb350.png": "/medicure/static/media/Patients.586eb350.png",
+    "static/media/addAdmin.660814db.png": "/medicure/static/media/addAdmin.660814db.png",
+    "static/media/appHistory.f43599cb.jpg": "/medicure/static/media/appHistory.f43599cb.jpg",
+    "static/media/bg.6d3ff07b.jpg": "/medicure/static/media/bg.6d3ff07b.jpg",
+    "static/media/bookapp.4d0ba961.jpg": "/medicure/static/media/bookapp.4d0ba961.jpg",
+    "static/media/manageDocs.21d1c241.png": "/medicure/static/media/manageDocs.21d1c241.png",
+    "static/media/manageProfile.849d3cc8.png": "/medicure/static/media/manageProfile.849d3cc8.png",
+    "static/media/manageWallet.c5fea284.png": "/medicure/static/media/manageWallet.c5fea284.png",
+    "static/media/placeholder.45466280.jpg": "/medicure/static/media/placeholder.45466280.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a947ddb4.js",
+    "static/css/3.c7ae18eb.chunk.css",
+    "static/js/3.a5c89573.chunk.js",
+    "static/js/main.4ce203d0.chunk.js"
+  ]
+}
