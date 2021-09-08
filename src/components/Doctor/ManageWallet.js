@@ -26,6 +26,9 @@ const ManageWallet = (props) => {
         });
     };
 
+    const validate = () => {
+    }
+
     if(props.isWithdrawSuccess) {
         Swal.close();
         Swal.fire('Withdraw Successful!','','success');
@@ -76,6 +79,7 @@ const ManageWallet = (props) => {
                                         onPaymentSubmit={onWithdrawBalanceClick}
                                         publishableKey={process.env.REACT_APP_PUBLISHABLE_KEY}
                                         btnStyle={"w-100 bg-success border-success p-2"}
+                                        validate={validate}
                                     />
                                 ) : (<span className="h6">No Balance Currently</span>)
                             }
